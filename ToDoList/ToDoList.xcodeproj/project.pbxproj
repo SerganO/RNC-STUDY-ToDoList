@@ -9,10 +9,15 @@
 /* Begin PBXBuildFile section */
 		921416F9D623E8A2DC52B477 /* Pods_ToDoList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E4B09C52651E0ECB9A3A55 /* Pods_ToDoList.framework */; };
 		EC59701022315B1B0011F416 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC59700F22315B1B0011F416 /* AppDelegate.swift */; };
-		EC59701222315B1B0011F416 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC59701122315B1B0011F416 /* ViewController.swift */; };
 		EC59701522315B1B0011F416 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC59701322315B1B0011F416 /* Main.storyboard */; };
 		EC59701722315B1B0011F416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC59701622315B1B0011F416 /* Assets.xcassets */; };
 		EC59701A22315B1B0011F416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC59701822315B1B0011F416 /* LaunchScreen.storyboard */; };
+		EC7881EF22368383005019DA /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7881EE22368383005019DA /* TaskModel.swift */; };
+		EC7881F722369313005019DA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7881F622369313005019DA /* TableViewController.swift */; };
+		EC7881FB223697A3005019DA /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7881FA223697A3005019DA /* AddViewController.swift */; };
+		EC7881FD2236AD17005019DA /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7881FC2236AD17005019DA /* AuthorizationManager.swift */; };
+		EC7881FF2236ADEA005019DA /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7881FE2236ADEA005019DA /* FirebaseManager.swift */; };
+		EC7882012236B3F4005019DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC7882002236B3F4005019DA /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,11 +26,16 @@
 		C037DAEB1CA2205EDBB9DB3D /* Pods-ToDoList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.debug.xcconfig"; path = "Target Support Files/Pods-ToDoList/Pods-ToDoList.debug.xcconfig"; sourceTree = "<group>"; };
 		EC59700C22315B1B0011F416 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC59700F22315B1B0011F416 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EC59701122315B1B0011F416 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EC59701422315B1B0011F416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EC59701622315B1B0011F416 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC59701922315B1B0011F416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC59701B22315B1B0011F416 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC7881EE22368383005019DA /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
+		EC7881F622369313005019DA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		EC7881FA223697A3005019DA /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		EC7881FC2236AD17005019DA /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		EC7881FE2236ADEA005019DA /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		EC7882002236B3F4005019DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +56,6 @@
 				C037DAEB1CA2205EDBB9DB3D /* Pods-ToDoList.debug.xcconfig */,
 				B100B0206E2404466ADE1B60 /* Pods-ToDoList.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -80,11 +89,16 @@
 			isa = PBXGroup;
 			children = (
 				EC59700F22315B1B0011F416 /* AppDelegate.swift */,
-				EC59701122315B1B0011F416 /* ViewController.swift */,
 				EC59701322315B1B0011F416 /* Main.storyboard */,
 				EC59701622315B1B0011F416 /* Assets.xcassets */,
 				EC59701822315B1B0011F416 /* LaunchScreen.storyboard */,
 				EC59701B22315B1B0011F416 /* Info.plist */,
+				EC7882002236B3F4005019DA /* GoogleService-Info.plist */,
+				EC7881EE22368383005019DA /* TaskModel.swift */,
+				EC7881F622369313005019DA /* TableViewController.swift */,
+				EC7881FA223697A3005019DA /* AddViewController.swift */,
+				EC7881FC2236AD17005019DA /* AuthorizationManager.swift */,
+				EC7881FE2236ADEA005019DA /* FirebaseManager.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -150,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC59701A22315B1B0011F416 /* LaunchScreen.storyboard in Resources */,
+				EC7882012236B3F4005019DA /* GoogleService-Info.plist in Resources */,
 				EC59701722315B1B0011F416 /* Assets.xcassets in Resources */,
 				EC59701522315B1B0011F416 /* Main.storyboard in Resources */,
 			);
@@ -223,8 +238,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC59701222315B1B0011F416 /* ViewController.swift in Sources */,
+				EC7881FF2236ADEA005019DA /* FirebaseManager.swift in Sources */,
 				EC59701022315B1B0011F416 /* AppDelegate.swift in Sources */,
+				EC7881F722369313005019DA /* TableViewController.swift in Sources */,
+				EC7881FD2236AD17005019DA /* AuthorizationManager.swift in Sources */,
+				EC7881FB223697A3005019DA /* AddViewController.swift in Sources */,
+				EC7881EF22368383005019DA /* TaskModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
