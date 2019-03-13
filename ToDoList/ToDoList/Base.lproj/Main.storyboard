@@ -22,20 +22,24 @@
                                 <rect key="frame" x="139" y="269" width="42" height="30"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>
+                                    <action selector="LogIn:" destination="Bpb-nQ-lAC" eventType="touchUpInside" id="XEC-9m-CNd"/>
                                     <segue destination="EjC-1Q-Cv9" kind="show" identifier="LogIn" id="LOP-4h-qV1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T8k-rT-77N">
                                 <rect key="frame" x="136.5" y="314" width="47" height="30"/>
                                 <state key="normal" title="Sign In"/>
+                                <connections>
+                                    <action selector="SignIn:" destination="Bpb-nQ-lAC" eventType="touchUpInside" id="BMP-tP-Rj5"/>
+                                </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="57k-4H-fh4">
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="57k-4H-fh4">
                                 <rect key="frame" x="30" y="179" width="260" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Rt-0C-BDS">
+                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Rt-0C-BDS">
                                 <rect key="frame" x="30" y="224" width="260" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -60,6 +64,10 @@
                         <viewLayoutGuide key="safeArea" id="j5V-Td-xb0"/>
                     </view>
                     <navigationItem key="navigationItem" id="kVF-hk-eGJ"/>
+                    <connections>
+                        <outlet property="emailField" destination="57k-4H-fh4" id="HIC-1l-J4i"/>
+                        <outlet property="passwordField" destination="0Rt-0C-BDS" id="XhM-HE-Icg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zdE-EF-07S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
