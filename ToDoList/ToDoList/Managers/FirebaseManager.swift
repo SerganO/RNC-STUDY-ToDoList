@@ -10,5 +10,7 @@ import Foundation
 import Firebase
 
 class FirebaseManager {
+    let ref = Database.database().reference(withPath:"task")
+    
     
 }

@@ -9,16 +9,21 @@
 import UIKit
 
 protocol AddViewControllerDelegate: class {
-    func addItemViewControllerDidCancel(
+    func addViewControllerDidCancel(
         _ controller: AddViewController)
-    func addItemViewController(
+    func addViewController(
         _ controller: AddViewController,
         didFinishAdding task: TaskModel)
+    func addViewController(
+        _ controller: AddViewController,
+        didFinishEditing task: TaskModel)
 }
 
 class AddViewController: UIViewController, UITextViewDelegate {
 
     weak var delegate: AddViewControllerDelegate?
+    
+    var taskToEdit: TaskModel?
     
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     
@@ -26,19 +31,30 @@ class AddViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let task = taskToEdit {
+            title = "Edit"
+            textView.text = task.text
+            doneBarButton.isEnabled = true
+        }
     }
     
     @IBAction func cancel() {
-        delegate?.addItemViewControllerDidCancel(self)
+        delegate?.addViewControllerDidCancel(self)
     }
     
     @IBAction func done() {
-        let task = TaskModel()
-        task.text = textView.text
-        task.date = Date()//?
-        task.checked = false;
-        
-        delegate?.addItemViewController(self, didFinishAdding: task)
+        if let task = taskToEdit {
+            task.text = textView.text
+            
+            delegate?.addViewController(self, didFinishEditing: task)
+        } else {
+            let task = TaskModel()
+            task.text = textView.text
+            task.date = Date()//?
+            task.checked = false;
+            
+            delegate?.addViewController(self, didFinishAdding: task)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +62,7 @@ class AddViewController: UIViewController, UITextViewDelegate {
         textView.becomeFirstResponder()
     }
 
-   /* func textView(_ textView: UITextView,
+   func textView(_ textView: UITextView,
                       shouldChangeCharactersIn range: NSRange,
                       replacementString string: String) -> Bool {
         
@@ -56,7 +72,7 @@ class AddViewController: UIViewController, UITextViewDelegate {
                                                   with: string)
         doneBarButton.isEnabled = !newText.isEmpty
         return true
-    }*/
+    }
     
     
 }

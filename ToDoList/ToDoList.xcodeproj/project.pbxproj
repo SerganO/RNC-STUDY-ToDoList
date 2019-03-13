@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		921416F9D623E8A2DC52B477 /* Pods_ToDoList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E4B09C52651E0ECB9A3A55 /* Pods_ToDoList.framework */; };
+		EC56D84422394E190075C6D7 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = EC56D84322394E190075C6D7 /* check.png */; };
+		EC56D84622394E2D0075C6D7 /* uncheck.png in Resources */ = {isa = PBXBuildFile; fileRef = EC56D84522394E2D0075C6D7 /* uncheck.png */; };
 		EC59701022315B1B0011F416 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC59700F22315B1B0011F416 /* AppDelegate.swift */; };
 		EC59701522315B1B0011F416 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC59701322315B1B0011F416 /* Main.storyboard */; };
 		EC59701722315B1B0011F416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC59701622315B1B0011F416 /* Assets.xcassets */; };
@@ -25,6 +27,8 @@
 		B100B0206E2404466ADE1B60 /* Pods-ToDoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.release.xcconfig"; path = "Target Support Files/Pods-ToDoList/Pods-ToDoList.release.xcconfig"; sourceTree = "<group>"; };
 		B3E4B09C52651E0ECB9A3A55 /* Pods_ToDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C037DAEB1CA2205EDBB9DB3D /* Pods-ToDoList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.debug.xcconfig"; path = "Target Support Files/Pods-ToDoList/Pods-ToDoList.debug.xcconfig"; sourceTree = "<group>"; };
+		EC56D84322394E190075C6D7 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		EC56D84522394E2D0075C6D7 /* uncheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uncheck.png; sourceTree = "<group>"; };
 		EC59700C22315B1B0011F416 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC59700F22315B1B0011F416 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC59701422315B1B0011F416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 				EC59700F22315B1B0011F416 /* AppDelegate.swift */,
 				EC59701322315B1B0011F416 /* Main.storyboard */,
 				EC59701622315B1B0011F416 /* Assets.xcassets */,
+				EC56D84522394E2D0075C6D7 /* uncheck.png */,
+				EC56D84322394E190075C6D7 /* check.png */,
 				EC59701822315B1B0011F416 /* LaunchScreen.storyboard */,
 				EC59701B22315B1B0011F416 /* Info.plist */,
 				EC7882002236B3F4005019DA /* GoogleService-Info.plist */,
@@ -191,8 +197,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC59701A22315B1B0011F416 /* LaunchScreen.storyboard in Resources */,
+				EC56D84422394E190075C6D7 /* check.png in Resources */,
 				EC7882012236B3F4005019DA /* GoogleService-Info.plist in Resources */,
 				EC59701722315B1B0011F416 /* Assets.xcassets in Resources */,
+				EC56D84622394E2D0075C6D7 /* uncheck.png in Resources */,
 				EC59701522315B1B0011F416 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,7 +10,6 @@ import Foundation
 import Firebase
 
 class AuthorizationManager {
-    let ref = Database.database().reference(withPath:"task")
     let uid: String
     let email: String
     

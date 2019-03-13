@@ -11,42 +11,92 @@ import Firebase
 
 
 class TableViewController: UITableViewController, AddViewControllerDelegate {
-    func addItemViewControllerDidCancel(_ controller: AddViewController) {
+    
+    var lastEditIndexSection = -1
+    var lastEditIndexRow = -1
+     let ref = Database.database().reference(withPath:"task")
+    
+    @IBAction func logOut(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
     
-    let ref = Database.database().reference(withPath:"task")
     
-    func addItemViewController(_ controller: AddViewController, didFinishAdding task: TaskModel) {
-        let text = task.text
-        let taskRef = self.ref.child(text.lowercased())
+    
+    func addViewControllerDidCancel(_ controller: AddViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func addViewController(_ controller: AddViewController, didFinishAdding task: TaskModel) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
         
-        
-        //taskRef.setValue(task.toAnyObject())
+        let taskRef = self.ref.child(formatter.string(from: task.date))
         taskRef.setValue(task.toDic())
+
         
+        //        let newRowIndex = uncheckedGroup.count
+        //        uncheckedGroup.append(task)
+        //        let indexPath = IndexPath(row: newRowIndex, section: 0)
+        //        let indexPaths = [indexPath]
+        //        tableView.insertRows(at: indexPaths, with: .automatic)
         
-//        let newRowIndex = uncheckedGroup.count
-//        uncheckedGroup.append(task)
-//        let indexPath = IndexPath(row: newRowIndex, section: 0)
-//        let indexPaths = [indexPath]
-//        tableView.insertRows(at: indexPaths, with: .automatic)
-       
         navigationController?.popViewController(animated: true)
     }
+    
+    func addViewController(_ controller: AddViewController, didFinishEditing task: TaskModel) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
+        task.ref?.updateChildValues(["text":task.text])
+        let date = formatter.string(from: Date())
+        task.ref?.updateChildValues(["date":date])
+        navigationController?.popViewController(animated:true)
+    }
+    
+    /*func addViewControllerDidCancel(_ controller: AddViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
+    func addItemViewController(_ controller: AddViewController, didFinishEditing task: TaskModel) {
+        
+    }*/
+    
+   
+    
+    
+  
     
     override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
 
         if segue.identifier == "AddTask" {
             let controller = segue.destination as! AddViewController
             controller.delegate = self
+        } else if segue.identifier == "EditTask" {
+            let controller = segue.destination as? AddViewController
+            controller?.delegate = self
+            
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                if indexPath.section == 0 {
+                    controller?.taskToEdit = uncheckedGroup[indexPath.row]
+                    lastEditIndexSection = 0
+                    lastEditIndexRow = indexPath.row
+                } else {
+                    controller?.taskToEdit = checkedGroup[indexPath.row]
+                    lastEditIndexSection = 1
+                    lastEditIndexRow = indexPath.row
+                }
+            }
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-      
-        ref.observe(.value, with : {
+        
+        
+        
+        ref.queryOrdered(byChild: "date").observe(.value, with : {
             snapshot in
             
             var tmpUncheck: [TaskModel] = []
@@ -66,6 +116,8 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
             }
             self.uncheckedGroup = tmpUncheck
             self.checkedGroup = tmpCheck
+            self.uncheckedGroup.reverse()
+            self.checkedGroup.reverse()
             self.tableView.reloadData()
         })
     }
@@ -88,31 +140,30 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     
     override func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Item",for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Task",for: indexPath)
         
         if indexPath.section == 0 {
             let item = uncheckedGroup[indexPath.row]
             let label = cell.viewWithTag(1000) as! UILabel
+            let checkBox = cell.viewWithTag(999) as! UIImageView
             label.text = item.text
+            label.textColor = .black
+            checkBox.image = #imageLiteral(resourceName: "Uncheck")
+            
         } else {
             let item = checkedGroup[indexPath.row]
             let label = cell.viewWithTag(1000) as! UILabel
+            let checkBox = cell.viewWithTag(999) as! UIImageView
+            checkBox.image = #imageLiteral(resourceName: "Check")
             label.text = item.text
+            label.textColor = .lightGray
         }
         
         
         return cell
     }
     
-    /*
-     if indexPath.section == 0 {
-     
-     } else {
-     
-     }
-     */
-    
-    @IBAction func Add()
+    /*@IBAction func Add()
     {
         let newRowIndex = uncheckedGroup.count
         
@@ -140,13 +191,12 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         let indexPath = IndexPath(row: newRowIndex, section: 0)
         let indexPaths = [indexPath]
         tableView.insertRows(at: indexPaths, with: .automatic)
-    }
+    }*/
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let task = uncheckedGroup[indexPath.row]
             task.Check()
-            AddTaskToCheck(task)
             let que = DispatchQueue.global()
             que.async {
                 task.ref?.updateChildValues(["checked":true])
@@ -158,10 +208,14 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         } else {
             let task = checkedGroup[indexPath.row]
             task.Check()
-            AddTaskToUncheck(task)
             let que = DispatchQueue.global()
             que.async {
-            task.ref?.updateChildValues(["checked":false])
+                task.ref?.updateChildValues(["checked":false])
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .medium
+                let date = formatter.string(from: Date())
+                task.ref?.updateChildValues(["date":date])
             }
             checkedGroup.remove(at: indexPath.row)
             let indexPaths = [indexPath]
