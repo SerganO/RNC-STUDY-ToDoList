@@ -15,14 +15,33 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     var lastEditIndexSection = -1
     var lastEditIndexRow = -1
     
-    @IBAction func logOut(_ sender: Any) {
+    /*@IBAction func logOut(_ sender: Any) {
         navigationController?.popViewController(animated: true)
-    }
+    }*/
     
     func addViewControllerDidCancel(_ controller: AddViewController) {
         navigationController?.popViewController(animated: true)
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func signOut(_ sender: Any) {
+        
+        do {
+            try Auth.auth().signOut()
+            
+            let signInPage = self.storyboard?.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+            let appDelegate = UIApplication.shared.delegate
+            appDelegate?.window??.rootViewController = signInPage
+            
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
+    
+    
     func addViewController(_ controller: AddViewController, didFinishAdding task: TaskModel) {
         //        let formatter = DateFormatter()
         //        formatter.dateStyle = .medium

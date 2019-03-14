@@ -74,7 +74,7 @@ class TaskModel
             "text": text,
             "date": formatter.string(from: date),
             "checked": checked,
-            "uuid": uuid?.uuidString
+            "uuid": uuid!.uuidString
         ]
     }
 }

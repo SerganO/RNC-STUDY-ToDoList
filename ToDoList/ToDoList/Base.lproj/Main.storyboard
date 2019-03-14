@@ -22,7 +22,7 @@
                                 <rect key="frame" x="139" y="269" width="42" height="30"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>
-                                    <segue destination="EjC-1Q-Cv9" kind="show" identifier="LogIn" id="LOP-4h-qV1"/>
+                                    <segue destination="EjC-1Q-Cv9" kind="show" id="h1r-xj-En8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -42,7 +42,7 @@
         <!--Title-->
         <scene sceneID="Zpc-GU-vKi">
             <objects>
-                <tableViewController id="EjC-1Q-Cv9" customClass="TableViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="TableViewController" id="EjC-1Q-Cv9" customClass="TableViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="xPf-SV-PME">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -91,7 +91,7 @@
                     <navigationItem key="navigationItem" title="Title" id="WU1-op-PcG">
                         <barButtonItem key="leftBarButtonItem" title="Log out" id="G5d-CB-EkV">
                             <connections>
-                                <action selector="logOut:" destination="EjC-1Q-Cv9" id="JQH-oY-xen"/>
+                                <action selector="signOut:" destination="EjC-1Q-Cv9" id="Hsj-qa-sZv"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TlS-9X-YX1">
@@ -156,6 +156,7 @@
         <!--Navigation Controller-->
         <scene sceneID="SN6-zS-SEj">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FvW-ps-6kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="HN7-Gq-NcF" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KYj-6U-17E">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -165,7 +166,6 @@
                         <segue destination="Bpb-nQ-lAC" kind="relationship" relationship="rootViewController" id="pG0-Nd-J4t"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FvW-ps-6kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-339" y="0.0"/>
         </scene>
