@@ -11,6 +11,31 @@ import Firebase
 
 class FirebaseManager {
     let ref = Database.database().reference(withPath:"task")
+    static let shared = FirebaseManager()
+    private init() {
+        
+    }
     
+    public func editTask(_ task: TaskModel, editItem:[String: Any]) {
+        let que = DispatchQueue.global()
+        que.async {
+            self.ref.child(task.uuid!.uuidString).updateChildValues(editItem)
+        }
+    }
+    public func deleteTask(_ task: TaskModel) {
+        let que = DispatchQueue.global()
+        que.async {
+            self.ref.child(task.uuid!.uuidString).removeValue()
+        }
+    }
+    
+    public func addTask(_ task: TaskModel)
+    {
+        let que = DispatchQueue.global()
+        que.async {
+            let taskRef = self.ref.child(task.uuid!.uuidString)
+            taskRef.setValue(task.toDic())
+        }
+    }
     
 }

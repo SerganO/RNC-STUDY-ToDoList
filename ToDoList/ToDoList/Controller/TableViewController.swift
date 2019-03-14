@@ -14,26 +14,25 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     
     var lastEditIndexSection = -1
     var lastEditIndexRow = -1
-     let ref = Database.database().reference(withPath:"task")
     
     @IBAction func logOut(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
     
-    
-    
     func addViewControllerDidCancel(_ controller: AddViewController) {
         navigationController?.popViewController(animated: true)
     }
-    
-    func addViewController(_ controller: AddViewController, didFinishAdding task: TaskModel) {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .medium
-        
-        let taskRef = self.ref.child(formatter.string(from: task.date))
-        taskRef.setValue(task.toDic())
 
+    func addViewController(_ controller: AddViewController, didFinishAdding task: TaskModel) {
+        //        let formatter = DateFormatter()
+        //        formatter.dateStyle = .medium
+        //        formatter.timeStyle = .medium
+        //        let uuid = UUID().uuidString
+        
+        //        let taskRef = self.ref.child(task.uuid!.uuidString)
+        //        taskRef.setValue(task.toDic())
+        FirebaseManager.shared.addTask(task)
+        navigationController?.popViewController(animated: true)
         
         //        let newRowIndex = uncheckedGroup.count
         //        uncheckedGroup.append(task)
@@ -41,33 +40,24 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         //        let indexPaths = [indexPath]
         //        tableView.insertRows(at: indexPaths, with: .automatic)
         
-        navigationController?.popViewController(animated: true)
     }
     
     func addViewController(_ controller: AddViewController, didFinishEditing task: TaskModel) {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
-        task.ref?.updateChildValues(["text":task.text])
         let date = formatter.string(from: Date())
-        task.ref?.updateChildValues(["date":date])
+        FirebaseManager.shared.editTask(task, editItem: ["text":task.text])
+        FirebaseManager.shared.editTask(task, editItem: ["date":date])
         navigationController?.popViewController(animated:true)
+        //        self.ref.child(task.uuid!.uuidString).updateChildValues(["text":task.text])
+        //        task.ref?.updateChildValues(["text":task.text])
+        //        let date = formatter.string(from: Date())
+        //        self.ref.child(task.uuid!.uuidString).updateChildValues(["date":date])
+        //        task.ref?.updateChildValues(["date":date])
     }
     
-    /*func addViewControllerDidCancel(_ controller: AddViewController) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    
-    func addItemViewController(_ controller: AddViewController, didFinishEditing task: TaskModel) {
-        
-    }*/
-    
-   
-    
-    
-  
-    
+
     override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
 
         if segue.identifier == "AddTask" {
@@ -93,10 +83,8 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        ref.queryOrdered(byChild: "date").observe(.value, with : {
+  
+        FirebaseManager.shared.ref.queryOrdered(byChild: "date").observe(.value, with : {
             snapshot in
             
             var tmpUncheck: [TaskModel] = []
@@ -138,8 +126,16 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         return 0
     }
     
-    override func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
+    override func tableView(_ tableView: UITableView,titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Unfinished"
+        } else {
+            return "Complete"
+        }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Task",for: indexPath)
         
         if indexPath.section == 0 {
@@ -163,80 +159,64 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         return cell
     }
     
-    /*@IBAction func Add()
-    {
-        let newRowIndex = uncheckedGroup.count
-        
-        let item = TaskModel()
-        item.text = "I am a new row"
-        uncheckedGroup.append(item)
-        
-        let indexPath = IndexPath(row: newRowIndex, section: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRows(at: indexPaths, with: .automatic)
-    }
-    
-    func AddTaskToCheck(_ task: TaskModel)
-    {
-        let newRowIndex = checkedGroup.count
-        checkedGroup.append(task)
-        let indexPath = IndexPath(row: newRowIndex, section: 1)
-        let indexPaths = [indexPath]
-        tableView.insertRows(at: indexPaths, with: .automatic)
-    }
-    func AddTaskToUncheck(_ task: TaskModel)
-    {
-        let newRowIndex = uncheckedGroup.count
-        uncheckedGroup.append(task)
-        let indexPath = IndexPath(row: newRowIndex, section: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRows(at: indexPaths, with: .automatic)
-    }*/
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let task = uncheckedGroup[indexPath.row]
             task.Check()
-            let que = DispatchQueue.global()
-            que.async {
-                task.ref?.updateChildValues(["checked":true])
-            }
-            
+            FirebaseManager.shared.editTask(task, editItem: ["checked":true])
+//            let que = DispatchQueue.global()
+//            que.async {
+//                self.ref.child(task.uuid!.uuidString).updateChildValues(["checked":true])
+//                //task.ref?.updateChildValues(["checked":true])
+//            }
+//
             uncheckedGroup.remove(at: indexPath.row)
             let indexPaths = [indexPath]
             tableView.deleteRows(at: indexPaths, with: .automatic)
         } else {
             let task = checkedGroup[indexPath.row]
             task.Check()
-            let que = DispatchQueue.global()
-            que.async {
-                task.ref?.updateChildValues(["checked":false])
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .medium
-                let date = formatter.string(from: Date())
-                task.ref?.updateChildValues(["date":date])
-            }
+            FirebaseManager.shared.editTask(task,editItem: ["checked":false] )
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .medium
+            let date = formatter.string(from: Date())
+            FirebaseManager.shared.editTask(task,editItem: ["date":date] )
+//                self.ref.child(task.uuid!.uuidString).updateChildValues(["checked":false])
+//               // task.ref?.updateChildValues(["checked":false])
+//                let formatter = DateFormatter()
+//                formatter.dateStyle = .medium
+//                formatter.timeStyle = .medium
+//                let date = formatter.string(from: Date())
+//                self.ref.child(task.uuid!.uuidString).updateChildValues(["date":date])
+//                //task.ref?.updateChildValues(["date":date])
+            
             checkedGroup.remove(at: indexPath.row)
             let indexPaths = [indexPath]
             tableView.deleteRows(at: indexPaths, with: .automatic)
         }
     }
     
-    override func tableView( _ tableView: UITableView,commit editingStyle: UITableViewCell.EditingStyle,forRowAt indexPath: IndexPath) {
+    override func tableView( _ tableView: UITableView,commit editingStyle: UITableViewCell.EditingStyle,forRowAt indexPath: IndexPath) {//DELETE
         if indexPath.section == 0 {
             let task = uncheckedGroup[indexPath.row]
-            let que = DispatchQueue.global()
-            que.async {
-            task.ref?.removeValue()
-            }
+            FirebaseManager.shared.deleteTask(task)
+            FirebaseManager.shared.ref.child(task.uuid!.uuidString).removeValue()
+//            let que = DispatchQueue.global()
+//            que.async {
+//                self.ref.child(task.uuid!.uuidString).removeValue()
+//                //task.ref?.removeValue()
+//            }
             uncheckedGroup.remove(at: indexPath.row)
         } else {
             let task = checkedGroup[indexPath.row]
-            let que = DispatchQueue.global()
-            que.async {
-            task.ref?.removeValue()
-            }
+            FirebaseManager.shared.deleteTask(task)
+            FirebaseManager.shared.ref.child(task.uuid!.uuidString).removeValue()
+//            let que = DispatchQueue.global()
+//            que.async {
+//                self.ref.child(task.uuid!.uuidString).removeValue()
+//                //task.ref?.removeValue()
+//            }
             checkedGroup.remove(at: indexPath.row)
         }
         let indexPaths = [indexPath]

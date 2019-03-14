@@ -14,7 +14,9 @@ class TaskModel
     var text = ""
     var date = Date()
     var checked = false
-    let ref: DatabaseReference?
+   // let ref: DatabaseReference?
+    let uuid: UUID?
+    
     
     func Check(){
         checked = !checked
@@ -24,14 +26,16 @@ class TaskModel
         self.text = text
         self.date = date
         checked = false
-        self.ref = nil 
+        //self.ref = nil
+        uuid = UUID()
     }
     
     init(){
         self.text = ""
         self.date = Date()
         checked = false
-        self.ref = nil
+        //self.ref = nil
+        uuid = UUID()
     }
     
     
@@ -41,16 +45,17 @@ class TaskModel
         let value = snapshot.value as? [String:AnyObject],
         let text = value["text"] as? String,
         let date = value["date"] as? String,
-        let checked = value["checked"] as? Bool
+        let checked = value["checked"] as? Bool,
+        let uuid = value["uuid"] as? String
         else {
             return nil
         }
         let formatter = DateFormatter()
-        
-        self.ref = snapshot.ref
+        //self.ref = snapshot.ref
         self.text = text
         self.checked = checked
         self.date = formatter.date(from: date) ?? Date()
+        self.uuid = UUID(uuidString: uuid)
     }
     /*func toAnyObject() -> Any {
         return [
@@ -68,7 +73,8 @@ class TaskModel
         return [
             "text": text,
             "date": formatter.string(from: date),
-            "checked": checked
+            "checked": checked,
+            "uuid": uuid?.uuidString
         ]
     }
 }

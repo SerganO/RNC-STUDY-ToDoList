@@ -50,9 +50,8 @@ class AddViewController: UIViewController, UITextViewDelegate {
         } else {
             let task = TaskModel()
             task.text = textView.text
-            task.date = Date()//?
-            task.checked = false;
-            
+            task.date = Date()
+            task.checked = false
             delegate?.addViewController(self, didFinishAdding: task)
         }
     }
