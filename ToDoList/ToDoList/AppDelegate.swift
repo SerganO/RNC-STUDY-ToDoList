@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 print("Google Authentification Success")
                 
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-                let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController //as UIViewController
+                let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! ViewController //as UIViewController
                 let appDelegate = UIApplication.shared.delegate
                 appDelegate?.window??.rootViewController = protectedPage
 
