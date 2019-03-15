@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 
 class FirebaseManager {
-    let ref = Database.database().reference(withPath:"task")
+    let ref = Database.database().reference(withPath:AuthorizationManager.shared.id)
     static let shared = FirebaseManager()
     private init() {
         

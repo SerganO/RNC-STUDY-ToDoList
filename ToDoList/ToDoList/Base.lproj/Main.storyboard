@@ -19,8 +19,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZr-Sb-8El">
-                                <rect key="frame" x="139" y="511" width="42" height="30"/>
-                                <state key="normal" title="Log In"/>
+                                <rect key="frame" x="143" y="511" width="34" height="30"/>
+                                <state key="normal" title="Start"/>
                                 <connections>
                                     <segue destination="EjC-1Q-Cv9" kind="show" id="NWJ-QH-Z0u"/>
                                 </connections>
@@ -89,7 +89,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="WU1-op-PcG">
-                        <barButtonItem key="leftBarButtonItem" title="Log out" id="G5d-CB-EkV"/>
+                        <barButtonItem key="leftBarButtonItem" title="Log out" id="G5d-CB-EkV">
+                            <connections>
+                                <action selector="didTapSignOut:" destination="EjC-1Q-Cv9" id="Xrl-zc-liN"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TlS-9X-YX1">
                             <connections>
                                 <segue destination="P6n-J6-B55" kind="show" identifier="AddTask" id="Aup-uW-lsk"/>
@@ -163,7 +167,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FvW-ps-6kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1112" y="0.0"/>
+            <point key="canvasLocation" x="-728" y="0.0"/>
         </scene>
     </scenes>
     <resources>

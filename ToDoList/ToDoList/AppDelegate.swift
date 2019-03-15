@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+    /*/*func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if (error) != nil {
             print("An error occured during Google Authentication")
             return
@@ -68,7 +68,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 appDelegate?.window??.rootViewController = protectedPage
             }
         }*/
+    }*/*/
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+              withError error: Error!) {
+        if let error = error {
+            print("\(error.localizedDescription)")
+        } else {
+            // Perform any operations on signed in user here.
+            AuthorizationManager.shared.id = user.userID
+            let userId = user.userID                  // For client-side use only!
+            let idToken = user.authentication.idToken // Safe to send to the server
+            let fullName = user.profile.name
+            let givenName = user.profile.givenName
+            let familyName = user.profile.familyName
+            let email = user.profile.email
+            // ...
+        }
     }
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+              withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+    }
+    
+    
     /*/*@available(iOS 9.0, *)
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
@@ -94,6 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         FirebaseApp.configure()
         
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        //GIDSignIn.sharedInstance()?.clientID = "YOUR_CLIENT_ID"
         GIDSignIn.sharedInstance().delegate = self
         return true
     }

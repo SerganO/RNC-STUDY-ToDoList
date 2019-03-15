@@ -10,6 +10,11 @@ import Foundation
 import Firebase
 
 class AuthorizationManager {
+    static let shared = AuthorizationManager()
+    public var id = ""
+    private init() {
+        
+    }
     
     
 }

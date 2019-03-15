@@ -8,9 +8,20 @@
 
 import UIKit
 import Firebase
-
+import GoogleSignIn
 
 class TableViewController: UITableViewController, AddViewControllerDelegate {
+    
+    @IBAction func didTapSignOut(_ sender: AnyObject) {
+        GIDSignIn.sharedInstance().signOut()
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        AuthorizationManager.shared.id = ""
+        navigationController?.popViewController(animated: true)
+    }
     
     var lastEditIndexSection = -1
     var lastEditIndexRow = -1
@@ -39,6 +50,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
+        
     }
     
     
@@ -103,6 +115,21 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
   
+        if(AuthorizationManager.shared.id == "")
+        {
+            let alert = UIAlertController(title: "Error Auth", message: "Please Sign In", preferredStyle: .alert)
+            
+            //alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler:
+                {
+            action in
+                self.navigationController?.popViewController(animated: true)
+            }))
+            
+            self.present(alert, animated: true)
+            return
+        }
+        
         FirebaseManager.shared.ref.queryOrdered(byChild: "date").observe(.value, with : {
             snapshot in
             
