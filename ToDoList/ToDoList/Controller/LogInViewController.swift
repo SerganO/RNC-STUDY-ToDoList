@@ -13,6 +13,7 @@ import GoogleSignIn
 class LogInViewController: UIViewController , GIDSignInUIDelegate{
 
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,10 +22,11 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate{
     
     fileprivate func configureGoogleSignInButton() {
         let googleSignInButton = GIDSignInButton()
-        googleSignInButton.frame = CGRect(x: 120, y: 200, width: view.frame.width - 240, height: 50)
+        googleSignInButton.frame = CGRect(x: view.frame.width/2-125, y: view.frame.height/2-25, width: 250, height: 50)
         view.addSubview(googleSignInButton)
         GIDSignIn.sharedInstance().uiDelegate = self
     }
+    
     
     
     
