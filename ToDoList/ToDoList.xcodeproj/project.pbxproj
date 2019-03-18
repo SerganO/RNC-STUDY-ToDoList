@@ -13,7 +13,6 @@
 		EC59701722315B1B0011F416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC59701622315B1B0011F416 /* Assets.xcassets */; };
 		EC59701A22315B1B0011F416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC59701822315B1B0011F416 /* LaunchScreen.storyboard */; };
 		EC5CF3802237D0070071C9B3 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5CF37F2237D0070071C9B3 /* LogInViewController.swift */; };
-		EC62688D223BEB920053037F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC62688C223BEB920053037F /* User.swift */; };
 		EC7881EF22368383005019DA /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7881EE22368383005019DA /* TaskModel.swift */; };
 		EC7881F722369313005019DA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7881F622369313005019DA /* TableViewController.swift */; };
 		EC7881FB223697A3005019DA /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7881FA223697A3005019DA /* AddViewController.swift */; };
@@ -33,7 +32,6 @@
 		EC59701922315B1B0011F416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC59701B22315B1B0011F416 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC5CF37F2237D0070071C9B3 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		EC62688C223BEB920053037F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EC7881EE22368383005019DA /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		EC7881F622369313005019DA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		EC7881FA223697A3005019DA /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
@@ -119,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				EC7881EE22368383005019DA /* TaskModel.swift */,
-				EC62688C223BEB920053037F /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -289,7 +286,6 @@
 				EC59701022315B1B0011F416 /* AppDelegate.swift in Sources */,
 				EC7881F722369313005019DA /* TableViewController.swift in Sources */,
 				EC5CF3802237D0070071C9B3 /* LogInViewController.swift in Sources */,
-				EC62688D223BEB920053037F /* User.swift in Sources */,
 				EC7881FD2236AD17005019DA /* AuthorizationManager.swift in Sources */,
 				EC7881FB223697A3005019DA /* AddViewController.swift in Sources */,
 				EC7881EF22368383005019DA /* TaskModel.swift in Sources */,

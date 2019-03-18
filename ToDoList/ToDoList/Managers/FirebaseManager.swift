@@ -10,22 +10,19 @@ import Foundation
 import Firebase
 
 class FirebaseManager {
-    let ref = Database.database().reference(withPath:AuthorizationManager.shared.id)
+    let ref = Database.database().reference(withPath: "users").child(AuthorizationManager.shared.id)
+    //let ref = Database.database().reference(withPath: "users").child("FakeUserId")
     static let shared = FirebaseManager()
-    private init() {
-        
-    }
-    
     public func editTask(_ task: TaskModel, editItem:[String: Any]) {
         let que = DispatchQueue.global()
         que.async {
-            self.ref.child(task.uuid!.uuidString).updateChildValues(editItem)
+            self.ref.child("tasks").child(task.uuid!.uuidString).updateChildValues(editItem)
         }
     }
     public func deleteTask(_ task: TaskModel) {
         let que = DispatchQueue.global()
         que.async {
-            self.ref.child(task.uuid!.uuidString).removeValue()
+            self.ref.child("tasks").child(task.uuid!.uuidString).removeValue()
         }
     }
     
@@ -33,7 +30,7 @@ class FirebaseManager {
     {
         let que = DispatchQueue.global()
         que.async {
-            let taskRef = self.ref.child(task.uuid!.uuidString)
+            let taskRef = self.ref.child("tasks").child(task.uuid!.uuidString)
             taskRef.setValue(task.toDic())
         }
     }

@@ -72,60 +72,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
               withError error: Error!) {
-        if let error = error {
-            print("\(error.localizedDescription)")
-        } else {
-            // Perform any operations on signed in user here.
-            AuthorizationManager.shared.id = user.userID
-            
-            //window?.rootViewController?.performSegue(withIdentifier: "SignIn", sender: nil)
-             let nav = window?.rootViewController as? UINavigationController
-            
-            
-            
-            let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-            let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController //as UIViewController
-            //let appDelegate = UIApplication.shared.delegate
-            //appDelegate?.window??.rootViewController = protectedPage
-            
-             nav?.pushViewController(protectedPage, animated: true)
-             //self.navigationController.pushViewController(protectedPage, animated: true)
-            //self.presentViewController(protectedPage, animated:true, completion:nil)
- 
-            
-            
-           /* let userId = user.userID                  // For client-side use only!
-            let idToken = user.authentication.idToken // Safe to send to the server
-            let fullName = user.profile.name
-            let givenName = user.profile.givenName
-            let familyName = user.profile.familyName
-            let email = user.profile.email*/
-            // ...
-        }
+       AuthorizationManager.shared.sign(signIn, didSignInFor: user, withError: error)
     }
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+    /*func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
               withError error: Error!) {
         // Perform any operations when the user disconnects from app here.
         // ...
-    }
-    
-    
-    /*/*@available(iOS 9.0, *)
-    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
-        -> Bool {
-            return GIDSignIn.sharedInstance().handle(url,
-                                                     sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
-                                                     annotation: [:])
-    }
-    
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url,
-                                                 sourceApplication: sourceApplication,
-                                                 annotation: annotation)
-    }*/*/
-    
-    
-    
+    }*/
+   
     var window: UIWindow?
 
 
@@ -135,7 +89,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         FirebaseApp.configure()
         
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        //GIDSignIn.sharedInstance()?.clientID = "YOUR_CLIENT_ID"
         GIDSignIn.sharedInstance().delegate = self
         return true
     }

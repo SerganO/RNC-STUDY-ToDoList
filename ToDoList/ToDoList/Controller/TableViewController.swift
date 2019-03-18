@@ -130,7 +130,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
             return
         }
         
-        FirebaseManager.shared.ref.queryOrdered(byChild: "date").observe(.value, with : {
+        FirebaseManager.shared.ref.child("tasks").queryOrdered(byChild: "date").observe(.value, with : {
             snapshot in
             
             var tmpUncheck: [TaskModel] = []
