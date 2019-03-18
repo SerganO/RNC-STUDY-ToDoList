@@ -77,12 +77,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         } else {
             // Perform any operations on signed in user here.
             AuthorizationManager.shared.id = user.userID
-            let userId = user.userID                  // For client-side use only!
+            
+            //window?.rootViewController?.performSegue(withIdentifier: "SignIn", sender: nil)
+             let nav = window?.rootViewController as? UINavigationController
+            
+            
+            
+            let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
+            let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController //as UIViewController
+            //let appDelegate = UIApplication.shared.delegate
+            //appDelegate?.window??.rootViewController = protectedPage
+            
+             nav?.pushViewController(protectedPage, animated: true)
+             //self.navigationController.pushViewController(protectedPage, animated: true)
+            //self.presentViewController(protectedPage, animated:true, completion:nil)
+ 
+            
+            
+           /* let userId = user.userID                  // For client-side use only!
             let idToken = user.authentication.idToken // Safe to send to the server
             let fullName = user.profile.name
             let givenName = user.profile.givenName
             let familyName = user.profile.familyName
-            let email = user.profile.email
+            let email = user.profile.email*/
             // ...
         }
     }

@@ -17,20 +17,7 @@
                     <view key="view" contentMode="scaleToFill" id="5pa-PA-PoT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZr-Sb-8El">
-                                <rect key="frame" x="143" y="511" width="34" height="30"/>
-                                <state key="normal" title="Start"/>
-                                <connections>
-                                    <segue destination="EjC-1Q-Cv9" kind="show" id="NWJ-QH-Z0u"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="iZr-Sb-8El" firstAttribute="centerX" secondItem="5pa-PA-PoT" secondAttribute="centerX" id="Wdz-l0-LZx"/>
-                            <constraint firstItem="iZr-Sb-8El" firstAttribute="centerY" secondItem="5pa-PA-PoT" secondAttribute="centerY" constant="242" id="zLa-9Z-Z6q"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="j5V-Td-xb0"/>
                     </view>
                     <navigationItem key="navigationItem" id="kVF-hk-eGJ"/>
@@ -114,7 +101,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FqI-4F-rWv">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
