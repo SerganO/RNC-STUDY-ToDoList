@@ -24,6 +24,7 @@ class AuthorizationManager {
             AuthorizationManager.shared.id = user.userID
             //AuthorizationManager.shared.id = user.profile.email
             
+            FirebaseManager.shared.ref.child("UserId").setValue(AuthorizationManager.shared.id)
             
             let appDelegate = UIApplication.shared.delegate
             let nav = appDelegate?.window?!.rootViewController as? UINavigationController
