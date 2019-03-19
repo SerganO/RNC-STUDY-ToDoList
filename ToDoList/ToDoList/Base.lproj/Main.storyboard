@@ -13,7 +13,7 @@
         <!--Log In View Controller-->
         <scene sceneID="JJP-u9-gQZ">
             <objects>
-                <viewController id="Bpb-nQ-lAC" customClass="LogInViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogInViewController" id="Bpb-nQ-lAC" customClass="LogInViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5pa-PA-PoT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -152,12 +152,37 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Bpb-nQ-lAC" kind="relationship" relationship="rootViewController" id="pG0-Nd-J4t"/>
+                        <segue destination="Bpb-nQ-lAC" kind="relationship" relationship="rootViewController" id="3o5-hK-Omm"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FvW-ps-6kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1661" y="0.0"/>
+        </scene>
+        <!--Splash View Controller-->
+        <scene sceneID="jn3-Ys-RSZ">
+            <objects>
+                <viewController id="0zD-as-lLk" customClass="SplashViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="acQ-s3-0bx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To Do List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPF-E4-nhn">
+                                <rect key="frame" x="37" y="234" width="246" height="101"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qeE-Cl-nA6"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Jsn-BT-rid"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OPk-8y-lYG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-870" y="0.0"/>
         </scene>
     </scenes>
     <resources>

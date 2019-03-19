@@ -12,13 +12,28 @@ class SplashViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        AuthorizationManager.shared.checkGoogleAuth { (result) in
+       /* AuthorizationManager.shared.checkGoogleAuth { (result) in
             if result {
                 
-            } else {
+                FirebaseManager.shared.ref.child("UserId").setValue(AuthorizationManager.shared.id)
                 
+                let appDelegate = UIApplication.shared.delegate
+                let nav = appDelegate?.window?!.rootViewController as? UINavigationController
+                
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
+                let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController //as UIViewController
+                nav?.pushViewController(protectedPage, animated: true)
+            } else {
+                //FirebaseManager.shared.ref.child("UserId").setValue(AuthorizationManager.shared.id)
+                
+                let appDelegate = UIApplication.shared.delegate
+                let nav = appDelegate?.window?!.rootViewController as? UINavigationController
+                
+                let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
+                let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController //as UIViewController
+                nav?.pushViewController(protectedPage, animated: true)
             }
-        }
+        }*/
         // Do any additional setup after loading the view.
     }
     

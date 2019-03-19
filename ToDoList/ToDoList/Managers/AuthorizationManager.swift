@@ -24,7 +24,7 @@ class AuthorizationManager {
                                        kSecReturnRef as String: true]
     }*/
     
-    public func checkGoogleAuth(block : (Bool)-> Void)
+    /*public func checkGoogleAuth(block : (Bool)-> Void)
     {
         if let result = GIDSignIn.sharedInstance()?.hasAuthInKeychain(), result {
             print("Yes has")
@@ -34,7 +34,8 @@ class AuthorizationManager {
             print("No")
             block(false)
         }
-    }
+
+    }*/
     
     public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
               withError error: Error!) {

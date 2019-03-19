@@ -12,12 +12,24 @@ import GoogleSignIn
 
 class LogInViewController: UIViewController , GIDSignInUIDelegate{
 
-    
+    func check()
+    {
+        if let result = GIDSignIn.sharedInstance()?.hasAuthInKeychain(), result {
+            print("Yes has")
+            GIDSignIn.sharedInstance()?.signIn()
+        } else {
+            print("No")
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        check()
+        
         
         configureGoogleSignInButton()
+        
+        
     }
     
     
