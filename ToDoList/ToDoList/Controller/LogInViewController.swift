@@ -20,6 +20,7 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate{
         configureGoogleSignInButton()
     }
     
+    
     fileprivate func configureGoogleSignInButton() {
         let googleSignInButton = GIDSignInButton()
         googleSignInButton.frame = CGRect(x: view.frame.width/2-125, y: view.frame.height/2-25, width: 250, height: 50)
