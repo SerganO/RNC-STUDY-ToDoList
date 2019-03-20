@@ -239,7 +239,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
             tableView.deleteRows(at: indexPaths, with: .automatic)
         })
         
-        return [editAction,deleteAction]
+        return [deleteAction,editAction]
     }
     
 }
