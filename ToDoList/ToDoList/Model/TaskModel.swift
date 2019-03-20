@@ -14,7 +14,6 @@ class TaskModel
     var text = ""
     var date = Date()
     var checked = false
-   // let ref: DatabaseReference?
     let uuid: UUID?
     
     
@@ -26,7 +25,6 @@ class TaskModel
         self.text = text
         self.date = date
         checked = false
-        //self.ref = nil
         uuid = UUID()
     }
     
@@ -34,7 +32,6 @@ class TaskModel
         self.text = ""
         self.date = Date()
         checked = false
-        //self.ref = nil
         uuid = UUID()
     }
     
@@ -51,19 +48,11 @@ class TaskModel
             return nil
         }
         let formatter = DateFormatter()
-        //self.ref = snapshot.ref
         self.text = text
         self.checked = checked
         self.date = formatter.date(from: date) ?? Date()
         self.uuid = UUID(uuidString: uuid)
     }
-    /*func toAnyObject() -> Any {
-        return [
-            "text": text,
-            //"date": date,
-            "checked": checked
-        ]
-    }*/
     
     func toDic() -> [String: Any] {
         let formatter = DateFormatter()

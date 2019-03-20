@@ -12,80 +12,15 @@ import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
-   /*/* func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        // ...
-        if let error = error {
-            // ...
-            return
-        }
-        
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        // ...
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
-        
-    }*/*/
-    
-    
-    
-    /*/*func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if (error) != nil {
-            print("An error occured during Google Authentication")
-            return
-        }
-        
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        Auth.auth().signInAndRetrieveData(with: credential, completion: { (user, error) in
-            if (error) != nil {
-                print("Google Authentification Fail")
-            } else {
-                print("Google Authentification Success")
-                
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-                let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController //as UIViewController
-                let appDelegate = UIApplication.shared.delegate
-                appDelegate?.window??.rootViewController = protectedPage
-
-            }
-        })
-        
-        /*Auth.auth().signIn(with: credential) { (user, error) in
-            if (error) != nil {
-                print("Google Authentification Fail")
-            } else {
-                print("Google Authentification Success")
-                
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-                let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController //as UIViewController
-                let appDelegate = UIApplication.shared.delegate
-                appDelegate?.window??.rootViewController = protectedPage
-            }
-        }*/
-    }*/*/
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
               withError error: Error!) {
        AuthorizationManager.shared.sign(signIn, didSignInFor: user, withError: error)
     }
-    /*func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
-              withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
-    }*/
-   
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self

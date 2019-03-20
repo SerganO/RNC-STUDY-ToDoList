@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 
 class FirebaseManager {
-    let ref = Database.database().reference(withPath: "users").child(AuthorizationManager.shared.id)
+    var ref = Database.database().reference(withPath: "users").child(AuthorizationManager.shared.id)
     //let ref = Database.database().reference(withPath: "users").child("FakeUserId")
     static let shared = FirebaseManager()
     public func editTask(_ task: TaskModel, editItem:[String: Any]) {

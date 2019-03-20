@@ -25,11 +25,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     
     var lastEditIndexSection = -1
     var lastEditIndexRow = -1
-    
-    /*@IBAction func logOut(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
-    }*/
-    
     func addViewControllerDidCancel(_ controller: AddViewController) {
         navigationController?.popViewController(animated: true)
     }
@@ -38,39 +33,9 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func signOut(_ sender: Any) {
-        
-        do {
-            try Auth.auth().signOut()
-            
-            let signInPage = self.storyboard?.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
-            let appDelegate = UIApplication.shared.delegate
-            appDelegate?.window??.rootViewController = signInPage
-            
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-        
-    }
-    
-    
     func addViewController(_ controller: AddViewController, didFinishAdding task: TaskModel) {
-        //        let formatter = DateFormatter()
-        //        formatter.dateStyle = .medium
-        //        formatter.timeStyle = .medium
-        //        let uuid = UUID().uuidString
-        
-        //        let taskRef = self.ref.child(task.uuid!.uuidString)
-        //        taskRef.setValue(task.toDic())
         FirebaseManager.shared.addTask(task)
         navigationController?.popViewController(animated: true)
-        
-        //        let newRowIndex = uncheckedGroup.count
-        //        uncheckedGroup.append(task)
-        //        let indexPath = IndexPath(row: newRowIndex, section: 0)
-        //        let indexPaths = [indexPath]
-        //        tableView.insertRows(at: indexPaths, with: .automatic)
-        
     }
     
     func addViewController(_ controller: AddViewController, didFinishEditing task: TaskModel) {
@@ -81,11 +46,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         FirebaseManager.shared.editTask(task, editItem: ["text":task.text])
         FirebaseManager.shared.editTask(task, editItem: ["date":date])
         navigationController?.popViewController(animated:true)
-        //        self.ref.child(task.uuid!.uuidString).updateChildValues(["text":task.text])
-        //        task.ref?.updateChildValues(["text":task.text])
-        //        let date = formatter.string(from: Date())
-        //        self.ref.child(task.uuid!.uuidString).updateChildValues(["date":date])
-        //        task.ref?.updateChildValues(["date":date])
     }
     
 
@@ -118,10 +78,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         if(AuthorizationManager.shared.id == "")
         {
             let alert = UIAlertController(title: "Error Auth", message: "Please Sign In", preferredStyle: .alert)
-            
-            //alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler:
-                {
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler:{
             action in
                 self.navigationController?.popViewController(animated: true)
             }))

@@ -104,7 +104,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FqI-4F-rWv">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -152,7 +152,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Bpb-nQ-lAC" kind="relationship" relationship="rootViewController" id="3o5-hK-Omm"/>
+                        <segue destination="PXR-IY-KUZ" kind="relationship" relationship="rootViewController" id="LOJ-tv-HUK"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FvW-ps-6kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -160,29 +160,32 @@
             <point key="canvasLocation" x="-1661" y="0.0"/>
         </scene>
         <!--Splash View Controller-->
-        <scene sceneID="jn3-Ys-RSZ">
+        <scene sceneID="ejo-WC-Pr0">
             <objects>
-                <viewController id="0zD-as-lLk" customClass="SplashViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="acQ-s3-0bx">
+                <viewController id="PXR-IY-KUZ" customClass="SplashViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AMO-bQ-Zsm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To Do List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPF-E4-nhn">
-                                <rect key="frame" x="37" y="234" width="246" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To Do List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZD-5i-yls">
+                                <rect key="frame" x="92.5" y="264.5" width="135" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="qeE-Cl-nA6"/>
+                        <constraints>
+                            <constraint firstItem="HZD-5i-yls" firstAttribute="centerX" secondItem="AMO-bQ-Zsm" secondAttribute="centerX" id="7XM-Tc-nt9"/>
+                            <constraint firstItem="HZD-5i-yls" firstAttribute="centerY" secondItem="AMO-bQ-Zsm" secondAttribute="centerY" id="EBi-P3-RCi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Po0-dK-GJt"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Jsn-BT-rid"/>
+                    <navigationItem key="navigationItem" id="Tx1-P9-9QJ"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OPk-8y-lYG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Wm-RS-PmF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-870" y="0.0"/>
+            <point key="canvasLocation" x="-881" y="4"/>
         </scene>
     </scenes>
     <resources>

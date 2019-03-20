@@ -12,24 +12,11 @@ import GoogleSignIn
 
 class LogInViewController: UIViewController , GIDSignInUIDelegate{
 
-    func check()
-    {
-        if let result = GIDSignIn.sharedInstance()?.hasAuthInKeychain(), result {
-            print("Yes has")
-            GIDSignIn.sharedInstance()?.signIn()
-        } else {
-            print("No")
-        }
-    }
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        check()
-        
-        
         configureGoogleSignInButton()
-        
-        
     }
     
     
@@ -38,9 +25,15 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate{
         googleSignInButton.frame = CGRect(x: view.frame.width/2-125, y: view.frame.height/2-25, width: 250, height: 50)
         view.addSubview(googleSignInButton)
         GIDSignIn.sharedInstance().uiDelegate = self
+        AuthorizationManager.shared.completionHandler = processAutorization
     }
     
-    
+    func processAutorization(_ autorize: Bool) {
+        let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
+        let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        protectedPage.navigationItem.hidesBackButton = true
+        self.navigationController?.pushViewController(protectedPage, animated: true)
+    }
     
     
 }
