@@ -200,30 +200,46 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         }
     }
     
-    override func tableView( _ tableView: UITableView,commit editingStyle: UITableViewCell.EditingStyle,forRowAt indexPath: IndexPath) {//DELETE
+    /*override func tableView( _ tableView: UITableView,commit editingStyle: UITableViewCell.EditingStyle,forRowAt indexPath: IndexPath) {//DELETE
         if indexPath.section == 0 {
             let task = uncheckedGroup[indexPath.row]
             FirebaseManager.shared.deleteTask(task)
             FirebaseManager.shared.ref.child(task.uuid!.uuidString).removeValue()
-//            let que = DispatchQueue.global()
-//            que.async {
-//                self.ref.child(task.uuid!.uuidString).removeValue()
-//                //task.ref?.removeValue()
-//            }
             uncheckedGroup.remove(at: indexPath.row)
         } else {
             let task = checkedGroup[indexPath.row]
             FirebaseManager.shared.deleteTask(task)
             FirebaseManager.shared.ref.child(task.uuid!.uuidString).removeValue()
-//            let que = DispatchQueue.global()
-//            que.async {
-//                self.ref.child(task.uuid!.uuidString).removeValue()
-//                //task.ref?.removeValue()
-//            }
             checkedGroup.remove(at: indexPath.row)
         }
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
-    }
+    }*/
 
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
+    {
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit" , handler: { (action:UITableViewRowAction, indexPath: IndexPath) -> Void in
+            
+            self.performSegue(withIdentifier: "EditTask", sender: tableView.cellForRow(at: indexPath))
+            
+        })
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete" , handler: { (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
+            if indexPath.section == 0 {
+                let task = self.uncheckedGroup[indexPath.row]
+                FirebaseManager.shared.deleteTask(task)
+                FirebaseManager.shared.ref.child(task.uuid!.uuidString).removeValue()
+                self.uncheckedGroup.remove(at: indexPath.row)
+            } else {
+                let task = self.checkedGroup[indexPath.row]
+                FirebaseManager.shared.deleteTask(task)
+                FirebaseManager.shared.ref.child(task.uuid!.uuidString).removeValue()
+                self.checkedGroup.remove(at: indexPath.row)
+            }
+            let indexPaths = [indexPath]
+            tableView.deleteRows(at: indexPaths, with: .automatic)
+        })
+        
+        return [editAction,deleteAction]
+    }
+    
 }
