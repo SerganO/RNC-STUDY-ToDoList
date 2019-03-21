@@ -23,6 +23,9 @@ class AddViewController: UIViewController, UITextViewDelegate {
 
     weak var delegate: AddViewControllerDelegate?
     
+    @IBOutlet weak var viewHeight: NSLayoutConstraint!
+    
+    
     var taskToEdit: TaskModel?
     
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
@@ -40,12 +43,11 @@ class AddViewController: UIViewController, UITextViewDelegate {
             object: nil
         )
         super.viewDidLoad()
-        textViewFrame = textView.frame
+        textViewFrame = self.view.frame
         if let task = taskToEdit {
             title = "Edit"
             textView.text = task.text
             doneBarButton.isEnabled = true
-            
         }
         
     }
@@ -54,9 +56,12 @@ class AddViewController: UIViewController, UITextViewDelegate {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             keyboardHeight = keyboardRectangle.height
-            var frame = textViewFrame!
+            //textView.contentSize.height += keyboardHeight
+            viewHeight.constant = keyboardHeight
+            self.view.layoutIfNeeded()
+            /*var frame = textViewFrame!
             frame.size.height = frame.size.height - keyboardHeight - 5
-            self.textView.frame = frame
+            self.textView.frame = frame*/
         }
     }
     
@@ -78,12 +83,17 @@ class AddViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        textView.becomeFirstResponder() 
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        textView.becomeFirstResponder()
+//    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        textView.becomeFirstResponder()
     }
 
-   func textView(_ textView: UITextView,
+   /*func textView(_ textView: UITextView,
                       shouldChangeCharactersIn range: NSRange,
                       replacementString string: String) -> Bool {
         
@@ -93,7 +103,10 @@ class AddViewController: UIViewController, UITextViewDelegate {
                                                   with: string)
         doneBarButton.isEnabled = !newText.isEmpty
         return true
-    }
+    }*/
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
 }

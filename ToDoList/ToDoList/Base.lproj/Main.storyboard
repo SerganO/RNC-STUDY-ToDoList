@@ -112,11 +112,21 @@
                                     <outlet property="delegate" destination="P6n-J6-B55" id="6nu-8i-unb"/>
                                 </connections>
                             </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1a-jK-e17">
+                                <rect key="frame" x="0.0" y="568" width="320" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="Phk-Mj-PBz"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="t1b-FU-oCf" firstAttribute="bottom" secondItem="FqI-4F-rWv" secondAttribute="bottom" id="OeP-4V-0H6"/>
+                            <constraint firstItem="Q1a-jK-e17" firstAttribute="top" secondItem="FqI-4F-rWv" secondAttribute="bottom" id="Ear-6F-pdR"/>
+                            <constraint firstItem="Q1a-jK-e17" firstAttribute="leading" secondItem="t1b-FU-oCf" secondAttribute="leading" id="EfK-Uu-aDy"/>
                             <constraint firstItem="FqI-4F-rWv" firstAttribute="trailing" secondItem="t1b-FU-oCf" secondAttribute="trailing" id="Os3-Nr-daM"/>
+                            <constraint firstItem="t1b-FU-oCf" firstAttribute="trailing" secondItem="Q1a-jK-e17" secondAttribute="trailing" id="XbH-Jh-BSZ"/>
+                            <constraint firstItem="t1b-FU-oCf" firstAttribute="bottom" secondItem="Q1a-jK-e17" secondAttribute="bottom" id="cfn-VU-fex"/>
                             <constraint firstItem="FqI-4F-rWv" firstAttribute="top" secondItem="t1b-FU-oCf" secondAttribute="top" id="fwd-eM-fvz"/>
                             <constraint firstItem="FqI-4F-rWv" firstAttribute="leading" secondItem="t1b-FU-oCf" secondAttribute="leading" id="kfu-2s-fBj"/>
                         </constraints>
@@ -137,6 +147,7 @@
                     <connections>
                         <outlet property="doneBarButton" destination="Xun-gD-7mp" id="FUI-V7-XDg"/>
                         <outlet property="textView" destination="FqI-4F-rWv" id="I9U-zh-S2K"/>
+                        <outlet property="viewHeight" destination="Phk-Mj-PBz" id="bWw-op-GMC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2uh-V2-ctV" userLabel="First Responder" sceneMemberID="firstResponder"/>
