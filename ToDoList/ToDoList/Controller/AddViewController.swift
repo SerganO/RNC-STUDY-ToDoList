@@ -29,12 +29,34 @@ class AddViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var textView: UITextView!
     
+    var textViewFrame: CGRect?
+    var keyboardHeight: CGFloat = 0.0
+    
     override func viewDidLoad() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
         super.viewDidLoad()
+        textViewFrame = textView.frame
         if let task = taskToEdit {
             title = "Edit"
             textView.text = task.text
             doneBarButton.isEnabled = true
+            
+        }
+        
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            keyboardHeight = keyboardRectangle.height
+            var frame = textViewFrame!
+            frame.size.height = frame.size.height - keyboardHeight - 5
+            self.textView.frame = frame
         }
     }
     
@@ -58,7 +80,7 @@ class AddViewController: UIViewController, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        textView.becomeFirstResponder()
+        textView.becomeFirstResponder() 
     }
 
    func textView(_ textView: UITextView,

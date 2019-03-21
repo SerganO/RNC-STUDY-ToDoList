@@ -11,8 +11,18 @@ import GoogleSignIn
 
 class SplashViewController: UIViewController , GIDSignInUIDelegate{
 
+    var spinner = UIActivityIndicatorView(style: .gray)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let ai = UIActivityIndicatorView.init(style: .gray)
+        ai.startAnimating()
+        ai.center = self.view.center
+        ai.center.y = ai.center.y + 45
+        
+        DispatchQueue.main.async {
+            self.view.addSubview(ai)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -24,9 +34,19 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
                 
                 let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController //as UIViewController
                 protectedPage.navigationItem.hidesBackButton = true
-                self.navigationController?.pushViewController(protectedPage, animated: true)
+                //self.navigationController?.pushViewController(protectedPage, animated: true)
                 let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController //as UIViewController
+                //self.navigationController?.pushViewController(protectedPage2, animated: true)
+                
+                
+                
                 self.navigationController?.pushViewController(protectedPage2, animated: true)
+                
+                let stackCount = self.navigationController?.viewControllers.count
+                let addIndex = stackCount! - 1
+                self.navigationController?.viewControllers.insert(protectedPage, at: addIndex)
+                
+                
             
             } else {
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
@@ -37,3 +57,5 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
         }
     }
 }
+
+
