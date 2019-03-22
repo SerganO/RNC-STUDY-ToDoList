@@ -39,8 +39,9 @@ class AddViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         
         let bar = UIToolbar()
+        let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let hide = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(hideTapped))
-        bar.items = [hide]
+        bar.items = [flexsibleSpace,hide]
         bar.sizeToFit()
         textView.inputAccessoryView = bar
         
@@ -91,16 +92,22 @@ class AddViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func done() {
-        if let task = taskToEdit {
-            task.text = textView.text
-            
-            delegate?.addViewController(self, didFinishEditing: task)
+        if(textView.text == "") {
+            let alert = UIAlertController(title: "Empty Task", message: "Please write anothing", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         } else {
-            let task = TaskModel()
-            task.text = textView.text
-            task.date = Date()
-            task.checked = false
-            delegate?.addViewController(self, didFinishAdding: task)
+            if let task = taskToEdit {
+                task.text = textView.text
+                
+                delegate?.addViewController(self, didFinishEditing: task)
+            } else {
+                let task = TaskModel()
+                task.text = textView.text
+                task.date = Date()
+                task.checked = false
+                delegate?.addViewController(self, didFinishAdding: task)
+            }
         }
     }
     
