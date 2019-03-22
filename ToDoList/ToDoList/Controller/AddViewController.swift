@@ -42,6 +42,12 @@ class AddViewController: UIViewController, UITextViewDelegate {
             name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
         super.viewDidLoad()
         textViewFrame = self.view.frame
         if let task = taskToEdit {
@@ -64,6 +70,12 @@ class AddViewController: UIViewController, UITextViewDelegate {
             self.textView.frame = frame*/
         }
     }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+            viewHeight.constant = 0
+            self.view.layoutIfNeeded()
+    }
+    
     
     @IBAction func cancel() {
         delegate?.addViewControllerDidCancel(self)
