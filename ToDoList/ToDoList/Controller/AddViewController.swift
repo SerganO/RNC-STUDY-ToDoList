@@ -36,6 +36,13 @@ class AddViewController: UIViewController, UITextViewDelegate {
     var keyboardHeight: CGFloat = 0.0
     
     override func viewDidLoad() {
+        
+        let bar = UIToolbar()
+        let hide = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(hideTapped))
+        bar.items = [hide]
+        bar.sizeToFit()
+        textView.inputAccessoryView = bar
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
@@ -56,6 +63,11 @@ class AddViewController: UIViewController, UITextViewDelegate {
             doneBarButton.isEnabled = true
         }
         
+    }
+    
+    @objc func hideTapped()
+    {
+        textView.resignFirstResponder()
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
