@@ -21,9 +21,6 @@
                         <viewLayoutGuide key="safeArea" id="j5V-Td-xb0"/>
                     </view>
                     <navigationItem key="navigationItem" id="kVF-hk-eGJ"/>
-                    <connections>
-                        <segue destination="EjC-1Q-Cv9" kind="show" id="vrG-st-rIq"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zdE-EF-07S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
