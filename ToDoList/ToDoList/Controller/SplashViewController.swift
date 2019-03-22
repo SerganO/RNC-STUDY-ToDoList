@@ -32,13 +32,9 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
             if result {
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
                 
-                let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController //as UIViewController
+                let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
                 protectedPage.navigationItem.hidesBackButton = true
-                //self.navigationController?.pushViewController(protectedPage, animated: true)
-                let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController //as UIViewController
-                //self.navigationController?.pushViewController(protectedPage2, animated: true)
-                
-                
+                let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
                 
                 self.navigationController?.pushViewController(protectedPage2, animated: true)
                 
@@ -46,8 +42,6 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
                 let addIndex = stackCount! - 1
                 self.navigationController?.viewControllers.insert(protectedPage, at: addIndex)
                 
-                
-            
             } else {
                 let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
                 let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController

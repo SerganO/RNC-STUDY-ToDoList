@@ -36,6 +36,7 @@ class AddViewController: UIViewController, UITextViewDelegate {
     var keyboardHeight: CGFloat = 0.0
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         let bar = UIToolbar()
         let hide = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(hideTapped))
@@ -55,7 +56,7 @@ class AddViewController: UIViewController, UITextViewDelegate {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
-        super.viewDidLoad()
+        
         textViewFrame = self.view.frame
         if let task = taskToEdit {
             title = "Edit"
@@ -74,12 +75,8 @@ class AddViewController: UIViewController, UITextViewDelegate {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             keyboardHeight = keyboardRectangle.height
-            //textView.contentSize.height += keyboardHeight
             viewHeight.constant = keyboardHeight
             self.view.layoutIfNeeded()
-            /*var frame = textViewFrame!
-            frame.size.height = frame.size.height - keyboardHeight - 5
-            self.textView.frame = frame*/
         }
     }
     
@@ -107,28 +104,11 @@ class AddViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        textView.becomeFirstResponder()
-//    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         textView.becomeFirstResponder()
     }
 
-   /*func textView(_ textView: UITextView,
-                      shouldChangeCharactersIn range: NSRange,
-                      replacementString string: String) -> Bool {
-        
-        let oldText = textView.text!
-        let stringRange = Range(range, in:oldText)!
-        let newText = oldText.replacingCharacters(in: stringRange,
-                                                  with: string)
-        doneBarButton.isEnabled = !newText.isEmpty
-        return true
-    }*/
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
