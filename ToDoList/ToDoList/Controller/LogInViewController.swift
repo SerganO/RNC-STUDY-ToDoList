@@ -33,7 +33,7 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate{
     
     fileprivate func configureGoogleSignInButton() {
         let googleSignInButton = GIDSignInButton()
-        googleSignInButton.frame = CGRect(x: view.frame.width/2-125, y: view.frame.height/2-25, width: 250, height: 50)
+        googleSignInButton.frame = CGRect(x: view.frame.width/2-100, y: view.frame.height/2-25, width: 200, height: 50)
         view.addSubview(googleSignInButton)
         GIDSignIn.sharedInstance().uiDelegate = self
         AuthorizationManager.shared.completionHandler = processAutorization
