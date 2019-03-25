@@ -9,15 +9,20 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FBSDKShareKit
+import FacebookLogin
+
 
 class TableViewController: UITableViewController, AddViewControllerDelegate {
+
+    
     
     var checkedGroup = [TaskModel]();
     var uncheckedGroup = [TaskModel]();
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "")
         {
             let alert = UIAlertController(title: "Error Auth", message: "Please Sign In", preferredStyle: .alert)
@@ -29,6 +34,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
             self.present(alert, animated: true)
             return
         }
+        
         
         FirebaseManager.shared.ref.child("tasks").queryOrdered(byChild: "date").observe(.value, with : {
             snapshot in
@@ -57,6 +63,8 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     }
     
     @IBAction func didTapSignOut(_ sender: AnyObject) {
+        let loginManager = LoginManager()
+        loginManager.logOut()
         GIDSignIn.sharedInstance().signOut()
         do {
             try Auth.auth().signOut()

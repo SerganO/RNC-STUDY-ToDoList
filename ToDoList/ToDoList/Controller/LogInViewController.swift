@@ -43,7 +43,6 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDel
         loginButton.center.y += 50
         view.addSubview(loginButton)
         loginButton.delegate = self
-        AuthorizationManager.shared.completionHandler = processAutorization
     }
     
     fileprivate func configureGoogleSignInButton() {
@@ -53,19 +52,7 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDel
         GIDSignIn.sharedInstance().uiDelegate = self
         AuthorizationManager.shared.completionHandler = processAutorization
     }
-    
   
-    
-    func facebookLogIn()
-    {
-        if let accessToken = FBSDKAccessToken.current() {
-            AuthorizationManager.shared.facebookId = accessToken.userID
-            let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-            let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-            protectedPage.navigationItem.hidesBackButton = true
-            self.navigationController?.pushViewController(protectedPage, animated: true)
-        }
-    }
     
     func processAutorization(_ autorize: Bool) {
         let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
