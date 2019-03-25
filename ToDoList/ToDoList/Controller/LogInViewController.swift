@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FBSDKCoreKit
+import FacebookLogin
 
 class LogInViewController: UIViewController , GIDSignInUIDelegate{
 
@@ -17,8 +19,17 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         configureGoogleSignInButton()
+        configureFacebookButton()
     }
     
+    func configureFacebookButton()
+    {
+        let loginButton = LoginButton(readPermissions: [ .publicProfile ])
+        loginButton.center = view.center
+        loginButton.center.y += 50
+        view.addSubview(loginButton)
+        
+    }
     
     fileprivate func configureGoogleSignInButton() {
         let googleSignInButton = GIDSignInButton()
