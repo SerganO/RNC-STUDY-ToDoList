@@ -20,6 +20,7 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDel
             let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
             protectedPage.navigationItem.hidesBackButton = true
             self.navigationController?.pushViewController(protectedPage, animated: true)
+            AuthorizationManager.shared.facebookSignIn()
         }
     }
     

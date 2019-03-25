@@ -10,7 +10,8 @@ import Foundation
 import Firebase
 
 class FirebaseManager {
-    var ref = Database.database().reference(withPath: "users").child(AuthorizationManager.shared.id)
+    
+    var ref = Database.database().reference(withPath: "users").child(getCurrentID())
     //let ref = Database.database().reference(withPath: "users").child("FakeUserId")
     static let shared = FirebaseManager()
     public func editTask(_ task: TaskModel, editItem:[String: Any]) {
@@ -32,6 +33,15 @@ class FirebaseManager {
         que.async {
             let taskRef = self.ref.child("tasks").child(task.uuid!.uuidString)
             taskRef.setValue(task.toDic())
+        }
+    }
+    
+    static func getCurrentID() ->String
+    {
+        if AuthorizationManager.shared.id == "" {
+            return "Facebook:" + AuthorizationManager.shared.facebookId
+        } else {
+            return "Google:" + AuthorizationManager.shared.id
         }
     }
     

@@ -12,7 +12,7 @@ import GoogleSignIn
 
 class AuthorizationManager{
     static let shared = AuthorizationManager()
-    var id = "tmp"
+    var id = ""
     var facebookId = ""
     var completionHandler: ((Bool)-> Void)?
     
@@ -35,10 +35,15 @@ class AuthorizationManager{
             completionHandler?(false)
         } else {
             AuthorizationManager.shared.id = user.userID
-            FirebaseManager.shared.ref = Database.database().reference(withPath: "users").child(AuthorizationManager.shared.id)
+            FirebaseManager.shared.ref = Database.database().reference(withPath: "users").child("Google:" + AuthorizationManager.shared.id)
             FirebaseManager.shared.ref.child("UserId").setValue(AuthorizationManager.shared.id)
             completionHandler?(true)
         }
+    }
+    
+    public func facebookSignIn()
+    {
+        FirebaseManager.shared.ref = Database.database().reference(withPath: "users").child("Facebook:" + AuthorizationManager.shared.facebookId)
     }
   
 }

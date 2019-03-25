@@ -65,6 +65,8 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     @IBAction func didTapSignOut(_ sender: AnyObject) {
         let loginManager = LoginManager()
         loginManager.logOut()
+        FBSDKAccessToken.setCurrent(nil)
+        FBSDKProfile.setCurrent(nil)
         GIDSignIn.sharedInstance().signOut()
         do {
             try Auth.auth().signOut()
