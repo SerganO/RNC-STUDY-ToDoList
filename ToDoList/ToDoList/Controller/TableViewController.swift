@@ -18,7 +18,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(AuthorizationManager.shared.id == "")
+        if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "")
         {
             let alert = UIAlertController(title: "Error Auth", message: "Please Sign In", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler:{

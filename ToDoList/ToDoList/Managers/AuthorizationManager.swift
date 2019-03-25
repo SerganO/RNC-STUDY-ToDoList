@@ -12,7 +12,8 @@ import GoogleSignIn
 
 class AuthorizationManager{
     static let shared = AuthorizationManager()
-    var id = ""
+    var id = "tmp"
+    var facebookId = ""
     var completionHandler: ((Bool)-> Void)?
     
     public func checkGoogleAuth(_ completion : @escaping (Bool)-> Void)

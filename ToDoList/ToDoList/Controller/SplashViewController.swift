@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleSignIn
+import FBSDKCoreKit
 
 class SplashViewController: UIViewController , GIDSignInUIDelegate{
 
@@ -27,28 +28,49 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        GIDSignIn.sharedInstance().uiDelegate = self
-        AuthorizationManager.shared.checkGoogleAuth { (result) in
-            if result {
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-                
-                let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
-                protectedPage.navigationItem.hidesBackButton = true
-                let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-                
-                self.navigationController?.pushViewController(protectedPage2, animated: true)
-                
-                let stackCount = self.navigationController?.viewControllers.count
-                let addIndex = stackCount! - 1
-                self.navigationController?.viewControllers.insert(protectedPage, at: addIndex)
-                
-            } else {
-                let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-                let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
-                protectedPage.navigationItem.hidesBackButton = true
-                self.navigationController?.pushViewController(protectedPage, animated: true)
+        
+        if let accessToken = FBSDKAccessToken.current() {
+            // User is logged in, use 'accessToken' here.
+            AuthorizationManager.shared.facebookId = accessToken.userID
+            let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
+            
+            let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+            protectedPage.navigationItem.hidesBackButton = true
+            let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+            
+            self.navigationController?.pushViewController(protectedPage2, animated: true)
+            
+            let stackCount = self.navigationController?.viewControllers.count
+            let addIndex = stackCount! - 1
+            self.navigationController?.viewControllers.insert(protectedPage, at: addIndex)
+        }
+        else
+        {
+            GIDSignIn.sharedInstance().uiDelegate = self
+            AuthorizationManager.shared.checkGoogleAuth { (result) in
+                if result {
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
+                    
+                    let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+                    protectedPage.navigationItem.hidesBackButton = true
+                    let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+                    
+                    self.navigationController?.pushViewController(protectedPage2, animated: true)
+                    
+                    let stackCount = self.navigationController?.viewControllers.count
+                    let addIndex = stackCount! - 1
+                    self.navigationController?.viewControllers.insert(protectedPage, at: addIndex)
+                    
+                } else {
+                    let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
+                    let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+                    protectedPage.navigationItem.hidesBackButton = true
+                    self.navigationController?.pushViewController(protectedPage, animated: true)
+                }
             }
         }
+        
+        
     }
 }
 
