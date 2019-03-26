@@ -32,6 +32,7 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
         if let accessToken = FBSDKAccessToken.current() {
             // User is logged in, use 'accessToken' here.
             AuthorizationManager.shared.facebookId = accessToken.userID
+            AuthorizationManager.search()
             let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
             
             let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController

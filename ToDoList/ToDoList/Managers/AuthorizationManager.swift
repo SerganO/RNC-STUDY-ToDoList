@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import GoogleSignIn
+import FBSDKCoreKit
 
 class AuthorizationManager{
     static let shared = AuthorizationManager()
@@ -41,9 +42,43 @@ class AuthorizationManager{
         }
     }
     
-    public func facebookSignIn()
+    public func facebookSignIn() -> Bool
     {
-        FirebaseManager.shared.ref = Database.database().reference(withPath: "users").child("Facebook:" + AuthorizationManager.shared.facebookId)
+        if let accessToken = FBSDKAccessToken.current() {
+            AuthorizationManager.shared.facebookId = accessToken.userID
+            AuthorizationManager.search()
+            return true
+        } else {
+            return false
+        }
     }
   
+   
+    
+    
+    static public func search()
+    {
+        FirebaseManager.shared.MainRef.child("users").observe(.value, with : {
+            snapshot in
+            
+            for child in snapshot.children {
+                if let snapshot = child as? DataSnapshot {
+                    print("------------------------------------------")
+                    print(snapshot.childSnapshot(forPath: "Auth").childSnapshot(forPath: "FacebookAuth").childSnapshot(forPath: "ID"))
+                    print("------------------------------------------")
+                    if snapshot.childSnapshot(forPath: "Auth").childSnapshot(forPath: "FacebookAuth").childSnapshot(forPath: "ID").value as? String? == AuthorizationManager.shared.facebookId {
+                        print("""
+************************
+***********************
+**********************
+*********************
+""")
+                        print(snapshot.key)
+                        FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(snapshot.key)
+                        break
+                    }
+                }
+            }
+        })
+    }
 }

@@ -14,13 +14,11 @@ import FacebookLogin
 
 class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDelegate{
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
-        if let accessToken = FBSDKAccessToken.current() {
-            AuthorizationManager.shared.facebookId = accessToken.userID
+        if AuthorizationManager.shared.facebookSignIn(){
             let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
             let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
             protectedPage.navigationItem.hidesBackButton = true
             self.navigationController?.pushViewController(protectedPage, animated: true)
-            AuthorizationManager.shared.facebookSignIn()
         }
     }
     

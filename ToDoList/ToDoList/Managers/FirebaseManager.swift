@@ -11,8 +11,8 @@ import Firebase
 
 class FirebaseManager {
     
-    var ref = Database.database().reference(withPath: "users").child(getCurrentID())
-    //let ref = Database.database().reference(withPath: "users").child("FakeUserId")
+    var ref = Database.database().reference().child("users")
+    let MainRef = Database.database().reference()
     static let shared = FirebaseManager()
     public func editTask(_ task: TaskModel, editItem:[String: Any]) {
         let que = DispatchQueue.global()
@@ -38,6 +38,7 @@ class FirebaseManager {
     
     static func getCurrentID() ->String
     {
+        
         if AuthorizationManager.shared.id == "" {
             return "Facebook:" + AuthorizationManager.shared.facebookId
         } else {

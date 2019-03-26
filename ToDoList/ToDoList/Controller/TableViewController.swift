@@ -22,7 +22,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       
         if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "")
         {
             let alert = UIAlertController(title: "Error Auth", message: "Please Sign In", preferredStyle: .alert)
@@ -34,6 +34,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
             self.present(alert, animated: true)
             return
         }
+        
         
         
         FirebaseManager.shared.ref.child("tasks").queryOrdered(byChild: "date").observe(.value, with : {
@@ -60,7 +61,15 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
             self.checkedGroup.reverse()
             self.tableView.reloadData()
         })
+        
+        
+        
+        
+        
+        
     }
+    
+    
     
     @IBAction func didTapSignOut(_ sender: AnyObject) {
         let loginManager = LoginManager()
