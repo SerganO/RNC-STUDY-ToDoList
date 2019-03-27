@@ -19,10 +19,11 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
     
     var checkedGroup = [TaskModel]();
     var uncheckedGroup = [TaskModel]();
+    var date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+
         if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "")
         {
             let alert = UIAlertController(title: "Error Auth", message: "Please Sign In", preferredStyle: .alert)
@@ -34,7 +35,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
             self.present(alert, animated: true)
             return
         }
-        
         
         
         FirebaseManager.shared.ref.child("tasks").queryOrdered(byChild: "date").observe(.value, with : {
@@ -61,21 +61,29 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
             self.checkedGroup.reverse()
             self.tableView.reloadData()
         })
-        
-        
-        
-        
-        
-        
     }
-    
-    
     
     @IBAction func didTapSignOut(_ sender: AnyObject) {
         let loginManager = LoginManager()
         loginManager.logOut()
         FBSDKAccessToken.setCurrent(nil)
         FBSDKProfile.setCurrent(nil)
+        
+        
+        let cookies = HTTPCookieStorage.shared
+        var facebookCookies = cookies.cookies(for: URL(string: "http://login.facebook.com")!)
+        for cookie in facebookCookies! {
+            cookies.deleteCookie(cookie )
+        }
+        facebookCookies = cookies.cookies(for: URL(string: "https://facebook.com/")!)
+        for cookie in facebookCookies! {
+            cookies.deleteCookie(cookie )
+        }        
+        
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
+        
         GIDSignIn.sharedInstance().signOut()
         do {
             try Auth.auth().signOut()

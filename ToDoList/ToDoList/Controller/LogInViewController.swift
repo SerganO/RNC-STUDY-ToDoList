@@ -14,30 +14,26 @@ import FacebookLogin
 
 class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDelegate{
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
-        if AuthorizationManager.shared.facebookSignIn(){
-            let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-            let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-            protectedPage.navigationItem.hidesBackButton = true
-            self.navigationController?.pushViewController(protectedPage, animated: true)
+        if let accessToken = FBSDKAccessToken.current() {
+            AuthorizationManager.shared.facebookSignIn(accessToken.userID, completion: {
+                self.NavigationToTableView()
+            })
         }
     }
     
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
         AuthorizationManager.shared.facebookId = ""
     }
-    
-
-  
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureGoogleSignInButton()
         configureFacebookButton()
     }
     
-    func configureFacebookButton()
-    {
+    func configureFacebookButton() {
         let loginButton = LoginButton(readPermissions: [ .publicProfile, .email ])
+        loginButton.loginBehavior = .browser
         loginButton.center = view.center
         loginButton.center.y += 50
         view.addSubview(loginButton)
@@ -54,6 +50,11 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDel
   
     
     func processAutorization(_ autorize: Bool) {
+        AuthorizationManager.shared.navigationHandler = NavigationToTableView
+    }
+    
+    func NavigationToTableView()
+    {
         let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
         let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
         protectedPage.navigationItem.hidesBackButton = true

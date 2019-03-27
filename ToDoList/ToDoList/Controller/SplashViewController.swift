@@ -12,8 +12,7 @@ import FBSDKCoreKit
 
 class SplashViewController: UIViewController , GIDSignInUIDelegate{
 
-    var spinner = UIActivityIndicatorView(style: .gray)
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         let ai = UIActivityIndicatorView.init(style: .gray)
@@ -30,38 +29,17 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
         super.viewDidAppear(animated)
         
         if let accessToken = FBSDKAccessToken.current() {
-            // User is logged in, use 'accessToken' here.
-            AuthorizationManager.shared.facebookId = accessToken.userID
-            AuthorizationManager.search()
-            let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-            
-            let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
-            protectedPage.navigationItem.hidesBackButton = true
-            let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-            
-            self.navigationController?.pushViewController(protectedPage2, animated: true)
-            
-            let stackCount = self.navigationController?.viewControllers.count
-            let addIndex = stackCount! - 1
-            self.navigationController?.viewControllers.insert(protectedPage, at: addIndex)
-        }
-        else
-        {
+            AuthorizationManager.shared.facebookSignIn(accessToken.userID, completion: {
+                self.NavigationToTableView()
+            })
+        } else {
             GIDSignIn.sharedInstance().uiDelegate = self
             AuthorizationManager.shared.checkGoogleAuth { (result) in
                 if result {
-                    let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-                    
-                    let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
-                    protectedPage.navigationItem.hidesBackButton = true
-                    let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
-                    
-                    self.navigationController?.pushViewController(protectedPage2, animated: true)
-                    
-                    let stackCount = self.navigationController?.viewControllers.count
-                    let addIndex = stackCount! - 1
-                    self.navigationController?.viewControllers.insert(protectedPage, at: addIndex)
-                    
+                    AuthorizationManager.shared.navigationHandler = {
+                        self.NavigationToTableView()
+                        
+                    }
                 } else {
                     let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
                     let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
@@ -72,6 +50,21 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
         }
         
         
+    }
+    
+    
+    func NavigationToTableView() {
+        let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
+        
+        let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+        protectedPage.navigationItem.hidesBackButton = true
+        let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        
+        self.navigationController?.pushViewController(protectedPage2, animated: true)
+        
+        let stackCount = self.navigationController?.viewControllers.count
+        let addIndex = stackCount! - 1
+        self.navigationController?.viewControllers.insert(protectedPage, at: addIndex)
     }
 }
 

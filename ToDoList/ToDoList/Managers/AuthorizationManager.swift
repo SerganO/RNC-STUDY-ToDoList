@@ -9,13 +9,13 @@
 import Foundation
 import Firebase
 import GoogleSignIn
-import FBSDKCoreKit
 
 class AuthorizationManager{
     static let shared = AuthorizationManager()
     var id = ""
     var facebookId = ""
     var completionHandler: ((Bool)-> Void)?
+    var navigationHandler: (()-> Void)?
     
     public func checkGoogleAuth(_ completion : @escaping (Bool)-> Void)
     {
@@ -36,49 +36,45 @@ class AuthorizationManager{
             completionHandler?(false)
         } else {
             AuthorizationManager.shared.id = user.userID
-            FirebaseManager.shared.ref = Database.database().reference(withPath: "users").child("Google:" + AuthorizationManager.shared.id)
-            FirebaseManager.shared.ref.child("UserId").setValue(AuthorizationManager.shared.id)
+            /*if FirebaseManager.shared.MainRef.child("Identifier").child("GoogleID").child(user.userID).exists()
+            {
+                
+            }*/
+            
+            //self.ref = FIRDatabase.database().reference()
+            
+            FirebaseManager.shared.MainRef.child("Identifier").child("GoogleID").child(user.userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if snapshot.exists() {
+                    FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(snapshot.value as! String)
+                }
+                else{
+                    let uuid = UUID().uuidString
+                    FirebaseManager.shared.MainRef.child("Identifier").child("GoogleID").child(user.userID).setValue(uuid)
+                    FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(uuid)
+                }
+                AuthorizationManager.shared.navigationHandler?()
+            })
             completionHandler?(true)
         }
     }
     
-    public func facebookSignIn() -> Bool
+    public func facebookSignIn(_ userID: String, completion : @escaping ()-> Void)
     {
-        if let accessToken = FBSDKAccessToken.current() {
-            AuthorizationManager.shared.facebookId = accessToken.userID
-            AuthorizationManager.search()
-            return true
-        } else {
-            return false
-        }
-    }
-  
-   
-    
-    
-    static public func search()
-    {
-        FirebaseManager.shared.MainRef.child("users").observe(.value, with : {
-            snapshot in
+        AuthorizationManager.shared.facebookId = userID
+        FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             
-            for child in snapshot.children {
-                if let snapshot = child as? DataSnapshot {
-                    print("------------------------------------------")
-                    print(snapshot.childSnapshot(forPath: "Auth").childSnapshot(forPath: "FacebookAuth").childSnapshot(forPath: "ID"))
-                    print("------------------------------------------")
-                    if snapshot.childSnapshot(forPath: "Auth").childSnapshot(forPath: "FacebookAuth").childSnapshot(forPath: "ID").value as? String? == AuthorizationManager.shared.facebookId {
-                        print("""
-************************
-***********************
-**********************
-*********************
-""")
-                        print(snapshot.key)
-                        FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(snapshot.key)
-                        break
-                    }
-                }
+            if snapshot.exists() {
+                FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(snapshot.value as! String)
             }
+            else{
+                let uuid = UUID().uuidString
+                FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).setValue(uuid)
+                FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(uuid)
+            }
+            
+            completion()
         })
     }
+  
 }
