@@ -28,7 +28,7 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let accessToken = FBSDKAccessToken.current() {
+        if let accessToken = FBSDKAccessToken.current(), FBSDKAccessToken.currentAccessTokenIsActive() {
             AuthorizationManager.shared.facebookSignIn(accessToken.userID, completion: {
                 self.NavigationToTableView()
             })

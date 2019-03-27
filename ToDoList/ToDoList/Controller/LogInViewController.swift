@@ -14,7 +14,10 @@ import FacebookLogin
 
 class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDelegate{
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
-        if let accessToken = FBSDKAccessToken.current() {
+        
+        
+        
+        if let accessToken = FBSDKAccessToken.current(), FBSDKAccessToken.currentAccessTokenIsActive() {
             AuthorizationManager.shared.facebookSignIn(accessToken.userID, completion: {
                 self.NavigationToTableView()
             })
@@ -33,7 +36,7 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDel
     
     func configureFacebookButton() {
         let loginButton = LoginButton(readPermissions: [ .publicProfile, .email ])
-        loginButton.loginBehavior = .browser
+        loginButton.loginBehavior = .web
         loginButton.center = view.center
         loginButton.center.y += 50
         view.addSubview(loginButton)
