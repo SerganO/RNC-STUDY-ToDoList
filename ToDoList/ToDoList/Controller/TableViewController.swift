@@ -13,17 +13,30 @@ import FBSDKShareKit
 import FacebookLogin
 
 
-class TableViewController: UITableViewController, AddViewControllerDelegate {
+class TableViewController: UITableViewController, AddViewControllerDelegate{
 
-    
     
     var checkedGroup = [TaskModel]();
     var uncheckedGroup = [TaskModel]();
     var date = Date()
     
+    func showAlert(_ result : Bool ) {
+        if result {
+            let alert = UIAlertController(title: "Done", message: "Successful login", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler:nil))
+            
+            self.present(alert, animated: true)
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Google sign in error", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler:nil))
+            
+            self.present(alert, animated: true)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "")
         {
             let alert = UIAlertController(title: "Error Auth", message: "Please Sign In", preferredStyle: .alert)
@@ -35,6 +48,14 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
             self.present(alert, animated: true)
             return
         }
+        if(AuthorizationManager.shared.facebookId == "" ) {
+            navigationItem.rightBarButtonItems?.append(UIBarButtonItem(image: UIImage(named:"Facebook"), style: .plain, target: self, action: #selector(addAccount)))
+        } else {
+            
+            navigationItem.rightBarButtonItems?.append(UIBarButtonItem(image: UIImage(named:"GoogleIcon"), style: .plain, target: self, action: #selector(addAccount)))
+            
+        }
+        
         
         
         FirebaseManager.shared.ref.child("tasks").queryOrdered(byChild: "date").observe(.value, with : {
@@ -63,13 +84,32 @@ class TableViewController: UITableViewController, AddViewControllerDelegate {
         })
     }
     
+    @objc func addAccount() {
+        if AuthorizationManager.shared.facebookId == "" {
+            let loginManager = LoginManager()
+            loginManager.loginBehavior = .web
+            loginManager.logIn(readPermissions: [ .publicProfile, .email ], viewController: nil, completion: { (LoginResult) in
+                    if let accessToken = FBSDKAccessToken.current(), FBSDKAccessToken.currentAccessTokenIsActive() {
+                        AuthorizationManager.shared.addFacebook(accessToken.userID)
+                }
+                
+                })
+        }
+        if AuthorizationManager.shared.id == ""
+        {
+            AuthorizationManager.shared.add = true
+            GIDSignIn.sharedInstance().signIn()
+        }
+    }
+    
+    
     @IBAction func didTapSignOut(_ sender: AnyObject) {
+        AuthorizationManager.shared.userUuid = ""
         let loginManager = LoginManager()
         loginManager.logOut()
         FBSDKAccessToken.setCurrent(nil)
         FBSDKProfile.setCurrent(nil)
-        
-        
+        AuthorizationManager.shared.facebookId = ""
         let cookies = HTTPCookieStorage.shared
         var facebookCookies = cookies.cookies(for: URL(string: "http://login.facebook.com")!)
         for cookie in facebookCookies! {

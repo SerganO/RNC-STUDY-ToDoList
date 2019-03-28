@@ -50,7 +50,7 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDel
         GIDSignIn.sharedInstance().uiDelegate = self
         AuthorizationManager.shared.completionHandler = processAutorization
     }
-  
+    
     
     func processAutorization(_ autorize: Bool) {
         AuthorizationManager.shared.navigationHandler = NavigationToTableView

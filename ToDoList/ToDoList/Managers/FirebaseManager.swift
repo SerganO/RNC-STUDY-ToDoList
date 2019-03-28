@@ -12,7 +12,6 @@ import Firebase
 class FirebaseManager {
     let MainRef = Database.database().reference()
     var ref = Database.database().reference(withPath: "users").child(getCurrentID())
-    //let ref = Database.database().reference(withPath: "users").child("FakeUserId")
     static let shared = FirebaseManager()
     public func editTask(_ task: TaskModel, editItem:[String: Any]) {
         let que = DispatchQueue.global()
@@ -44,5 +43,6 @@ class FirebaseManager {
             return "Google:" + AuthorizationManager.shared.id
         }
     }
+  
     
 }
