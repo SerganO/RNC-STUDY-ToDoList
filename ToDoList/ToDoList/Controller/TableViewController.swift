@@ -48,30 +48,44 @@ class TableViewController: UITableViewController, AddViewControllerDelegate{
             self.present(alert, animated: true)
             return
         }
-       var k = UIBarButtonItem(image: UIImage(named:"Facebook"), style: .plain, target: self, action: #selector(addAccount))
+       //var k = UIBarButtonItem(image: UIImage(named:"Facebook"), style: .plain, target: self, action: #selector(addAccount))
 //        k.image = #imageLiteral(resourceName: "GoogleIcon")
+        //let b = UIButton(frame: .zero)
+       // b.setImage(UIImage(named:"GoogleIcon"), for: .normal)
+        //let item = UIBarButtonItem(customView: b)
+        //let currWidth = item.customView?.widthAnchor.constraint(equalToConstant: 24)
+        //let currHeight = item.customView?.heightAnchor.constraint(equalToConstant: 24)
+        //currWidth?.isActive = true
+        //currHeight?.isActive = true
+        //item.customView?.translatesAutoresizingMaskIntoConstraints = false
+        
+        //navigationItem.leftBarButtonItem = item
+        //navigationItem.leftBarButtonItems?.append(item)
+        
         let b = UIButton(frame: .zero)
-        b.setImage(UIImage(named:"GoogleIcon"), for: .normal)
+        
+        if AuthorizationManager.shared.sync {
+            b.setImage(UIImage(named:"Done"), for: .normal)
+        } else if AuthorizationManager.shared.facebookId == "" {
+            b.setImage(UIImage(named:"Facebook"), for: .normal)
+            b.addTarget(self, action: #selector(addAccount), for: .touchDown)
+        } else {
+            b.setImage(UIImage(named:"GoogleIcon"), for: .normal)
+            b.addTarget(self, action: #selector(addAccount), for: .touchDown)
+        }
         let item = UIBarButtonItem(customView: b)
         let currWidth = item.customView?.widthAnchor.constraint(equalToConstant: 24)
         let currHeight = item.customView?.heightAnchor.constraint(equalToConstant: 24)
         currWidth?.isActive = true
         currHeight?.isActive = true
-        //item.customView?.translatesAutoresizingMaskIntoConstraints = false
-        
-        //navigationItem.leftBarButtonItem = item
-        navigationItem.leftBarButtonItems?.append(item)
-        
-        
-        
-        
-        if(AuthorizationManager.shared.facebookId == "" ) {
+        navigationItem.rightBarButtonItems?.append(item)
+        /*if(AuthorizationManager.shared.facebookId == "" ) {
             navigationItem.rightBarButtonItems?.append(UIBarButtonItem(image: UIImage(named:"Facebook"), style: .plain, target: self, action: #selector(addAccount)))
         } else {
             
             navigationItem.rightBarButtonItems?.append(UIBarButtonItem(image: UIImage(named:"GoogleIcon"), style: .plain, target: self, action: #selector(addAccount)))
             
-        }
+        }*/
         
         
         
@@ -102,21 +116,26 @@ class TableViewController: UITableViewController, AddViewControllerDelegate{
     }
     
     @objc func addAccount() {
-        if AuthorizationManager.shared.facebookId == "" {
-            let loginManager = LoginManager()
-            loginManager.loginBehavior = .web
-            loginManager.logIn(readPermissions: [ .publicProfile, .email ], viewController: nil, completion: { (LoginResult) in
+        if !AuthorizationManager.shared.sync {
+            if AuthorizationManager.shared.facebookId == "" {
+                let loginManager = LoginManager()
+                loginManager.loginBehavior = .web
+                loginManager.logIn(readPermissions: [ .publicProfile, .email ], viewController: nil, completion: { (LoginResult) in
                     if let accessToken = FBSDKAccessToken.current(), FBSDKAccessToken.currentAccessTokenIsActive() {
                         AuthorizationManager.shared.addFacebook(accessToken.userID)
-                }
-                
+                    }
+                    
                 })
+            }
+            if AuthorizationManager.shared.id == ""
+            {
+                AuthorizationManager.shared.add = true
+                GIDSignIn.sharedInstance().signIn()
+            }
+            
         }
-        if AuthorizationManager.shared.id == ""
-        {
-            AuthorizationManager.shared.add = true
-            GIDSignIn.sharedInstance().signIn()
-        }
+        
+        
     }
     
     
@@ -127,6 +146,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate{
         FBSDKAccessToken.setCurrent(nil)
         FBSDKProfile.setCurrent(nil)
         AuthorizationManager.shared.facebookId = ""
+        AuthorizationManager.shared.sync = false
         let cookies = HTTPCookieStorage.shared
         var facebookCookies = cookies.cookies(for: URL(string: "http://login.facebook.com")!)
         for cookie in facebookCookies! {
