@@ -48,6 +48,23 @@ class TableViewController: UITableViewController, AddViewControllerDelegate{
             self.present(alert, animated: true)
             return
         }
+       var k = UIBarButtonItem(image: UIImage(named:"Facebook"), style: .plain, target: self, action: #selector(addAccount))
+//        k.image = #imageLiteral(resourceName: "GoogleIcon")
+        let b = UIButton(frame: .zero)
+        b.setImage(UIImage(named:"GoogleIcon"), for: .normal)
+        let item = UIBarButtonItem(customView: b)
+        let currWidth = item.customView?.widthAnchor.constraint(equalToConstant: 24)
+        let currHeight = item.customView?.heightAnchor.constraint(equalToConstant: 24)
+        currWidth?.isActive = true
+        currHeight?.isActive = true
+        //item.customView?.translatesAutoresizingMaskIntoConstraints = false
+        
+        //navigationItem.leftBarButtonItem = item
+        navigationItem.leftBarButtonItems?.append(item)
+        
+        
+        
+        
         if(AuthorizationManager.shared.facebookId == "" ) {
             navigationItem.rightBarButtonItems?.append(UIBarButtonItem(image: UIImage(named:"Facebook"), style: .plain, target: self, action: #selector(addAccount)))
         } else {
