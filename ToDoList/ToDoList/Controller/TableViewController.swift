@@ -66,9 +66,19 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         currHeight?.isActive = true
         navigationItem.rightBarButtonItems?.append(item)
         
+        let r = UIButton(frame: .zero)
+        r.setImage(UIImage(named:"Reorder"), for: .normal)
+        r.addTarget(self, action: #selector(reorder), for: .touchDown)
+        let itemR = UIBarButtonItem(customView: r)
+        let currWidthR = itemR.customView?.widthAnchor.constraint(equalToConstant: 24)
+        let currHeightR = itemR.customView?.heightAnchor.constraint(equalToConstant: 24)
+        currWidthR?.isActive = true
+        currHeightR?.isActive = true
+        navigationItem.leftBarButtonItems?.append(itemR)
         
         
-        FirebaseManager.shared.ref.child("tasks").observe(.value, with : {
+        
+        FirebaseManager.shared.ref.child("tasks").queryOrdered(byChild: "id").observe(.value, with : {
             snapshot in
             
             var tmpUncheck: [TaskModel] = []
@@ -88,17 +98,48 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             }
             self.uncheckedGroup = tmpUncheck
             self.checkedGroup = tmpCheck
-            self.uncheckedGroup.reverse()
-            self.checkedGroup.reverse()
+            //self.uncheckedGroup.reverse()
+           // self.checkedGroup.reverse()
             self.tableView.reloadData()
         })
     }
     
     
     
-    @IBAction func startEditing(_ sender: Any) {
+    @objc func reorder() {
+        if isEditing {
+            updateId()
+        }
         isEditing = !isEditing
     }
+    
+    
+    
+    func updateId() {
+        var i = 0
+        for task in uncheckedGroup {
+            FirebaseManager.shared.editTask(task, editItem: ["id":i])
+            task.id = i
+            i = i+1
+        }
+        i = 0
+        for task in checkedGroup {
+            FirebaseManager.shared.editTask(task, editItem: ["id":i])
+            task.id = i
+            i = i+1
+        }
+        
+    }
+    
+    func incId() {
+        var i = 1
+        for task in uncheckedGroup {
+            FirebaseManager.shared.editTask(task, editItem: ["id":i])
+            task.id = i
+            i = i+1
+        }
+    }
+    
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -188,8 +229,11 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     }
     
     func addViewController(_ controller: AddViewController, didFinishAdding task: TaskModel) {
+        task.id = 0
+        incId()
         FirebaseManager.shared.addTask(task)
         navigationController?.popViewController(animated: true)
+        
     }
     
     func addViewController(_ controller: AddViewController, didFinishEditing task: TaskModel) {
@@ -287,6 +331,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             let indexPaths = [indexPath]
             tableView.deleteRows(at: indexPaths, with: .automatic)
         }
+        updateId()
     }
 
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?

@@ -14,6 +14,7 @@ class TaskModel
     var text = ""
     var date = Date()
     var checked = false
+    var id = -1
     let uuid: UUID?
     
     
@@ -43,7 +44,8 @@ class TaskModel
         let text = value["text"] as? String,
         let date = value["date"] as? String,
         let checked = value["checked"] as? Bool,
-        let uuid = value["uuid"] as? String
+        let uuid = value["uuid"] as? String,
+        let id = value["id"] as? Int
         else {
             return nil
         }
@@ -52,6 +54,7 @@ class TaskModel
         self.checked = checked
         self.date = formatter.date(from: date) ?? Date()
         self.uuid = UUID(uuidString: uuid)
+        self.id = id
     }
     
     func toDic() -> [String: Any] {
@@ -63,7 +66,8 @@ class TaskModel
             "text": text,
             "date": formatter.string(from: date),
             "checked": checked,
-            "uuid": uuid!.uuidString
+            "uuid": uuid!.uuidString,
+            "id": id
         ]
     }
 }
