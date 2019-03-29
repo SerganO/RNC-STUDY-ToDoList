@@ -13,7 +13,7 @@ import FBSDKShareKit
 import FacebookLogin
 
 
-class TableViewController: UITableViewController, AddViewControllerDelegate{
+class TableViewController: UITableViewController, AddViewControllerDelegate, GIDSignInUIDelegate{
 
     
     var checkedGroup = [TaskModel]();
@@ -48,22 +48,9 @@ class TableViewController: UITableViewController, AddViewControllerDelegate{
             self.present(alert, animated: true)
             return
         }
-       //var k = UIBarButtonItem(image: UIImage(named:"Facebook"), style: .plain, target: self, action: #selector(addAccount))
-//        k.image = #imageLiteral(resourceName: "GoogleIcon")
-        //let b = UIButton(frame: .zero)
-       // b.setImage(UIImage(named:"GoogleIcon"), for: .normal)
-        //let item = UIBarButtonItem(customView: b)
-        //let currWidth = item.customView?.widthAnchor.constraint(equalToConstant: 24)
-        //let currHeight = item.customView?.heightAnchor.constraint(equalToConstant: 24)
-        //currWidth?.isActive = true
-        //currHeight?.isActive = true
-        //item.customView?.translatesAutoresizingMaskIntoConstraints = false
-        
-        //navigationItem.leftBarButtonItem = item
-        //navigationItem.leftBarButtonItems?.append(item)
         
         let b = UIButton(frame: .zero)
-        
+        b.tag = 123
         if AuthorizationManager.shared.sync {
             b.setImage(UIImage(named:"Done"), for: .normal)
         } else if AuthorizationManager.shared.facebookId == "" {
@@ -79,13 +66,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate{
         currWidth?.isActive = true
         currHeight?.isActive = true
         navigationItem.rightBarButtonItems?.append(item)
-        /*if(AuthorizationManager.shared.facebookId == "" ) {
-            navigationItem.rightBarButtonItems?.append(UIBarButtonItem(image: UIImage(named:"Facebook"), style: .plain, target: self, action: #selector(addAccount)))
-        } else {
-            
-            navigationItem.rightBarButtonItems?.append(UIBarButtonItem(image: UIImage(named:"GoogleIcon"), style: .plain, target: self, action: #selector(addAccount)))
-            
-        }*/
         
         
         
@@ -130,6 +110,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate{
             if AuthorizationManager.shared.id == ""
             {
                 AuthorizationManager.shared.add = true
+                GIDSignIn.sharedInstance()?.uiDelegate = self
                 GIDSignIn.sharedInstance().signIn()
             }
             
