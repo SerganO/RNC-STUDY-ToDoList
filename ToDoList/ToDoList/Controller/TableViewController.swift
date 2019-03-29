@@ -68,7 +68,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         
         
         
-        FirebaseManager.shared.ref.child("tasks").queryOrdered(byChild: "date").observe(.value, with : {
+        FirebaseManager.shared.ref.child("tasks").observe(.value, with : {
             snapshot in
             
             var tmpUncheck: [TaskModel] = []
@@ -93,6 +93,34 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             self.tableView.reloadData()
         })
     }
+    
+    
+    
+    @IBAction func startEditing(_ sender: Any) {
+        isEditing = !isEditing
+    }
+    
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        if sourceIndexPath.section == 0 {
+            let itemToMove = uncheckedGroup[sourceIndexPath.row]
+            uncheckedGroup.remove(at: sourceIndexPath.row)
+            uncheckedGroup.insert(itemToMove, at: destinationIndexPath.row)
+        } else {
+            let itemToMove = checkedGroup[sourceIndexPath.row]
+            checkedGroup.remove(at: sourceIndexPath.row)
+            checkedGroup.insert(itemToMove, at: destinationIndexPath.row)
+        }
+        
+        
+        
+    }
+    
     
     @objc func addAccount() {
         if !AuthorizationManager.shared.sync {
