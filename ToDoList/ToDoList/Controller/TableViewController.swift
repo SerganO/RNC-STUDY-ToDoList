@@ -50,7 +50,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         }
         
         let b = UIButton(frame: .zero)
-        b.tag = 123
         if AuthorizationManager.shared.sync {
             b.setImage(UIImage(named:"Done"), for: .normal)
         } else if AuthorizationManager.shared.facebookId == "" {

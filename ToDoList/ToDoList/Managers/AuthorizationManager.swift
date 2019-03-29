@@ -132,21 +132,21 @@ class AuthorizationManager{
         AuthorizationManager.shared.facebookId = userID
         FirebaseManager.shared.MainRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
-            FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).observeSingleEvent(of: .value, with: { (snapshot2) in
-            if snapshot2.exists() {
-                FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(snapshot2.value as! String)
-                AuthorizationManager.shared.userUuid = snapshot2.value as! String
-                AuthorizationManager.shared.sync = snapshot.childSnapshot(forPath: "users").childSnapshot(forPath: AuthorizationManager.shared.userUuid).childSnapshot(forPath: "sync").value as! Bool
-            }
-            else{
-                let uuid = UUID().uuidString
-                FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).setValue(uuid)
-                FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(uuid)
-                FirebaseManager.shared.ref.child("sync").setValue(false)
-                AuthorizationManager.shared.userUuid = uuid
+                FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).observeSingleEvent(of: .value, with: { (snapshot2) in
+                if snapshot2.exists() {
+                    FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(snapshot2.value as! String)
+                    AuthorizationManager.shared.userUuid = snapshot2.value as! String
+                    AuthorizationManager.shared.sync = snapshot.childSnapshot(forPath: "users").childSnapshot(forPath:  AuthorizationManager.shared.userUuid).childSnapshot(forPath: "sync").value as! Bool
+                }
+                else{
+                    let uuid = UUID().uuidString
+                    FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).setValue(uuid)
+                    FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(uuid)
+                    FirebaseManager.shared.ref.child("sync").setValue(false)
+                    AuthorizationManager.shared.userUuid = uuid
                 
-            }
-            completion()
+                }
+                completion()
             })
         })
     }
