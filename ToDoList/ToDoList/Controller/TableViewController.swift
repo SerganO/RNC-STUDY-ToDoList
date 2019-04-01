@@ -110,8 +110,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             }
             self.uncheckedGroup = tmpUncheck
             self.checkedGroup = tmpCheck
-            //self.uncheckedGroup.reverse()
-           // self.checkedGroup.reverse()
             self.tableView.reloadData()
         })
         updateId()
@@ -316,35 +314,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             return "Complete"
         }
     }
-    
-    
-    /*override func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Task",for: indexPath)
-        
-        if indexPath.section == 0 {
-            let item = uncheckedGroup[indexPath.row]
-            let label = cell.viewWithTag(1000) as! UILabel
-            let checkBox = cell.viewWithTag(999) as! UIImageView
-            label.text = item.text
-            label.textColor = .black
-            checkBox.image = #imageLiteral(resourceName: "Uncheck")
-         } else {
-            let item = checkedGroup[indexPath.row]
-            let label = cell.viewWithTag(1000) as! UILabel
-            let checkBox = cell.viewWithTag(999) as! UIImageView
-            checkBox.image = #imageLiteral(resourceName: "Check")
-            label.text = item.text
-            label.textColor = .lightGray
-        }
-        
-        let v =  UIView()
-        v.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        v.backgroundColor = .green
-        cell.accessoryView = v
-        
-        return cell
-    }*/
-    
+  
     override func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Task",for: indexPath) as! TaskCell
         
@@ -415,7 +385,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         return [deleteAction,editAction]
     }
     
-    //override func tableView(editingStyleForRowAtIndexPath)
     
     
 }
