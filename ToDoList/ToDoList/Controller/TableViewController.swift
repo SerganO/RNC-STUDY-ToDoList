@@ -39,6 +39,10 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         return UITableViewCell.EditingStyle.none
     }
     
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,7 +76,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         let currHeight = item.customView?.heightAnchor.constraint(equalToConstant: 24)
         currWidth?.isActive = true
         currHeight?.isActive = true
-        navigationItem.rightBarButtonItems?.append(item)
+        navigationItem.leftBarButtonItems?.append(item)
         
         let r = UIButton(frame: .zero)
         r.setImage(UIImage(named:"Reorder"), for: .normal)
@@ -82,7 +86,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         let currHeightR = itemR.customView?.heightAnchor.constraint(equalToConstant: 24)
         currWidthR?.isActive = true
         currHeightR?.isActive = true
-        navigationItem.leftBarButtonItems?.append(itemR)
+        navigationItem.rightBarButtonItems?.append(itemR)
         
         
         
@@ -158,8 +162,14 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         }
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.showsReorderControl = false
+        return true
+    }
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        
         return true
     }
     
@@ -179,6 +189,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         } else {
             tableView.reloadData()
         }
+        
     }
     
     
@@ -307,7 +318,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     }
     
     
-    override func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    /*override func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Task",for: indexPath)
         
         if indexPath.section == 0 {
@@ -326,6 +337,28 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             label.textColor = .lightGray
         }
         
+        let v =  UIView()
+        v.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        v.backgroundColor = .green
+        cell.accessoryView = v
+        
+        return cell
+    }*/
+    
+    override func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Task",for: indexPath) as! TaskCell
+        
+        if indexPath.section == 0 {
+            let item = uncheckedGroup[indexPath.row]
+            cell.taskLabel.text = item.text
+            cell.taskLabel.textColor = .black
+            cell.checkImage.image = #imageLiteral(resourceName: "Uncheck")
+        } else {
+            let item = checkedGroup[indexPath.row]
+            cell.checkImage.image = #imageLiteral(resourceName: "Check")
+            cell.taskLabel.text = item.text
+            cell.taskLabel.textColor = .lightGray
+        }
         return cell
     }
     
@@ -354,7 +387,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             let indexPaths = [indexPath]
             tableView.deleteRows(at: indexPaths, with: .automatic)
         }
-        updateId()
     }
 
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
