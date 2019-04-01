@@ -12,7 +12,6 @@ import GoogleSignIn
 import FBSDKShareKit
 import FacebookLogin
 
-
 class TableViewController: UITableViewController, AddViewControllerDelegate, GIDSignInUIDelegate{
 
     
