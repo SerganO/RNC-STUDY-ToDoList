@@ -34,8 +34,16 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         }
     }
     
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
+    {
+        return UITableViewCell.EditingStyle.none
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setEditing(false, animated: true)//////////////
+        
         
         if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "")
         {
@@ -102,6 +110,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
            // self.checkedGroup.reverse()
             self.tableView.reloadData()
         })
+        updateId()
     }
     
     
@@ -140,6 +149,15 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         }
     }
     
+    func incChId() {
+        var i = 1
+        for task in checkedGroup {
+            FirebaseManager.shared.editTask(task, editItem: ["id":i])
+            task.id = i
+            i = i+1
+        }
+    }
+    
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -147,19 +165,20 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-        if sourceIndexPath.section == 0 {
-            let itemToMove = uncheckedGroup[sourceIndexPath.row]
-            uncheckedGroup.remove(at: sourceIndexPath.row)
-            uncheckedGroup.insert(itemToMove, at: destinationIndexPath.row)
+        if(sourceIndexPath.section == destinationIndexPath.section) {
+            if sourceIndexPath.section == 0 {
+                let itemToMove = uncheckedGroup[sourceIndexPath.row]
+                uncheckedGroup.remove(at: sourceIndexPath.row)
+                uncheckedGroup.insert(itemToMove, at: destinationIndexPath.row)
+            } else {
+            
+                let itemToMove = checkedGroup[sourceIndexPath.row]
+                checkedGroup.remove(at: sourceIndexPath.row)
+                checkedGroup.insert(itemToMove, at: destinationIndexPath.row)
+            }
         } else {
-            let itemToMove = checkedGroup[sourceIndexPath.row]
-            checkedGroup.remove(at: sourceIndexPath.row)
-            checkedGroup.insert(itemToMove, at: destinationIndexPath.row)
+            tableView.reloadData()
         }
-        
-        
-        
     }
     
     
@@ -313,14 +332,18 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let task = uncheckedGroup[indexPath.row]
+            incChId()
             task.Check()
+            FirebaseManager.shared.editTask(task, editItem: ["id":0])
             FirebaseManager.shared.editTask(task, editItem: ["checked":true])
             uncheckedGroup.remove(at: indexPath.row)
             let indexPaths = [indexPath]
             tableView.deleteRows(at: indexPaths, with: .automatic)
         } else {
             let task = checkedGroup[indexPath.row]
+            incId()
             task.Check()
+            FirebaseManager.shared.editTask(task, editItem: ["id":0])
             FirebaseManager.shared.editTask(task,editItem: ["checked":false] )
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
@@ -359,5 +382,8 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         
         return [deleteAction,editAction]
     }
+    
+    //override func tableView(editingStyleForRowAtIndexPath)
+    
     
 }
