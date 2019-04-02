@@ -171,7 +171,7 @@
                                         </constraints>
                                         <state key="normal" title="Set"/>
                                         <connections>
-                                            <action selector="showDatePicker" destination="P6n-J6-B55" eventType="touchUpInside" id="1dz-cC-VEM"/>
+                                            <segue destination="a1t-Qu-dNA" kind="presentation" id="pyO-kL-1dl"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -246,6 +246,67 @@
                 </view>
             </objects>
             <point key="canvasLocation" x="1445.625" y="0.0"/>
+        </scene>
+        <!--DatePickerPopUp-->
+        <scene sceneID="WyF-IJ-fYw">
+            <objects>
+                <viewController title="DatePickerPopUp" id="a1t-Qu-dNA" customClass="DateController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WLL-4c-Zuf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JfK-Ce-JJC">
+                                <rect key="frame" x="10" y="258" width="300" height="300"/>
+                                <subviews>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="w7z-mQ-ILy">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="216"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="575908444.07147098">
+                                            <!--2019-04-02 14:34:04 +0000-->
+                                        </date>
+                                    </datePicker>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKV-22-KiT">
+                                        <rect key="frame" x="126" y="266" width="48" height="30"/>
+                                        <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="Cancel:" destination="a1t-Qu-dNA" eventType="touchUpInside" id="y1g-PF-7Ff"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouv-rb-em3">
+                                        <rect key="frame" x="135" y="226" width="30" height="30"/>
+                                        <state key="normal" title="Ok"/>
+                                        <connections>
+                                            <action selector="ok:" destination="a1t-Qu-dNA" eventType="touchUpInside" id="ifX-Ie-LbX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ouv-rb-em3" firstAttribute="top" secondItem="w7z-mQ-ILy" secondAttribute="bottom" constant="10" id="0xN-U4-lNH"/>
+                                    <constraint firstItem="ouv-rb-em3" firstAttribute="centerX" secondItem="JfK-Ce-JJC" secondAttribute="centerX" id="1O8-JE-xQu"/>
+                                    <constraint firstAttribute="height" constant="300" id="B8i-hO-cJ8"/>
+                                    <constraint firstAttribute="trailing" secondItem="w7z-mQ-ILy" secondAttribute="trailing" id="D4d-4a-UoN"/>
+                                    <constraint firstItem="w7z-mQ-ILy" firstAttribute="top" secondItem="JfK-Ce-JJC" secondAttribute="top" id="K7A-AW-mRh"/>
+                                    <constraint firstItem="NKV-22-KiT" firstAttribute="centerX" secondItem="JfK-Ce-JJC" secondAttribute="centerX" id="NW5-qa-jK7"/>
+                                    <constraint firstItem="w7z-mQ-ILy" firstAttribute="leading" secondItem="JfK-Ce-JJC" secondAttribute="leading" id="SJw-Kw-hZq"/>
+                                    <constraint firstItem="NKV-22-KiT" firstAttribute="top" secondItem="ouv-rb-em3" secondAttribute="bottom" constant="10" id="mGI-yQ-fLG"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JfK-Ce-JJC" firstAttribute="leading" secondItem="emj-NJ-hVo" secondAttribute="leading" constant="10" id="NA9-rL-A5I"/>
+                            <constraint firstItem="emj-NJ-hVo" firstAttribute="bottom" secondItem="JfK-Ce-JJC" secondAttribute="bottom" constant="10" id="YtQ-fN-Sx8"/>
+                            <constraint firstItem="emj-NJ-hVo" firstAttribute="trailing" secondItem="JfK-Ce-JJC" secondAttribute="trailing" constant="10" id="ZWw-2X-xir"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="emj-NJ-hVo"/>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="w7z-mQ-ILy" id="ENA-EF-nnY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jim-8h-4ve" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2193.75" y="0.0"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="SN6-zS-SEj">
