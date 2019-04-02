@@ -268,7 +268,12 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
         let date = formatter.string(from: Date())
+        var notDate = ""
+        if let nD = task.notificationDate {
+            notDate = formatter.string(from: nD)
+        }
         FirebaseManager.shared.editTask(task, editItem: ["text":task.text])
+        FirebaseManager.shared.editTask(task, editItem: ["notificationDate":notDate])
         FirebaseManager.shared.editTask(task, editItem: ["date":date])
         navigationController?.popViewController(animated:true)
     }

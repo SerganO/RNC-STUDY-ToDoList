@@ -23,10 +23,14 @@ class AddViewController: UIViewController, UITextViewDelegate {
 
     weak var delegate: AddViewControllerDelegate?
     
+    @IBOutlet weak var setDateButton: UIButton!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
+    @IBOutlet weak var DateViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var shouldRemindSwitch: UISwitch!
     @IBOutlet weak var dueDateLabel: UILabel!
+    
     var datePicker = UIDatePicker()
     let toolBar = UIToolbar()
     
@@ -42,10 +46,11 @@ class AddViewController: UIViewController, UITextViewDelegate {
     
     var textViewFrame: CGRect?
     var keyboardHeight: CGFloat = 0.0
+    var DateHeight: CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        dueDateLabel.isHidden = true
         let bar = UIToolbar()
         let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let hide = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(hideTapped))
@@ -71,9 +76,27 @@ class AddViewController: UIViewController, UITextViewDelegate {
             title = "Edit"
             textView.text = task.text
             doneBarButton.isEnabled = true
-            shouldRemindSwitch.isOn = task.shouldRemind
-            dueDate = task.notificationDate
+            if let nd = task.notificationDate {
+                shouldRemindSwitch.isOn = true
+                dueDate = nd
+            } else {
+                dueDate = Date()
+            }
         }
+        if shouldRemindSwitch.isOn {
+            print("On")
+            DateViewHeight.constant = 30
+            dueDateLabel.isHidden = false
+            dateLabel.isHidden = false
+            setDateButton.isHidden = false
+        } else {
+            print("Of")
+            DateViewHeight.constant = 0
+            dueDateLabel.isHidden = true
+            dateLabel.isHidden = true
+            setDateButton.isHidden = true
+        }
+        self.view.layoutIfNeeded()
         updateDueDateLabel()
     }
     
@@ -100,7 +123,22 @@ class AddViewController: UIViewController, UITextViewDelegate {
     @IBAction func cancel() {
         delegate?.addViewControllerDidCancel(self)
     }
-    
+    @IBAction func onOf() {
+        if shouldRemindSwitch.isOn {
+            print("On")
+            DateViewHeight.constant = 30
+            dueDateLabel.isHidden = false
+            dateLabel.isHidden = false
+            setDateButton.isHidden = false
+        } else {
+            print("Of")
+            DateViewHeight.constant = 0
+            dueDateLabel.isHidden = true
+            dateLabel.isHidden = true
+            setDateButton.isHidden = true
+        }
+         self.view.layoutIfNeeded()
+    }
     
     @IBAction func showDatePicker()
     {
@@ -143,7 +181,9 @@ class AddViewController: UIViewController, UITextViewDelegate {
         self.toolBar.isHidden = false*/
         
         let datePicker = UIDatePicker()
+        datePicker.locale = Locale(identifier: "en_GB")
         datePicker.datePickerMode = .dateAndTime
+        datePicker.minimumDate = Date()
         
         let alert = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
         alert.view.addSubview(datePicker)
@@ -184,8 +224,11 @@ class AddViewController: UIViewController, UITextViewDelegate {
         } else {
             if let task = taskToEdit {
                 task.text = textView.text
-                task.shouldRemind = shouldRemindSwitch.isOn
-                task.notificationDate = dueDate
+                if shouldRemindSwitch.isOn {
+                    task.notificationDate = dueDate
+                } else {
+                    task.notificationDate = nil
+                }
                 
                 
                 delegate?.addViewController(self, didFinishEditing: task)
@@ -194,8 +237,11 @@ class AddViewController: UIViewController, UITextViewDelegate {
                 task.text = textView.text
                 task.date = Date()
                 task.checked = false
-                task.shouldRemind = shouldRemindSwitch.isOn
-                task.notificationDate = dueDate
+                if shouldRemindSwitch.isOn {
+                    task.notificationDate = dueDate
+                } else {
+                    task.notificationDate = nil
+                }
                 delegate?.addViewController(self, didFinishAdding: task)
             }
         }
@@ -209,9 +255,12 @@ class AddViewController: UIViewController, UITextViewDelegate {
     
     func updateDueDateLabel() {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        dueDateLabel.text = formatter.string(from: dueDate)
+        formatter.dateStyle = .none
+        formatter.timeStyle = .long
+        formatter.dateFormat = "EEEEEEEE"
+        let c = formatter.string(from: dueDate).capitalized
+        formatter.dateFormat = "MMM d hh:mm"
+        dueDateLabel.text =  c + " " + formatter.string(from: dueDate)
     }
     
     /*func showDatePicker() {
