@@ -19,7 +19,18 @@ protocol AddViewControllerDelegate: class {
         didFinishEditing task: TaskModel)
 }
 
-class AddViewController: UIViewController, UITextViewDelegate {
+class AddViewController: UIViewController, UITextViewDelegate, DateControllerDelegate {
+    func dateControllerDidCancel(_ controller: DateController) {
+        dismiss(animated: true, completion: nil)
+
+    }
+    
+    func dateController(_ controller: DateController, dateSeting date: Date) {
+        dueDate = date
+        updateDueDateLabel()
+        dismiss(animated: true, completion: nil)
+    }
+    
 
     weak var delegate: AddViewControllerDelegate?
     
@@ -119,10 +130,10 @@ class AddViewController: UIViewController, UITextViewDelegate {
             self.view.layoutIfNeeded()
     }
     
-    
     @IBAction func cancel() {
         delegate?.addViewControllerDidCancel(self)
     }
+    
     @IBAction func onOf() {
         if shouldRemindSwitch.isOn {
             print("On")
@@ -140,80 +151,12 @@ class AddViewController: UIViewController, UITextViewDelegate {
          self.view.layoutIfNeeded()
     }
     
-    @IBAction func showDatePicker()
-    {
-        /*let alert = UIAlertController(title: "Set Date", message: "", preferredStyle: .alert)
+    override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
         
-        alert.addTextField { (textField) in
-            self.doDatePicker()
-            textField.inputView = self.datePicker
-            textField.inputAccessoryView = self.toolBar
+        if segue.identifier == "SetDate" {
+            let controller = segue.destination as! DateController
+            controller.delegate = self
         }
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        // 4. Present the alert.
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func doDatePicker(){
-        // DatePicker
-        // datePicker = UIDatePicker()
-        
-        self.datePicker = UIDatePicker(frame:CGRect(x: 0, y: self.view.frame.size.height - 220, width:self.view.frame.size.width, height: 216))
-        self.datePicker.backgroundColor = UIColor.white
-        datePicker.datePickerMode = .dateAndTime
-        
-        // ToolBar
-        
-        toolBar.barStyle = .default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
-        toolBar.sizeToFit()
-        
-        // Adding Button ToolBar
-        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneClick))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelClick))
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: true)
-        toolBar.isUserInteractionEnabled = true
-        
-        self.toolBar.isHidden = false*/
-        
-        let datePicker = UIDatePicker()
-        datePicker.locale = Locale(identifier: "en_GB")
-        datePicker.datePickerMode = .dateAndTime
-        datePicker.minimumDate = Date()
-        
-        let alert = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
-        alert.view.addSubview(datePicker)
-        let ok = UIAlertAction(title: "Ok", style: .default) { (action) in
-            self.dueDate = datePicker.date
-            self.updateDueDateLabel()
-        }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        
-        alert.addAction(ok)
-        alert.addAction(cancel)
-        
-        present(alert, animated: true, completion: nil)
-        
-    }
-    
-    
-    @objc func doneClick() {
-        let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateStyle = .medium
-        dateFormatter1.timeStyle = .none
-        
-        datePicker.isHidden = true
-        self.toolBar.isHidden = true
-    }
-    
-    @objc func cancelClick() {
-        datePicker.isHidden = true
-        self.toolBar.isHidden = true
     }
     
     @IBAction func done() {
@@ -252,7 +195,6 @@ class AddViewController: UIViewController, UITextViewDelegate {
         textView.becomeFirstResponder()
     }
 
-    
     func updateDueDateLabel() {
         let formatter = DateFormatter()
         formatter.dateStyle = .none
@@ -262,12 +204,6 @@ class AddViewController: UIViewController, UITextViewDelegate {
         formatter.dateFormat = "MMM d hh:mm"
         dueDateLabel.text =  c + " " + formatter.string(from: dueDate)
     }
-    
-    /*func showDatePicker() {
-        datePickerVisible = true
-    }*/
-    
-    
     
     deinit {
         NotificationCenter.default.removeObserver(self)

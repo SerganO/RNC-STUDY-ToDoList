@@ -171,7 +171,7 @@
                                         </constraints>
                                         <state key="normal" title="Set"/>
                                         <connections>
-                                            <segue destination="a1t-Qu-dNA" kind="presentation" id="pyO-kL-1dl"/>
+                                            <segue destination="a1t-Qu-dNA" kind="presentation" identifier="SetDate" id="pyO-kL-1dl"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -292,7 +292,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="JfK-Ce-JJC" firstAttribute="leading" secondItem="emj-NJ-hVo" secondAttribute="leading" constant="10" id="NA9-rL-A5I"/>
                             <constraint firstItem="emj-NJ-hVo" firstAttribute="bottom" secondItem="JfK-Ce-JJC" secondAttribute="bottom" constant="10" id="YtQ-fN-Sx8"/>

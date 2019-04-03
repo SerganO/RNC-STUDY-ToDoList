@@ -8,14 +8,30 @@
 
 import UIKit
 
+protocol DateControllerDelegate: class {
+    func dateControllerDidCancel(
+        _ controller: DateController)
+    func dateController(
+        _ controller: DateController,
+        dateSeting date: Date)
+}
+
+
 class DateController: UIViewController {
 
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        modalPresentationStyle = .custom
+        transitioningDelegate = self
+    }
+    
+    
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBAction func ok(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        delegate?.dateController(self, dateSeting: datePicker.date)
     }
     @IBAction func Cancel(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        delegate?.dateControllerDidCancel(self)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,16 +39,21 @@ class DateController: UIViewController {
         datePicker.datePickerMode = .dateAndTime
         datePicker.minimumDate = Date()
     }
+    weak var delegate: DateControllerDelegate?
+
+
+}
+
+
+extension DateController:
+UIViewControllerTransitioningDelegate {
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?, source: UIViewController) ->
+        UIPresentationController? {
+            return TransparentPresentationController(
+                presentedViewController: presented,
+                presenting: presenting)
     }
-    */
-
 }
