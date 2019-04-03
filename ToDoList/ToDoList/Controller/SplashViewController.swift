@@ -23,6 +23,7 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
         DispatchQueue.main.async {
             self.view.addSubview(ai)
         }
+        NotificationManager.shared.removeAllNotification()
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import UserNotifications
 
 class TaskModel
 {
@@ -22,6 +23,31 @@ class TaskModel
     func Check(){
         checked = !checked
     }
+    
+    /*func addNotification() {
+        removeNotification()
+        if let n = notificationDate, n > Date() {
+            let content = UNMutableNotificationContent()
+            content.title = "Reminder:"
+            content.body = text
+            content.sound = UNNotificationSound.default
+            
+            let calendar = Calendar(identifier: .gregorian)
+            let components = calendar.dateComponents([.year, .month,.day,.hour,.minute], from: n)
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: uuid!.uuidString, content: content, trigger: trigger)
+            
+            let center = UNUserNotificationCenter.current()
+            center.add(request)
+        }
+    }
+    
+    func removeNotification() {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: [uuid!.uuidString])
+    }*/
     
     init(text: String, date: Date){
         self.text = text
@@ -87,6 +113,10 @@ class TaskModel
             "uuid": uuid!.uuidString,
             "id": id
         ]
+    }
+    
+    deinit {
+        NotificationManager.shared.removeNotification(self)
     }
 }
 

@@ -32,6 +32,7 @@ class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDel
         super.viewDidLoad()
         configureGoogleSignInButton()
         configureFacebookButton()
+        NotificationManager.shared.removeAllNotification()
     }
     
     func configureFacebookButton() {

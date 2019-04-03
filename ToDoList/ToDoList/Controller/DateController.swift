@@ -48,12 +48,7 @@ class DateController: UIViewController {
 extension DateController:
 UIViewControllerTransitioningDelegate {
     
-    func presentationController(
-        forPresented presented: UIViewController,
-        presenting: UIViewController?, source: UIViewController) ->
-        UIPresentationController? {
-            return TransparentPresentationController(
-                presentedViewController: presented,
-                presenting: presenting)
+    func presentationController(forPresented presented: UIViewController,presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+            return TransparentPresentationController(presentedViewController: presented,presenting: presenting)
     }
 }

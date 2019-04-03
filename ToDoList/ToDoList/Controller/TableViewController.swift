@@ -104,6 +104,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
                     } else {
                         tmpCheck.append(task)
                     }
+                    NotificationManager.shared.addNotification(task)
                 }
                 
             }
@@ -244,6 +245,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             print ("Error signing out: %@", signOutError)
         }
         AuthorizationManager.shared.id = ""
+        NotificationManager.shared.removeAllNotification()
         navigationController?.popViewController(animated: true)
     }
     
@@ -259,6 +261,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         task.id = 0
         incId()
         FirebaseManager.shared.addTask(task)
+        NotificationManager.shared.addNotification(task)
         navigationController?.popViewController(animated: true)
         
     }
@@ -275,6 +278,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         FirebaseManager.shared.editTask(task, editItem: ["text":task.text])
         FirebaseManager.shared.editTask(task, editItem: ["notificationDate":notDate])
         FirebaseManager.shared.editTask(task, editItem: ["date":date])
+        NotificationManager.shared.addNotification(task)
         navigationController?.popViewController(animated:true)
     }
     

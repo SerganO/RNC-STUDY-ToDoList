@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 protocol AddViewControllerDelegate: class {
     func addViewControllerDidCancel(
@@ -38,23 +39,14 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
     @IBOutlet weak var DateViewHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var shouldRemindSwitch: UISwitch!
     @IBOutlet weak var dueDateLabel: UILabel!
-    
-    var datePicker = UIDatePicker()
-    let toolBar = UIToolbar()
-    
-    var datePickerVisible = false
-    
-    var dueDate = Date()
-    
-    var taskToEdit: TaskModel?
-    
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
-    
     @IBOutlet weak var textView: UITextView!
     
+    
+    var dueDate = Date()
+    var taskToEdit: TaskModel?
     var textViewFrame: CGRect?
     var keyboardHeight: CGFloat = 0.0
     var DateHeight: CGFloat = 0.0
@@ -136,6 +128,15 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     
     @IBAction func onOf() {
         if shouldRemindSwitch.isOn {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound]) {
+                granted, error in
+                
+            }
+        }
+        
+        
+        if shouldRemindSwitch.isOn {
             print("On")
             DateViewHeight.constant = 30
             dueDateLabel.isHidden = false
@@ -197,6 +198,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
 
     func updateDueDateLabel() {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_GB")
         formatter.dateStyle = .none
         formatter.timeStyle = .long
         formatter.dateFormat = "EEEEEEEE"
