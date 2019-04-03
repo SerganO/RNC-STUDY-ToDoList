@@ -14,6 +14,7 @@ class NotificationManager {
     
     func addNotification(_ task: TaskModel) {
         NotificationManager.shared.removeNotification(task)
+        
         if let n = task.notificationDate, n > Date() {
             let content = UNMutableNotificationContent()
             content.title = "To Do List:"

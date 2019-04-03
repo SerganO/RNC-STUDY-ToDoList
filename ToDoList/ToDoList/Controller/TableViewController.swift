@@ -14,6 +14,7 @@ import FacebookLogin
 
 class TableViewController: UITableViewController, AddViewControllerDelegate, GIDSignInUIDelegate{
 
+    var firstStart = true
     
     var checkedGroup = [TaskModel]();
     var uncheckedGroup = [TaskModel]();
@@ -104,13 +105,23 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
                     } else {
                         tmpCheck.append(task)
                     }
-                    NotificationManager.shared.addNotification(task)
+                    
                 }
                 
             }
             self.uncheckedGroup = tmpUncheck
             self.checkedGroup = tmpCheck
             self.tableView.reloadData()
+            
+            if self.firstStart {
+                for task in self.uncheckedGroup {
+                    NotificationManager.shared.addNotification(task)
+                }
+                for task in self.checkedGroup {
+                    NotificationManager.shared.addNotification(task)
+                }
+                self.firstStart = false
+            }
         })
         updateId()
     }
@@ -380,11 +391,13 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
                 FirebaseManager.shared.deleteTask(task)
                 FirebaseManager.shared.ref.child(task.uuid!.uuidString).removeValue()
                 self.uncheckedGroup.remove(at: indexPath.row)
+                 NotificationManager.shared.removeNotification(task)
             } else {
                 let task = self.checkedGroup[indexPath.row]
                 FirebaseManager.shared.deleteTask(task)
                 FirebaseManager.shared.ref.child(task.uuid!.uuidString).removeValue()
                 self.checkedGroup.remove(at: indexPath.row)
+                NotificationManager.shared.removeNotification(task)
             }
             let indexPaths = [indexPath]
             tableView.deleteRows(at: indexPaths, with: .automatic)

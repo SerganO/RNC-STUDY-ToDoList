@@ -115,9 +115,9 @@ class TaskModel
         ]
     }
     
-    deinit {
+    /*deinit {
         NotificationManager.shared.removeNotification(self)
-    }
+    }*/
 }
 
 
