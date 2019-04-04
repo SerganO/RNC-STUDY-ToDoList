@@ -20,7 +20,7 @@ class TaskModel
     let uuid: UUID?
     
     
-    func Check(){
+    func Check() {
         checked = !checked
     }
     
@@ -49,14 +49,14 @@ class TaskModel
         center.removePendingNotificationRequests(withIdentifiers: [uuid!.uuidString])
     }*/
     
-    init(text: String, date: Date){
+    init(text: String, date: Date) {
         self.text = text
         self.date = date
         checked = false
         uuid = UUID()
     }
     
-    init(text: String, notificationDate: Date){
+    init(text: String, notificationDate: Date) {
         self.text = text
         self.notificationDate = notificationDate
         self.date = Date()
@@ -64,7 +64,7 @@ class TaskModel
         uuid = UUID()
     }
     
-    init(){
+    init() {
         text = ""
         date = Date()
         checked = false
@@ -72,8 +72,7 @@ class TaskModel
     }
     
     
-    init?(snapshot: DataSnapshot)
-    {
+    init?(snapshot: DataSnapshot) {
         
         guard
         let value = snapshot.value as? [String:AnyObject],

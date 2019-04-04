@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 import GoogleSignIn
 
-class AuthorizationManager{
+class AuthorizationManager {
     static let shared = AuthorizationManager()
     var id = ""
     var facebookId = ""
@@ -19,6 +19,7 @@ class AuthorizationManager{
     var navigationHandler: (()-> Void)?
     var add = false
     var sync = false
+    
     public func checkGoogleAuth(_ completion : @escaping (Bool)-> Void)
     {
         if let result = GIDSignIn.sharedInstance()?.hasAuthInKeychain(), result {
@@ -31,8 +32,7 @@ class AuthorizationManager{
         }
     }
     
-    public func signS(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-                     withError error: Error!) {
+    public func signS(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if add {
             AuthorizationManager.shared.addGoogle(signIn, didSignInFor: user, withError: error)
             AuthorizationManager.shared.add = false
@@ -68,8 +68,7 @@ class AuthorizationManager{
         
     }
     
-    public func facebookSignInS(_ userID: String, completion : @escaping ()-> Void)
-    {
+    public func facebookSignInS(_ userID: String, completion : @escaping ()-> Void) {
         AuthorizationManager.shared.facebookId = userID
         FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -78,7 +77,7 @@ class AuthorizationManager{
                 AuthorizationManager.shared.userUuid = snapshot.value as! String
                 self.checkSync()
             }
-            else{
+            else {
                 let uuid = UUID().uuidString
                 FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).setValue(uuid)
                 FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(uuid)
@@ -115,7 +114,7 @@ class AuthorizationManager{
     
     func checkSync() {
         
-        if !AuthorizationManager.shared.add{
+        if !AuthorizationManager.shared.add {
             FirebaseManager.shared.MainRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 AuthorizationManager.shared.sync = snapshot.childSnapshot(forPath: "users").childSnapshot(forPath: AuthorizationManager.shared.userUuid).childSnapshot(forPath: "sync").value as! Bool
             })
@@ -127,18 +126,15 @@ class AuthorizationManager{
     //FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).observeSingleEvent
     
     
-    public func facebookSignIn(_ userID: String, completion : @escaping ()-> Void)
-    {
+    public func facebookSignIn(_ userID: String, completion : @escaping ()-> Void) {
         AuthorizationManager.shared.facebookId = userID
         FirebaseManager.shared.MainRef.observeSingleEvent(of: .value, with: { (snapshot) in
-            
-                FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).observeSingleEvent(of: .value, with: { (snapshot2) in
+             FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).observeSingleEvent(of: .value, with: { (snapshot2) in
                 if snapshot2.exists() {
                     FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(snapshot2.value as! String)
                     AuthorizationManager.shared.userUuid = snapshot2.value as! String
                     AuthorizationManager.shared.sync = snapshot.childSnapshot(forPath: "users").childSnapshot(forPath:  AuthorizationManager.shared.userUuid).childSnapshot(forPath: "sync").value as! Bool
-                }
-                else{
+                } else {
                     let uuid = UUID().uuidString
                     FirebaseManager.shared.MainRef.child("Identifier").child("FacebookID").child(userID).setValue(uuid)
                     FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(uuid)
@@ -151,8 +147,7 @@ class AuthorizationManager{
         })
     }
     
-    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-                     withError error: Error!) {
+    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if add {
             AuthorizationManager.shared.addGoogle(signIn, didSignInFor: user, withError: error)
             AuthorizationManager.shared.add = false
@@ -166,23 +161,22 @@ class AuthorizationManager{
                 
                 FirebaseManager.shared.MainRef.observeSingleEvent(of: .value, with: { (snapshotS) in
                 
-                FirebaseManager.shared.MainRef.child("Identifier").child("GoogleID").child(user.userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    FirebaseManager.shared.MainRef.child("Identifier").child("GoogleID").child(user.userID).observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     
-                    if snapshot.exists() {
-                        FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(snapshot.value as! String)
-                        AuthorizationManager.shared.userUuid = snapshot.value as! String
-                         AuthorizationManager.shared.sync = snapshotS.childSnapshot(forPath: "users").childSnapshot(forPath: AuthorizationManager.shared.userUuid).childSnapshot(forPath: "sync").value as! Bool
-                    }
-                    else{
-                        let uuid = UUID().uuidString
-                        FirebaseManager.shared.MainRef.child("Identifier").child("GoogleID").child(user.userID).setValue(uuid)
-                        FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(uuid)
-                        FirebaseManager.shared.ref.child("sync").setValue(false)
-                        AuthorizationManager.shared.userUuid = uuid
-                    }
-                    AuthorizationManager.shared.navigationHandler?()
-                })
+                        if snapshot.exists() {
+                            FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(snapshot.value as! String)
+                            AuthorizationManager.shared.userUuid = snapshot.value as! String
+                            AuthorizationManager.shared.sync = snapshotS.childSnapshot(forPath: "users").childSnapshot(forPath: AuthorizationManager.shared.userUuid).childSnapshot(forPath: "sync").value as! Bool
+                        } else {
+                            let uuid = UUID().uuidString
+                            FirebaseManager.shared.MainRef.child("Identifier").child("GoogleID").child(user.userID).setValue(uuid)
+                            FirebaseManager.shared.ref = FirebaseManager.shared.MainRef.child("users").child(uuid)
+                            FirebaseManager.shared.ref.child("sync").setValue(false)
+                            AuthorizationManager.shared.userUuid = uuid
+                        }
+                        AuthorizationManager.shared.navigationHandler?()
+                    })
                 })
                 completionHandler?(true)
             }

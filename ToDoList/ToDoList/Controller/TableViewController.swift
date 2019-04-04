@@ -34,8 +34,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         }
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
-    {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return UITableViewCell.EditingStyle.none
     }
     
@@ -49,8 +48,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         self.setEditing(false, animated: true)//////////////
         
         
-        if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "")
-        {
+        if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "") {
             let alert = UIAlertController(title: "Error Auth", message: "Please Sign In", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler:{
                 action in
@@ -114,12 +112,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             self.tableView.reloadData()
             
             if self.firstStart {
-                for task in self.uncheckedGroup {
-                    NotificationManager.shared.addNotification(task)
-                }
-                for task in self.checkedGroup {
-                    NotificationManager.shared.addNotification(task)
-                }
+                NotificationManager.shared.sync(self.uncheckedGroup)
                 self.firstStart = false
             }
         })
@@ -358,6 +351,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             task.Check()
             FirebaseManager.shared.editTask(task, editItem: ["id":0])
             FirebaseManager.shared.editTask(task, editItem: ["checked":true])
+            NotificationManager.shared.removeNotification(task)
             uncheckedGroup.remove(at: indexPath.row)
             let indexPaths = [indexPath]
             tableView.deleteRows(at: indexPaths, with: .automatic)
@@ -367,6 +361,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             task.Check()
             FirebaseManager.shared.editTask(task, editItem: ["id":0])
             FirebaseManager.shared.editTask(task,editItem: ["checked":false] )
+            NotificationManager.shared.addNotification(task)
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             formatter.timeStyle = .medium
@@ -378,8 +373,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         }
     }
 
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
-    {
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?  {
         let editAction = UITableViewRowAction(style: .normal, title: "Edit" , handler: { (action:UITableViewRowAction, indexPath: IndexPath) -> Void in
             
             self.performSegue(withIdentifier: "EditTask", sender: tableView.cellForRow(at: indexPath))

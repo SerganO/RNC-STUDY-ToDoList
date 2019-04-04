@@ -15,14 +15,14 @@ class NotificationManager {
     func addNotification(_ task: TaskModel) {
         NotificationManager.shared.removeNotification(task)
         
-        if let n = task.notificationDate, n > Date() {
+        if let notDate = task.notificationDate, notDate > Date() {
             let content = UNMutableNotificationContent()
             content.title = "To Do List:"
             content.body = task.text
             content.sound = UNNotificationSound.default
             
             let calendar = Calendar(identifier: .gregorian)
-            let components = calendar.dateComponents([.year, .month,.day,.hour,.minute], from: n)
+            let components = calendar.dateComponents([.year, .month,.day,.hour,.minute], from: notDate)
             
             let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
             
@@ -43,5 +43,13 @@ class NotificationManager {
         let center = UNUserNotificationCenter.current()
         center.removeAllDeliveredNotifications()
         center.removeAllPendingNotificationRequests()
+    }
+    
+    func sync(_ uncheckedGroup: [TaskModel]) {
+        NotificationManager.shared.removeAllNotification()
+        
+        for task in uncheckedGroup {
+            NotificationManager.shared.addNotification(task)
+        }
     }
 }

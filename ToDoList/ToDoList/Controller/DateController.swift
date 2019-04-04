@@ -19,13 +19,15 @@ protocol DateControllerDelegate: class {
 
 class DateController: UIViewController {
 
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         modalPresentationStyle = .custom
+        modalTransitionStyle = .crossDissolve
         transitioningDelegate = self
     }
     
-    
+    @IBOutlet weak var datePickerView: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBAction func ok(_ sender: Any) {
         delegate?.dateController(self, dateSeting: datePicker.date)
@@ -35,6 +37,7 @@ class DateController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        datePickerView.layer.cornerRadius = 10
         datePicker.locale = Locale(identifier: "en_GB")
         datePicker.datePickerMode = .dateAndTime
         datePicker.minimumDate = Date()
