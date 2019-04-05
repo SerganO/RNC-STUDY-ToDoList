@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import MaterialComponents
 
 protocol AddViewControllerDelegate: class {
     func addViewControllerDidCancel(
@@ -44,15 +45,45 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textView: UITextView!
     
-    
     var dueDate = Date()
     var taskToEdit: TaskModel?
     var textViewFrame: CGRect?
     var keyboardHeight: CGFloat = 0.0
     var DateHeight: CGFloat = 0.0
+    let buttonScheme = MDCButtonScheme()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        /*let button = MDCButton()
+        button.setTitle("button", for: .normal)
+        button.setImage(UIImage(named: "Done"), for: .normal)
+        button.setBackgroundColor(UIColor.lightGray)
+        button.center.x = 10
+        button.center.y = 10
+        button.frame = setDateButton.frame*/
+        
+        let button1 = MDCButton()
+        
+        // Themed as a text button:
+        MDCTextButtonThemer.applyScheme(buttonScheme, to: button1)
+        let plusImage = UIImage(named: "Done")!.withRenderingMode(.alwaysTemplate)
+        let button = MDCFloatingButton()
+        button.setImage(plusImage, for: .normal)
+        MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: button)
+        button.setElevation(ShadowElevation(rawValue: 6), for: .normal)
+        button.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        
+        button.addTarget(self, action: #selector(MDCBUTTON_TEST), for: .touchUpInside)
+        
+        let itemR = UIBarButtonItem(customView: button)
+        let currWidthR = itemR.customView?.widthAnchor.constraint(equalToConstant: 24)
+        let currHeightR = itemR.customView?.heightAnchor.constraint(equalToConstant: 24)
+        currWidthR?.isActive = true
+        currHeightR?.isActive = true
+        navigationItem.rightBarButtonItems?.append(itemR)
+        
+        
+        
         dueDateLabel.isHidden = true
         let bar = UIToolbar()
         let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
@@ -106,6 +137,10 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     @objc func hideTapped()
     {
         textView.resignFirstResponder()
+    }
+    
+    @objc func MDCBUTTON_TEST() {
+        performSegue(withIdentifier: "SetDate", sender: self)
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
