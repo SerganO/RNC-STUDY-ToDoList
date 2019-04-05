@@ -12,7 +12,7 @@ import GoogleSignIn
 import FBSDKCoreKit
 import FacebookLogin
 
-class LogInViewController: UIViewController , GIDSignInUIDelegate,LoginButtonDelegate{
+class LogInViewController: UIViewController, GIDSignInUIDelegate, LoginButtonDelegate{
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         
         

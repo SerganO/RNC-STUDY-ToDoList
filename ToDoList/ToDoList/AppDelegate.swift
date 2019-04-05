@@ -6,30 +6,6 @@
 //  Copyright © 2019 Trainee. All rights reserved.
 //
 
-/*
- <key>CFBundleURLTypes</key>
- <array>
- <dict>
- <key>CFBundleURLSchemes</key>
- <array>
- <string>fb783081142073465</string>
- </array>
- </dict>
- </array>
- <key>FacebookAppID</key>
- <string>783081142073465</string>
- <key>FacebookDisplayName</key>
- <string>ToDoList</string>
- <key>LSApplicationQueriesSchemes</key>
- <array>
- <string>fbapi</string>
- <string>fb-messenger-share-api</string>
- <string>fbauth2</string>
- <string>fbshareextension</string>
- </array>
- 
- */
-
 import UIKit
 import Firebase
 import GoogleSignIn

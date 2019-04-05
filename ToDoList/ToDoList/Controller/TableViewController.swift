@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
-import FBSDKShareKit
+import FBSDKLoginKit
 import FacebookLogin
 
 class TableViewController: UITableViewController, AddViewControllerDelegate, GIDSignInUIDelegate{
