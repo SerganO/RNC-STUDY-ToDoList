@@ -36,6 +36,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
 
     weak var delegate: AddViewControllerDelegate?
     
+    @IBOutlet weak var dateView: UIView!
     @IBOutlet weak var setDateButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
@@ -51,6 +52,8 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     var keyboardHeight: CGFloat = 0.0
     var DateHeight: CGFloat = 0.0
     let buttonScheme = MDCButtonScheme()
+    var MBut = MDCFloatingButton()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,20 +70,21 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         // Themed as a text button:
         MDCTextButtonThemer.applyScheme(buttonScheme, to: button1)
         let plusImage = UIImage(named: "Done")!.withRenderingMode(.alwaysTemplate)
-        let button = MDCFloatingButton()
-        button.setImage(plusImage, for: .normal)
-        MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: button)
-        button.setElevation(ShadowElevation(rawValue: 6), for: .normal)
-        button.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-        
-        button.addTarget(self, action: #selector(MDCBUTTON_TEST), for: .touchUpInside)
-        
-        let itemR = UIBarButtonItem(customView: button)
+        MBut.setImage(plusImage, for: .normal)
+        MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: MBut)
+        MBut.setElevation(ShadowElevation(rawValue: 6), for: .normal)
+        MBut.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        MBut.addTarget(self, action: #selector(MDCBUTTON_TEST), for: .touchUpInside)
+        let itemR = UIBarButtonItem(customView: MBut)
         let currWidthR = itemR.customView?.widthAnchor.constraint(equalToConstant: 24)
         let currHeightR = itemR.customView?.heightAnchor.constraint(equalToConstant: 24)
         currWidthR?.isActive = true
         currHeightR?.isActive = true
-        navigationItem.rightBarButtonItems?.append(itemR)
+        let fr = CGRect(x: dateView.frame.width - 40, y: dateView.frame.height, width: 30, height: 30)
+        MBut.frame = fr
+        MBut.isHidden = true
+        dateView.addSubview(MBut)
+        //navigationItem.rightBarButtonItems?.append(itemR)
         
         
         
@@ -123,12 +127,14 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
             dueDateLabel.isHidden = false
             dateLabel.isHidden = false
             setDateButton.isHidden = false
+            MBut.isHidden = false
         } else {
             print("Of")
             DateViewHeight.constant = 0
             dueDateLabel.isHidden = true
             dateLabel.isHidden = true
             setDateButton.isHidden = true
+            MBut.isHidden = true
         }
         self.view.layoutIfNeeded()
         updateDueDateLabel()
@@ -177,12 +183,16 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
             dueDateLabel.isHidden = false
             dateLabel.isHidden = false
             setDateButton.isHidden = false
+            
+            MBut.isHidden = false
         } else {
             print("Of")
             DateViewHeight.constant = 0
             dueDateLabel.isHidden = true
             dateLabel.isHidden = true
             setDateButton.isHidden = true
+            
+            MBut.isHidden = true
         }
          self.view.layoutIfNeeded()
     }

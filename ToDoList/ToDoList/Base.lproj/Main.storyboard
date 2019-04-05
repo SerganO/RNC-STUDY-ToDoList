@@ -220,6 +220,7 @@
                     <connections>
                         <outlet property="DateViewHeight" destination="a4y-dC-oxm" id="ecT-7k-T3P"/>
                         <outlet property="dateLabel" destination="DGc-PH-zNC" id="MFU-wb-edU"/>
+                        <outlet property="dateView" destination="Jys-5c-cEk" id="Wu5-sJ-0yl"/>
                         <outlet property="doneBarButton" destination="Xun-gD-7mp" id="FUI-V7-XDg"/>
                         <outlet property="dueDateLabel" destination="YfB-Qx-BgJ" id="KW0-zA-14Y"/>
                         <outlet property="setDateButton" destination="zXw-4D-zYC" id="TFp-na-nlK"/>
@@ -256,10 +257,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JfK-Ce-JJC">
-                                <rect key="frame" x="10" y="258" width="320" height="300"/>
+                                <rect key="frame" x="10" y="258" width="300" height="300"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKV-22-KiT" customClass="ButtonWithBorder" customModule="ToDoList" customModuleProvider="target">
-                                        <rect key="frame" x="160" y="267" width="160" height="33"/>
+                                        <rect key="frame" x="150" y="267" width="150" height="33"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="CANCEL"/>
                                         <connections>
@@ -267,7 +268,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouv-rb-em3" customClass="ButtonWithBorder" customModule="ToDoList" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="267" width="160" height="33"/>
+                                        <rect key="frame" x="0.0" y="267" width="150" height="33"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="OK"/>
                                         <connections>
@@ -275,7 +276,7 @@
                                         </connections>
                                     </button>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="w7z-mQ-ILy">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="267"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="267"/>
                                         <date key="date" timeIntervalSinceReferenceDate="575908444.07147098">
                                             <!--2019-04-02 14:34:04 +0000-->
                                         </date>
