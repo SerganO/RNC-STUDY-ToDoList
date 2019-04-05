@@ -69,11 +69,12 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         
         // Themed as a text button:
         MDCTextButtonThemer.applyScheme(buttonScheme, to: button1)
-        let plusImage = UIImage(named: "Done")!.withRenderingMode(.alwaysTemplate)
+        let plusImage = UIImage(named: "Date")!.withRenderingMode(.alwaysTemplate)
         MBut.setImage(plusImage, for: .normal)
         MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: MBut)
         MBut.setElevation(ShadowElevation(rawValue: 6), for: .normal)
         MBut.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        MBut.setBackgroundColor(UIColor.green)
         MBut.addTarget(self, action: #selector(MDCBUTTON_TEST), for: .touchUpInside)
         let itemR = UIBarButtonItem(customView: MBut)
         let currWidthR = itemR.customView?.widthAnchor.constraint(equalToConstant: 24)
@@ -84,7 +85,6 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         MBut.frame = fr
         MBut.isHidden = true
         dateView.addSubview(MBut)
-        //navigationItem.rightBarButtonItems?.append(itemR)
         
         
         
