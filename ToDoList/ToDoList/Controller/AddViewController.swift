@@ -37,13 +37,13 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     weak var delegate: AddViewControllerDelegate?
     
     @IBOutlet weak var dateView: UIView!
-    @IBOutlet weak var setDateButton: UIButton!
+    @IBOutlet weak var setDateButton: MaterialButton!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
     @IBOutlet weak var DateViewHeight: NSLayoutConstraint!
     @IBOutlet weak var shouldRemindSwitch: UISwitch!
     @IBOutlet weak var dueDateLabel: UILabel!
-    @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    //@IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textView: UITextView!
     
     var dueDate = Date()
@@ -53,10 +53,65 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     var DateHeight: CGFloat = 0.0
     let buttonScheme = MDCButtonScheme()
     var MBut = MDCFloatingButton()
+    var MButN = MDCFloatingButton()
+    let dColorSheme = MDCSemanticColorScheme(defaults: .material201804)
+    let MNavigationBar = MDCNavigationBar()
     
     
+    
+    var appBarViewController = MDCAppBarViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
+        setDateButton.setTitle("", for: .normal)
+        MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: setDateButton)
+        setDateButton.translatesAutoresizingMaskIntoConstraints = false
+        //MDCTextButtonThemer.applyScheme(buttonScheme, to: setDateButton)
+        MBut.setElevation(ShadowElevation(rawValue: 6), for: .normal)
+        MBut.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
+        setDateButton.setImage(UIImage(named: "DropDown"),for: .normal)
+        setDateButton.backgroundColor = UIColor.lightGray
+        
+        
+        //self.navigationController?.navigationBar = appBarViewController
+        //appBarViewController.navigationBar.backgroundColor = UIColor(red: 255, green: 0, blue: 0, alpha: 1)
+        self.addChild(self.appBarViewController)
+        self.view.addSubview(self.appBarViewController.view)
+        //self.appBarViewController.didMove(toParent: self)
+        
+        
+        let backItemImage = UIImage(named: "Back")
+        let templatedBackItemImage = backItemImage?.withRenderingMode(.alwaysTemplate)
+        let backItem = UIBarButtonItem(image: templatedBackItemImage,
+                                       style: .plain,
+                                       target: self,
+                                       action: #selector(BackPressed))
+        self.navigationItem.leftBarButtonItem = backItem
+        
+        let doneItemImage = UIImage(named: "Done")
+        let templatedDoneItemImage = doneItemImage?.withRenderingMode(.alwaysTemplate)
+        let doneItem = UIBarButtonItem(image: templatedDoneItemImage,
+                                         style: .plain,
+                                         target: nil,
+                                         action: #selector(DonePressed))
+        self.navigationItem.rightBarButtonItem = doneItem
+        /*MButN.setImage(UIImage(named: "Date"), for: .normal)
+        MButN.addTarget(self, action: #selector(MDCBUTTON_TEST), for: .touchUpInside)
+        MButN.backgroundColor = UIColor.yellow
+        
+        MDCNavigationBarColorThemer.applySemanticColorScheme(dColorSheme, to: MNavigationBar)
+        MNavigationBar.title = "TITLE"
+        MNavigationBar.titleFont.withSize(20)
+        MNavigationBar.rightBarButtonItem = UIBarButtonItem(customView: MButN)
+        
+        MNavigationBar.frame = CGRect(x: 0, y: 60, width: view.frame.width, height: 60)
+        
+        view.addSubview(MNavigationBar)*/
+ 
+        
+        
+        
+        
+        
         /*let button = MDCButton()
         button.setTitle("button", for: .normal)
         button.setImage(UIImage(named: "Done"), for: .normal)
@@ -65,7 +120,12 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         button.center.y = 10
         button.frame = setDateButton.frame*/
         
-        let button1 = MDCButton()
+        
+        //setDateButton = setDateButton as! MDCButton
+        
+        
+        
+        /*let button1 = MDCButton()
         
         // Themed as a text button:
         MDCTextButtonThemer.applyScheme(buttonScheme, to: button1)
@@ -74,7 +134,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: MBut)
         MBut.setElevation(ShadowElevation(rawValue: 6), for: .normal)
         MBut.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-        MBut.setBackgroundColor(UIColor.green)
+        MBut.setBackgroundColor(UIColor.yellow)
         MBut.addTarget(self, action: #selector(MDCBUTTON_TEST), for: .touchUpInside)
         let itemR = UIBarButtonItem(customView: MBut)
         let currWidthR = itemR.customView?.widthAnchor.constraint(equalToConstant: 24)
@@ -84,7 +144,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         let fr = CGRect(x: dateView.frame.width - 40, y: dateView.frame.height, width: 30, height: 30)
         MBut.frame = fr
         MBut.isHidden = true
-        dateView.addSubview(MBut)
+        dateView.addSubview(MBut)*/
         
         
         
@@ -113,7 +173,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         if let task = taskToEdit {
             title = "Edit"
             textView.text = task.text
-            doneBarButton.isEnabled = true
+            //doneBarButton.isEnabled = true
             if let nd = task.notificationDate {
                 shouldRemindSwitch.isOn = true
                 dueDate = nd
@@ -147,6 +207,14 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     
     @objc func MDCBUTTON_TEST() {
         performSegue(withIdentifier: "SetDate", sender: self)
+    }
+    
+    @objc func BackPressed() {
+        cancel()
+    }
+    
+    @objc func DonePressed() {
+        done()
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {

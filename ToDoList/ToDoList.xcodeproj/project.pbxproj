@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		921416F9D623E8A2DC52B477 /* Pods_ToDoList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E4B09C52651E0ECB9A3A55 /* Pods_ToDoList.framework */; };
+		EC17BA51225B742E00558889 /* MaterialNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC17BA50225B742E00558889 /* MaterialNavigationController.swift */; };
+		EC17BA53225B7E7800558889 /* MaterialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC17BA52225B7E7800558889 /* MaterialButton.swift */; };
 		EC59701022315B1B0011F416 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC59700F22315B1B0011F416 /* AppDelegate.swift */; };
 		EC59701522315B1B0011F416 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC59701322315B1B0011F416 /* Main.storyboard */; };
 		EC59701722315B1B0011F416 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC59701622315B1B0011F416 /* Assets.xcassets */; };
@@ -31,6 +33,8 @@
 		B100B0206E2404466ADE1B60 /* Pods-ToDoList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.release.xcconfig"; path = "Target Support Files/Pods-ToDoList/Pods-ToDoList.release.xcconfig"; sourceTree = "<group>"; };
 		B3E4B09C52651E0ECB9A3A55 /* Pods_ToDoList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C037DAEB1CA2205EDBB9DB3D /* Pods-ToDoList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoList.debug.xcconfig"; path = "Target Support Files/Pods-ToDoList/Pods-ToDoList.debug.xcconfig"; sourceTree = "<group>"; };
+		EC17BA50225B742E00558889 /* MaterialNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialNavigationController.swift; sourceTree = "<group>"; };
+		EC17BA52225B7E7800558889 /* MaterialButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialButton.swift; sourceTree = "<group>"; };
 		EC59700C22315B1B0011F416 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC59700F22315B1B0011F416 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC59701422315B1B0011F416 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -134,6 +138,8 @@
 				EC7881EE22368383005019DA /* TaskModel.swift */,
 				EC64C3DA225209B0002308BE /* TaskCell.swift */,
 				EC66A272225639CA004C01F1 /* ButtonWithBorder.swift */,
+				EC17BA50225B742E00558889 /* MaterialNavigationController.swift */,
+				EC17BA52225B7E7800558889 /* MaterialButton.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -328,6 +334,7 @@
 				EC65CBA42253AC0900C94727 /* DateController.swift in Sources */,
 				EC5CF3802237D0070071C9B3 /* LogInViewController.swift in Sources */,
 				EC7881FD2236AD17005019DA /* AuthorizationManager.swift in Sources */,
+				EC17BA51225B742E00558889 /* MaterialNavigationController.swift in Sources */,
 				EC777DE32254E7E000DF5246 /* NotificationManager.swift in Sources */,
 				EC777DE12254DDC400DF5246 /* TransparentPresentationController.swift in Sources */,
 				EC66A273225639CA004C01F1 /* ButtonWithBorder.swift in Sources */,
@@ -335,6 +342,7 @@
 				EC7881EF22368383005019DA /* TaskModel.swift in Sources */,
 				EC64C3DB225209B0002308BE /* TaskCell.swift in Sources */,
 				ECF5CC2C22411D94007A5053 /* SplashViewController.swift in Sources */,
+				EC17BA53225B7E7800558889 /* MaterialButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

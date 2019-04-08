@@ -11,6 +11,7 @@ import Firebase
 import GoogleSignIn
 import FBSDKLoginKit
 import FacebookLogin
+import MaterialComponents
 
 class TableViewController: UITableViewController, AddViewControllerDelegate, GIDSignInUIDelegate{
 
@@ -61,7 +62,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         
         let b = UIButton(frame: .zero)
         if AuthorizationManager.shared.sync {
-            b.setImage(UIImage(named:"Done"), for: .normal)
+            b.setImage(UIImage(named:"AllDone"), for: .normal)
         } else if AuthorizationManager.shared.facebookId == "" {
             b.setImage(UIImage(named:"Facebook"), for: .normal)
             b.addTarget(self, action: #selector(addAccount), for: .touchDown)
