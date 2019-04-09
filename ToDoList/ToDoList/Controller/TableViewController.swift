@@ -45,15 +45,23 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
+    var appBarViewController = MDCAppBarViewController()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        appBarViewController.view.backgroundColor = secondColor
+        self.addChild(self.appBarViewController)
+        //appBarViewController.navigationBar.observe(navigationItem)
+        
         let logOutButton = MaterialButton()
         logOutButton.setTitle("Out", for: .normal)
         logOutButton.addTarget(self, action: #selector(didTapSignOut(_:)), for: .touchUpInside)
         let logOutItem = UIBarButtonItem(customView: logOutButton)
         self.navigationItem.leftBarButtonItem = logOutItem
-        
+
         
         let addItemImage = UIImage(named: "Add")
         let templatedAddItemImage = addItemImage?.withRenderingMode(.alwaysTemplate)

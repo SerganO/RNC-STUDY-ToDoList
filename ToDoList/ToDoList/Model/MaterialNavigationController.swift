@@ -16,10 +16,10 @@ class MaterialNavigationController: MDCAppBarNavigationController {
             return MDCNavigationBar()
         }
     }*/
-    
+    let secondColor = UIColor(red: 1/255, green: 0x86/255, blue: 0x87/255, alpha: 1)
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationBar.backgroundColor = secondColor
         // Do any additional setup after loading the view.
     }
     

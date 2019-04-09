@@ -307,10 +307,10 @@
             </objects>
             <point key="canvasLocation" x="2193.75" y="0.0"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Material Navigation Controller-->
         <scene sceneID="SN6-zS-SEj">
             <objects>
-                <navigationController id="HN7-Gq-NcF" sceneMemberID="viewController">
+                <navigationController id="HN7-Gq-NcF" customClass="MaterialNavigationController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KYj-6U-17E">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

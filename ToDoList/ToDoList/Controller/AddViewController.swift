@@ -65,6 +65,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     
     
     var appBarViewController = MDCAppBarViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,9 +78,12 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         
         setDateButton.setTitle("", for: .normal)
         setDateButton.setImage(UIImage(named: "Date"),for: .normal)
+        
+        
         appBarViewController.view.backgroundColor = secondColor
         self.addChild(self.appBarViewController)
-        self.view.addSubview(self.appBarViewController.view)
+        
+        
         let backItemImage = UIImage(named: "Back")
         let templatedBackItemImage = backItemImage?.withRenderingMode(.alwaysTemplate)
         let backButton = MaterialButton()
