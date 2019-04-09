@@ -37,7 +37,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     weak var delegate: AddViewControllerDelegate?
     
     @IBOutlet weak var dateView: UIView!
-    @IBOutlet weak var setDateButton: MaterialButton!
+    @IBOutlet weak var setDateButton: MDCButton!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
     @IBOutlet weak var DateViewHeight: NSLayoutConstraint!
@@ -45,6 +45,11 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     @IBOutlet weak var dueDateLabel: UILabel!
     //@IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textView: UITextView!
+    
+    let mainColor = UIColor(red: 3/255, green: 218/255, blue: 192/255, alpha: 1)
+    let secondColor = UIColor(red: 1/255, green: 0x86/255, blue: 0x87/255, alpha: 1)
+    let backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
+    let reminderColor = UIColor(red: 0xB2/255, green: 0xDF/255, blue: 0xDB/255, alpha: 1)
     
     var dueDate = Date()
     var taskToEdit: TaskModel?
@@ -62,99 +67,53 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     var appBarViewController = MDCAppBarViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        
+        shouldRemindSwitch.tintColor = mainColor
+        shouldRemindSwitch.onTintColor = mainColor
+        
+        
         setDateButton.setTitle("", for: .normal)
-        MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: setDateButton)
-        setDateButton.translatesAutoresizingMaskIntoConstraints = false
-        //MDCTextButtonThemer.applyScheme(buttonScheme, to: setDateButton)
-        MBut.setElevation(ShadowElevation(rawValue: 6), for: .normal)
-        MBut.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-        setDateButton.setImage(UIImage(named: "DropDown"),for: .normal)
-        setDateButton.backgroundColor = UIColor.lightGray
-        
-        
-        //self.navigationController?.navigationBar = appBarViewController
-        //appBarViewController.navigationBar.backgroundColor = UIColor(red: 255, green: 0, blue: 0, alpha: 1)
+        setDateButton.setImage(UIImage(named: "Date"),for: .normal)
+        appBarViewController.view.backgroundColor = secondColor
         self.addChild(self.appBarViewController)
         self.view.addSubview(self.appBarViewController.view)
-        //self.appBarViewController.didMove(toParent: self)
-        
-        
         let backItemImage = UIImage(named: "Back")
         let templatedBackItemImage = backItemImage?.withRenderingMode(.alwaysTemplate)
-        let backItem = UIBarButtonItem(image: templatedBackItemImage,
-                                       style: .plain,
-                                       target: self,
-                                       action: #selector(BackPressed))
+        let backButton = MaterialButton()
+        backButton.setImage(templatedBackItemImage, for: .normal)
+        backButton.addTarget(self, action: #selector(BackPressed), for: .touchUpInside)
+        let backItem = UIBarButtonItem(customView: backButton)
         self.navigationItem.leftBarButtonItem = backItem
         
         let doneItemImage = UIImage(named: "Done")
         let templatedDoneItemImage = doneItemImage?.withRenderingMode(.alwaysTemplate)
-        let doneItem = UIBarButtonItem(image: templatedDoneItemImage,
-                                         style: .plain,
-                                         target: nil,
-                                         action: #selector(DonePressed))
+        let doneButton = MaterialButton()
+        doneButton.setImage(templatedDoneItemImage, for: .normal)
+        doneButton.addTarget(self, action: #selector(DonePressed), for: .touchUpInside)
+        let doneItem = UIBarButtonItem(customView: doneButton)
         self.navigationItem.rightBarButtonItem = doneItem
-        /*MButN.setImage(UIImage(named: "Date"), for: .normal)
-        MButN.addTarget(self, action: #selector(MDCBUTTON_TEST), for: .touchUpInside)
-        MButN.backgroundColor = UIColor.yellow
+      
         
-        MDCNavigationBarColorThemer.applySemanticColorScheme(dColorSheme, to: MNavigationBar)
-        MNavigationBar.title = "TITLE"
-        MNavigationBar.titleFont.withSize(20)
-        MNavigationBar.rightBarButtonItem = UIBarButtonItem(customView: MButN)
-        
-        MNavigationBar.frame = CGRect(x: 0, y: 60, width: view.frame.width, height: 60)
-        
-        view.addSubview(MNavigationBar)*/
- 
-        
-        
-        
-        
-        
-        /*let button = MDCButton()
-        button.setTitle("button", for: .normal)
-        button.setImage(UIImage(named: "Done"), for: .normal)
-        button.setBackgroundColor(UIColor.lightGray)
-        button.center.x = 10
-        button.center.y = 10
-        button.frame = setDateButton.frame*/
-        
-        
-        //setDateButton = setDateButton as! MDCButton
-        
-        
-        
-        /*let button1 = MDCButton()
-        
-        // Themed as a text button:
-        MDCTextButtonThemer.applyScheme(buttonScheme, to: button1)
-        let plusImage = UIImage(named: "Date")!.withRenderingMode(.alwaysTemplate)
-        MBut.setImage(plusImage, for: .normal)
-        MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: MBut)
-        MBut.setElevation(ShadowElevation(rawValue: 6), for: .normal)
-        MBut.setElevation(ShadowElevation(rawValue: 12), for: .highlighted)
-        MBut.setBackgroundColor(UIColor.yellow)
-        MBut.addTarget(self, action: #selector(MDCBUTTON_TEST), for: .touchUpInside)
-        let itemR = UIBarButtonItem(customView: MBut)
-        let currWidthR = itemR.customView?.widthAnchor.constraint(equalToConstant: 24)
-        let currHeightR = itemR.customView?.heightAnchor.constraint(equalToConstant: 24)
-        currWidthR?.isActive = true
-        currHeightR?.isActive = true
-        let fr = CGRect(x: dateView.frame.width - 40, y: dateView.frame.height, width: 30, height: 30)
-        MBut.frame = fr
-        MBut.isHidden = true
-        dateView.addSubview(MBut)*/
-        
-        
+        let hideButton = MaterialButton()
+        hideButton.setTitle("Hide", for: .normal)
+        hideButton.addTarget(self, action: #selector(hideTapped), for: .touchUpInside)
+        MDCTextButtonThemer.applyScheme(buttonScheme, to: hideButton)
+        hideButton.setBackgroundColor(mainColor)
+        hideButton.sizeToFit()
         
         dueDateLabel.isHidden = true
         let bar = UIToolbar()
         let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let hide = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(hideTapped))
+        //let hide = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(hideTapped))
+        let hide = UIBarButtonItem(customView: hideButton)
         bar.items = [flexsibleSpace,hide]
         bar.sizeToFit()
         textView.inputAccessoryView = bar
+        bar.backgroundColor = secondColor
+        
         
         NotificationCenter.default.addObserver(
             self,
@@ -173,7 +132,6 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         if let task = taskToEdit {
             title = "Edit"
             textView.text = task.text
-            //doneBarButton.isEnabled = true
             if let nd = task.notificationDate {
                 shouldRemindSwitch.isOn = true
                 dueDate = nd

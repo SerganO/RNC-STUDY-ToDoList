@@ -18,7 +18,9 @@ protocol DateControllerDelegate: class {
 }
 
 class DateController: UIViewController {
-
+    let mainColor = UIColor(red: 3/255, green: 218/255, blue: 192/255, alpha: 1)
+    let secondColor = UIColor(red: 1/255, green: 0x86/255, blue: 0x87/255, alpha: 1)
+    let backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -29,6 +31,7 @@ class DateController: UIViewController {
     
     @IBOutlet weak var datePickerView: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    
     @IBAction func ok(_ sender: Any) {
         delegate?.dateController(self, dateSeting: datePicker.date)
     }
@@ -37,6 +40,7 @@ class DateController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        datePickerView.backgroundColor = backgroundColor
         datePickerView.layer.cornerRadius = 10
         datePicker.locale = Locale(identifier: "en_GB")
         datePicker.datePickerMode = .dateAndTime

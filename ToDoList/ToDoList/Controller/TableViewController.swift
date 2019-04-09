@@ -20,6 +20,9 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     var checkedGroup = [TaskModel]();
     var uncheckedGroup = [TaskModel]();
     var date = Date()
+    let mainColor = UIColor(red: 3/255, green: 218/255, blue: 192/255, alpha: 1)
+    let secondColor = UIColor(red: 1/255, green: 0x86/255, blue: 0x87/255, alpha: 1)
+    let backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
     
     func showAlert(_ result : Bool ) {
         if result {
@@ -45,6 +48,26 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let logOutButton = MaterialButton()
+        logOutButton.setTitle("Out", for: .normal)
+        logOutButton.addTarget(self, action: #selector(didTapSignOut(_:)), for: .touchUpInside)
+        let logOutItem = UIBarButtonItem(customView: logOutButton)
+        self.navigationItem.leftBarButtonItem = logOutItem
+        
+        
+        let addItemImage = UIImage(named: "Add")
+        let templatedAddItemImage = addItemImage?.withRenderingMode(.alwaysTemplate)
+        let addButton = MaterialButton()
+        addButton.setImage(templatedAddItemImage, for: .normal)
+        addButton.addTarget(self, action: #selector(addPressed), for: .touchUpInside)
+        let addItem = UIBarButtonItem(customView: addButton)
+        self.navigationItem.rightBarButtonItem = addItem
+        
+        self.view.backgroundColor = backgroundColor
+        
+        
+        
+        
         
         self.setEditing(false, animated: true)//////////////
         
@@ -120,7 +143,9 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         updateId()
     }
     
-    
+    @objc func addPressed() {
+        performSegue(withIdentifier: "AddTask", sender: self)
+    }
     
     @objc func reorder() {
         if isEditing {

@@ -17,7 +17,7 @@
                     <view key="view" contentMode="scaleToFill" id="5pa-PA-PoT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.8784313725490196" green="0.94901960784313721" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="j5V-Td-xb0"/>
                     </view>
                     <toolbarItems/>
@@ -115,7 +115,7 @@
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1a-jK-e17" userLabel="KeyboardView">
                                 <rect key="frame" x="0.0" y="568" width="320" height="0.0"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.0039215686274509803" green="0.52549019607843139" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="Phk-Mj-PBz"/>
                                 </constraints>
@@ -136,7 +136,7 @@
                                         </connections>
                                     </switch>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="AnQ-xL-00j" secondAttribute="trailing" constant="10" id="097-Np-QdH"/>
                                     <constraint firstItem="AnQ-xL-00j" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fio-xH-vIc" secondAttribute="trailing" constant="100" id="99f-CR-Ymb"/>
@@ -165,12 +165,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXw-4D-zYC" customClass="MaterialButton" customModule="ToDoList" customModuleProvider="target">
-                                        <rect key="frame" x="280" y="-15" width="30" height="30"/>
+                                        <rect key="frame" x="280" y="-17" width="30" height="34"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="C6j-Me-o7b"/>
-                                            <constraint firstAttribute="height" constant="30" id="vWz-Pb-4g4"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="C6j-Me-o7b"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="vWz-Pb-4g4"/>
                                         </constraints>
-                                        <state key="normal" title="Set"/>
+                                        <state key="normal" title="Set">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <segue destination="a1t-Qu-dNA" kind="presentation" identifier="SetDate" id="pyO-kL-1dl"/>
                                         </connections>
@@ -223,28 +225,13 @@
                         <outlet property="dateLabel" destination="DGc-PH-zNC" id="MFU-wb-edU"/>
                         <outlet property="dateView" destination="Jys-5c-cEk" id="Wu5-sJ-0yl"/>
                         <outlet property="dueDateLabel" destination="YfB-Qx-BgJ" id="KW0-zA-14Y"/>
-                        <outlet property="setDateButton" destination="zXw-4D-zYC" id="GJU-20-khO"/>
+                        <outlet property="setDateButton" destination="zXw-4D-zYC" id="K3u-TQ-5c9"/>
                         <outlet property="shouldRemindSwitch" destination="AnQ-xL-00j" id="krt-IS-k5e"/>
                         <outlet property="textView" destination="FqI-4F-rWv" id="I9U-zh-S2K"/>
                         <outlet property="viewHeight" destination="Phk-Mj-PBz" id="bWw-op-GMC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2uh-V2-ctV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="1CS-CY-sPr">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="0ye-lL-3li">
-                            <rect key="frame" x="0.0" y="-16" width="320" height="216"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <date key="date" timeIntervalSinceReferenceDate="575814632.36062002">
-                                <!--2019-04-01 12:30:32 +0000-->
-                            </date>
-                        </datePicker>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <viewLayoutGuide key="safeArea" id="Sdx-HA-B99"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="1445.625" y="0.0"/>
         </scene>
@@ -259,24 +246,26 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JfK-Ce-JJC">
                                 <rect key="frame" x="10" y="258" width="300" height="300"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKV-22-KiT" customClass="ButtonWithBorder" customModule="ToDoList" customModuleProvider="target">
-                                        <rect key="frame" x="150" y="267" width="150" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="CANCEL"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NKV-22-KiT" customClass="MaterialButton" customModule="ToDoList" customModuleProvider="target">
+                                        <rect key="frame" x="150.5" y="266" width="149.5" height="34"/>
+                                        <state key="normal" title="CANCEL">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="Cancel:" destination="a1t-Qu-dNA" eventType="touchUpInside" id="y1g-PF-7Ff"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouv-rb-em3" customClass="ButtonWithBorder" customModule="ToDoList" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="267" width="150" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="OK"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouv-rb-em3" customClass="MaterialButton" customModule="ToDoList" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="266" width="149.5" height="34"/>
+                                        <state key="normal" title="OK">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <action selector="ok:" destination="a1t-Qu-dNA" eventType="touchUpInside" id="ifX-Ie-LbX"/>
                                         </connections>
                                     </button>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="w7z-mQ-ILy">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="267"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="266"/>
                                         <date key="date" timeIntervalSinceReferenceDate="575908444.07147098">
                                             <!--2019-04-02 14:34:04 +0000-->
                                         </date>
@@ -286,12 +275,12 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="B8i-hO-cJ8"/>
                                     <constraint firstAttribute="trailing" secondItem="w7z-mQ-ILy" secondAttribute="trailing" id="D4d-4a-UoN"/>
-                                    <constraint firstItem="ouv-rb-em3" firstAttribute="width" secondItem="JfK-Ce-JJC" secondAttribute="width" multiplier="0.5" id="Eqn-cJ-QzC"/>
+                                    <constraint firstItem="ouv-rb-em3" firstAttribute="width" secondItem="JfK-Ce-JJC" secondAttribute="width" multiplier="0.5" constant="-0.5" id="Eqn-cJ-QzC"/>
+                                    <constraint firstItem="NKV-22-KiT" firstAttribute="leading" secondItem="ouv-rb-em3" secondAttribute="trailing" constant="1" id="HPc-fJ-C8f"/>
                                     <constraint firstItem="ouv-rb-em3" firstAttribute="leading" secondItem="JfK-Ce-JJC" secondAttribute="leading" id="IFh-e6-b7p"/>
                                     <constraint firstItem="w7z-mQ-ILy" firstAttribute="top" secondItem="JfK-Ce-JJC" secondAttribute="top" id="K7A-AW-mRh"/>
-                                    <constraint firstItem="NKV-22-KiT" firstAttribute="width" secondItem="JfK-Ce-JJC" secondAttribute="width" multiplier="0.5" id="LLL-Iy-gbK"/>
+                                    <constraint firstItem="NKV-22-KiT" firstAttribute="width" secondItem="JfK-Ce-JJC" secondAttribute="width" multiplier="0.5" constant="-0.5" id="LLL-Iy-gbK"/>
                                     <constraint firstItem="w7z-mQ-ILy" firstAttribute="leading" secondItem="JfK-Ce-JJC" secondAttribute="leading" id="SJw-Kw-hZq"/>
-                                    <constraint firstItem="NKV-22-KiT" firstAttribute="leading" secondItem="ouv-rb-em3" secondAttribute="trailing" id="WTi-f4-HQx"/>
                                     <constraint firstAttribute="trailing" secondItem="NKV-22-KiT" secondAttribute="trailing" id="X5n-i5-DQC"/>
                                     <constraint firstAttribute="bottom" secondItem="NKV-22-KiT" secondAttribute="bottom" id="eeg-7q-KJ1"/>
                                     <constraint firstItem="NKV-22-KiT" firstAttribute="top" secondItem="w7z-mQ-ILy" secondAttribute="bottom" id="ewX-nH-Jpr"/>
@@ -325,6 +314,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KYj-6U-17E">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.0039215686269999999" green="0.52549019610000003" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="PXR-IY-KUZ" kind="relationship" relationship="rootViewController" id="LOJ-tv-HUK"/>
@@ -349,7 +339,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.8784313725490196" green="0.94901960784313721" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="HZD-5i-yls" firstAttribute="centerX" secondItem="AMO-bQ-Zsm" secondAttribute="centerX" id="7XM-Tc-nt9"/>
                             <constraint firstItem="HZD-5i-yls" firstAttribute="centerY" secondItem="AMO-bQ-Zsm" secondAttribute="centerY" id="EBi-P3-RCi"/>
@@ -367,6 +357,6 @@
         <image name="Uncheck" width="18" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4kG-fz-Vnb"/>
+        <segue reference="Aup-uW-lsk"/>
     </inferredMetricsTieBreakers>
 </document>
