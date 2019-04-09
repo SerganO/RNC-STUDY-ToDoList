@@ -47,7 +47,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     }
     var appBarViewController = MDCAppBarViewController()
     
-    
+    let MNavigationBar = MDCNavigationBar()
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,12 +56,24 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         self.addChild(self.appBarViewController)
         //appBarViewController.navigationBar.observe(navigationItem)
         
+        
+        
         let logOutButton = MaterialButton()
         logOutButton.setTitle("Out", for: .normal)
         logOutButton.addTarget(self, action: #selector(didTapSignOut(_:)), for: .touchUpInside)
         let logOutItem = UIBarButtonItem(customView: logOutButton)
         self.navigationItem.leftBarButtonItem = logOutItem
-
+        /*appBarViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60)
+        view.addSubview(appBarViewController.view)
+        appBarViewController.navigationItem.setLeftBarButton(logOutItem, animated: true)
+        //= logOutItem
+        */
+       // navigationController?.navigationBar.isHidden = true
+        //navigationController?.isToolbarHidden  = true
+        MNavigationBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 60)
+        //MNavigationBar.leftBarButtonItem = logOutItem
+        
+        
         
         let addItemImage = UIImage(named: "Add")
         let templatedAddItemImage = addItemImage?.withRenderingMode(.alwaysTemplate)
@@ -70,7 +82,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         addButton.addTarget(self, action: #selector(addPressed), for: .touchUpInside)
         let addItem = UIBarButtonItem(customView: addButton)
         self.navigationItem.rightBarButtonItem = addItem
-        
+        //MNavigationBar.rightBarButtonItem = addItem
         self.view.backgroundColor = backgroundColor
         
         
@@ -107,7 +119,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         currWidth?.isActive = true
         currHeight?.isActive = true
         navigationItem.leftBarButtonItems?.append(item)
-        
+        //MNavigationBar.leftBarButtonItems?.append(item)
         let r = UIButton(frame: .zero)
         r.setImage(UIImage(named:"Reorder"), for: .normal)
         r.addTarget(self, action: #selector(reorder), for: .touchDown)
@@ -117,9 +129,8 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         currWidthR?.isActive = true
         currHeightR?.isActive = true
         navigationItem.rightBarButtonItems?.append(itemR)
-        
-        
-        
+        //MNavigationBar.rightBarButtonItems?.append(itemR)
+        //view.addSubview(MNavigationBar)
         FirebaseManager.shared.ref.child("tasks").queryOrdered(byChild: "id").observe(.value, with : {
             snapshot in
             
