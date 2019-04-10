@@ -50,8 +50,8 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     let MNavigationBar = MDCNavigationBar()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        /////self.navigationController?.isNavigationBarHidden=true
+        /////self.navigationController?.navigationBar.isHidden = true
         appBarViewController.view.backgroundColor = secondColor
         self.addChild(self.appBarViewController)
         //appBarViewController.navigationBar.observe(navigationItem)
@@ -103,27 +103,29 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             return
         }
         
-        let b = UIButton(frame: .zero)
+        let syncButton = MDCFloatingButton(frame: .zero)
+        syncButton.setBackgroundColor(mainColor)
         if AuthorizationManager.shared.sync {
-            b.setImage(UIImage(named:"AllDone"), for: .normal)
+            syncButton.setImage(UIImage(named:"AllDone"), for: .normal)
         } else if AuthorizationManager.shared.facebookId == "" {
-            b.setImage(UIImage(named:"Facebook"), for: .normal)
-            b.addTarget(self, action: #selector(addAccount), for: .touchDown)
+            syncButton.setImage(UIImage(named:"Facebook"), for: .normal)
+            syncButton.addTarget(self, action: #selector(addAccount), for: .touchDown)
         } else {
-            b.setImage(UIImage(named:"GoogleIcon"), for: .normal)
-            b.addTarget(self, action: #selector(addAccount), for: .touchDown)
+            syncButton.setImage(UIImage(named:"GoogleIcon"), for: .normal)
+            syncButton.addTarget(self, action: #selector(addAccount), for: .touchDown)
         }
-        let item = UIBarButtonItem(customView: b)
+        let item = UIBarButtonItem(customView: syncButton)
         let currWidth = item.customView?.widthAnchor.constraint(equalToConstant: 24)
         let currHeight = item.customView?.heightAnchor.constraint(equalToConstant: 24)
         currWidth?.isActive = true
         currHeight?.isActive = true
         navigationItem.leftBarButtonItems?.append(item)
         //MNavigationBar.leftBarButtonItems?.append(item)
-        let r = UIButton(frame: .zero)
-        r.setImage(UIImage(named:"Reorder"), for: .normal)
-        r.addTarget(self, action: #selector(reorder), for: .touchDown)
-        let itemR = UIBarButtonItem(customView: r)
+        let reorderButton = MDCFloatingButton(frame: .zero)
+        reorderButton.setBackgroundColor(mainColor)
+        reorderButton.setImage(UIImage(named:"Reorder"), for: .normal)
+        reorderButton.addTarget(self, action: #selector(reorder), for: .touchDown)
+        let itemR = UIBarButtonItem(customView: reorderButton)
         let currWidthR = itemR.customView?.widthAnchor.constraint(equalToConstant: 24)
         let currHeightR = itemR.customView?.heightAnchor.constraint(equalToConstant: 24)
         currWidthR?.isActive = true

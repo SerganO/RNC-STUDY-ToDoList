@@ -20,9 +20,18 @@ class MaterialNavigationController: MDCAppBarNavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.backgroundColor = secondColor
+        //self.pushViewController(LogInViewController(), animated: true)
+        
+        // MARK: MDCAppBarNavigationControllerDelegate
+        
+      
         // Do any additional setup after loading the view.
     }
-    
+    func appBarNavigationController(_ navigationController: MDCAppBarNavigationController,
+                                    willAdd appBarViewController: MDCAppBarViewController,
+                                    asChildOf viewController: UIViewController) {
+        appBarViewController.headerView.backgroundColor = UIColor.green
+    }
 
     /*
     // MARK: - Navigation

@@ -16,6 +16,8 @@
 		EC59701A22315B1B0011F416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC59701822315B1B0011F416 /* LaunchScreen.storyboard */; };
 		EC5C1E29225CC2B000550DDE /* MaterialTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5C1E28225CC2B000550DDE /* MaterialTextButton.swift */; };
 		EC5CF3802237D0070071C9B3 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5CF37F2237D0070071C9B3 /* LogInViewController.swift */; };
+		EC5CF3A6225E1A9C0097BAAF /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5CF3A5225E1A9C0097BAAF /* TestViewController.swift */; };
+		EC5CF3A8225E2E300097BAAF /* TestViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5CF3A7225E2E300097BAAF /* TestViewController2.swift */; };
 		EC64C3DB225209B0002308BE /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC64C3DA225209B0002308BE /* TaskCell.swift */; };
 		EC65CBA42253AC0900C94727 /* DateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC65CBA32253AC0900C94727 /* DateController.swift */; };
 		EC66A273225639CA004C01F1 /* ButtonWithBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC66A272225639CA004C01F1 /* ButtonWithBorder.swift */; };
@@ -44,6 +46,8 @@
 		EC59701B22315B1B0011F416 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC5C1E28225CC2B000550DDE /* MaterialTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialTextButton.swift; sourceTree = "<group>"; };
 		EC5CF37F2237D0070071C9B3 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		EC5CF3A5225E1A9C0097BAAF /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		EC5CF3A7225E2E300097BAAF /* TestViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController2.swift; sourceTree = "<group>"; };
 		EC64C3DA225209B0002308BE /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		EC65CBA32253AC0900C94727 /* DateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateController.swift; sourceTree = "<group>"; };
 		EC66A272225639CA004C01F1 /* ButtonWithBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithBorder.swift; sourceTree = "<group>"; };
@@ -130,6 +134,8 @@
 				ECF5CC2B22411D94007A5053 /* SplashViewController.swift */,
 				EC65CBA32253AC0900C94727 /* DateController.swift */,
 				EC777DE02254DDC400DF5246 /* TransparentPresentationController.swift */,
+				EC5CF3A5225E1A9C0097BAAF /* TestViewController.swift */,
+				EC5CF3A7225E2E300097BAAF /* TestViewController2.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -333,6 +339,8 @@
 			files = (
 				EC7881FF2236ADEA005019DA /* FirebaseManager.swift in Sources */,
 				EC59701022315B1B0011F416 /* AppDelegate.swift in Sources */,
+				EC5CF3A6225E1A9C0097BAAF /* TestViewController.swift in Sources */,
+				EC5CF3A8225E2E300097BAAF /* TestViewController2.swift in Sources */,
 				EC7881F722369313005019DA /* TableViewController.swift in Sources */,
 				EC5C1E29225CC2B000550DDE /* MaterialTextButton.swift in Sources */,
 				EC65CBA42253AC0900C94727 /* DateController.swift in Sources */,
