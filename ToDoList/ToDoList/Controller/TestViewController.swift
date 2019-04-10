@@ -11,6 +11,13 @@ import MaterialComponents
 
 class TestViewController: UIViewController {
 
+    struct Constants {
+        static let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.height
+        static let minHeight: CGFloat = 44 + statusBarHeight
+        static let maxHeight: CGFloat = 400.0
+    }
+    
+    
     let appBarViewController = MDCAppBarViewController()
     let secondColor = UIColor(red: 1/255, green: 0x86/255, blue: 0x87/255, alpha: 1)
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -22,9 +29,11 @@ class TestViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    let appBar = MDCAppBar()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //configure()
         
         let testButton = MDCFloatingButton()
         testButton.setTitle("Date", for: .normal)
@@ -56,5 +65,25 @@ class TestViewController: UIViewController {
     
     @objc func testFunc(){
         performSegue(withIdentifier: "TestSegue", sender: self)
+    }
+    
+    func configure(){
+        self.addChild(appBar.headerViewController)
+        appBar.navigationBar.backgroundColor = .clear
+        appBar.navigationBar.title = nil
+        let headerView = appBar.headerViewController.headerView
+        headerView.backgroundColor = .clear
+        headerView.maximumHeight = Constants.maxHeight
+        headerView.minimumHeight = Constants.minHeight
+        
+        // 4
+        //heroHeaderView.frame = headerView.bounds
+        headerView.insertSubview(UIImageView(image: UIImage(named: "GoogleIcon")), at: 0)
+        
+        // 5
+        //headerView.trackingScrollView = self.collectionView
+        
+        // 6
+        appBar.addSubviewsToParent()
     }
 }
