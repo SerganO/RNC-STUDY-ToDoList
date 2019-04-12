@@ -45,16 +45,10 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
-    var appBarViewController = MDCAppBarViewController()
     
     let MNavigationBar = MDCNavigationBar()
     override func viewDidLoad() {
         super.viewDidLoad()
-        /////self.navigationController?.isNavigationBarHidden=true
-        /////self.navigationController?.navigationBar.isHidden = true
-        appBarViewController.view.backgroundColor = secondColor
-        self.addChild(self.appBarViewController)
-        //appBarViewController.navigationBar.observe(navigationItem)
         
         
         
@@ -63,15 +57,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         logOutButton.addTarget(self, action: #selector(didTapSignOut(_:)), for: .touchUpInside)
         let logOutItem = UIBarButtonItem(customView: logOutButton)
         self.navigationItem.leftBarButtonItem = logOutItem
-        /*appBarViewController.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60)
-        view.addSubview(appBarViewController.view)
-        appBarViewController.navigationItem.setLeftBarButton(logOutItem, animated: true)
-        //= logOutItem
-        */
-       // navigationController?.navigationBar.isHidden = true
-        //navigationController?.isToolbarHidden  = true
         MNavigationBar.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 60)
-        //MNavigationBar.leftBarButtonItem = logOutItem
         
         
         
@@ -82,7 +68,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         addButton.addTarget(self, action: #selector(addPressed), for: .touchUpInside)
         let addItem = UIBarButtonItem(customView: addButton)
         self.navigationItem.rightBarButtonItem = addItem
-        //MNavigationBar.rightBarButtonItem = addItem
         self.view.backgroundColor = backgroundColor
         
         

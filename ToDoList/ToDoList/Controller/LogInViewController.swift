@@ -28,12 +28,10 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, LoginButtonDel
     func loginButtonDidLogOut(_ loginButton: LoginButton) {
         AuthorizationManager.shared.facebookId = ""
     }
-    var appBarViewController = MDCAppBarViewController()
+   
     let secondColor = UIColor(red: 1/255, green: 0x86/255, blue: 0x87/255, alpha: 1)
     override func viewDidLoad() {
         super.viewDidLoad()
-        appBarViewController.view.backgroundColor = secondColor
-        self.addChild(self.appBarViewController)
         configureGoogleSignInButton()
         configureFacebookButton()
        
