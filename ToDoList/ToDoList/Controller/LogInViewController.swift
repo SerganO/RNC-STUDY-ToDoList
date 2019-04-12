@@ -11,6 +11,7 @@ import Firebase
 import GoogleSignIn
 import FBSDKCoreKit
 import FacebookLogin
+import MaterialComponents
 
 class LogInViewController: UIViewController, GIDSignInUIDelegate, LoginButtonDelegate{
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {

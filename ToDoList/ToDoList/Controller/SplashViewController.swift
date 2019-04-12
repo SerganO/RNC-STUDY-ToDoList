@@ -9,6 +9,7 @@
 import UIKit
 import GoogleSignIn
 import FBSDKCoreKit
+import MaterialComponents
 
 class SplashViewController: UIViewController , GIDSignInUIDelegate{
 

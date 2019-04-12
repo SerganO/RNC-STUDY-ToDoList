@@ -13,6 +13,7 @@ import FBSDKCoreKit
 import FacebookLogin
 import FacebookCore
 import UserNotifications
+import MaterialComponents
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUserNotificationCenterDelegate {

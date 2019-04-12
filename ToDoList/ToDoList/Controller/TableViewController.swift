@@ -11,6 +11,7 @@ import Firebase
 import GoogleSignIn
 import FBSDKLoginKit
 import FacebookLogin
+import MaterialComponents
 
 class TableViewController: UITableViewController, AddViewControllerDelegate, GIDSignInUIDelegate{
 
@@ -46,6 +47,12 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         super.viewDidLoad()
         
         self.setEditing(false, animated: true)//////////////
+        //headerViewController.headerView.trackingScrollView = scrollView
+        
+        if let appView = self as? MDCAppBarNavigationController,
+            let header = appView.appBarViewController(for: self){
+            //appView.headerView.trackingScrollView = self.tableView
+        }
         
         
         if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "") {
