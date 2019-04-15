@@ -15,12 +15,14 @@ import MaterialComponents
 
 class TableViewController: UITableViewController, AddViewControllerDelegate, GIDSignInUIDelegate{
 
+    let buttonScheme = MDCButtonScheme()
+    
     var firstStart = true
     
     var checkedGroup = [TaskModel]();
     var uncheckedGroup = [TaskModel]();
     var date = Date()
-    
+    let AddButton = MDCFloatingButton(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
     func showAlert(_ result : Bool ) {
         if result {
             let alert = UIAlertController(title: "Done", message: "Successful login", preferredStyle: .alert)
@@ -65,10 +67,11 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             self.present(alert, animated: true)
             return
         }
+   
         
         let b = UIButton(frame: .zero)
         if AuthorizationManager.shared.sync {
-            b.setImage(UIImage(named:"Done"), for: .normal)
+            b.setImage(UIImage(named:"AllDone"), for: .normal)
         } else if AuthorizationManager.shared.facebookId == "" {
             b.setImage(UIImage(named:"Facebook"), for: .normal)
             b.addTarget(self, action: #selector(addAccount), for: .touchDown)
@@ -124,8 +127,42 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             }
         })
         updateId()
+        MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: AddButton)
+        AddButton.addTarget(self, action: #selector(addTask), for: .touchDown)
+        AddButton.backgroundColor = UIColor.white
+        AddButton.setImage(UIImage(named: "Add"), for: .normal)
+        view.addSubview(AddButton)
+        AddButton.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 11.0, *) {
+            AddButton.rightAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+            AddButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        } else {
+            AddButton.rightAnchor.constraint(equalTo: tableView.layoutMarginsGuide.rightAnchor, constant: 0).isActive = true
+            AddButton.bottomAnchor.constraint(equalTo: tableView.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
+        }
+        
     }
     
+    let footerView  = UIView()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Make footerview so it fill up size of the screen
+        // The button is aligned to bottom of the footerview
+        // using autolayout constraints
+        
+        //
+       
+        //
+        
+        /*footerView.backgroundColor = UIColor.black
+        self.tableView.tableFooterView = nil
+        let width = tableView.frame.width
+        let height = tableView.frame.height
+        footerView.frame = CGRect(x: 0, y: 0, width: width, height: height - self.tableView.contentSize.height - self.footerView.frame.size.height)
+        self.tableView.tableFooterView = self.footerView*/
+    }
     
     
     @objc func reorder() {
@@ -133,6 +170,10 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             updateId()
         }
         isEditing = !isEditing
+    }
+    
+    @objc func addTask() {
+        performSegue(withIdentifier: "AddTask", sender: self)
     }
     
     
@@ -408,5 +449,6 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     }
     
     
+ 
     
 }

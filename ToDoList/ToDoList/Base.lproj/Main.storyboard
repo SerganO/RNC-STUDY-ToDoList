@@ -104,22 +104,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FqI-4F-rWv">
-                                <rect key="frame" x="0.0" y="104" width="320" height="464"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="P6n-J6-B55" id="6nu-8i-unb"/>
-                                </connections>
-                            </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1a-jK-e17" userLabel="KeyboardView">
-                                <rect key="frame" x="0.0" y="568" width="320" height="0.0"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" id="Phk-Mj-PBz"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g5i-o9-bZY">
                                 <rect key="frame" x="0.0" y="64" width="320" height="40"/>
                                 <subviews>
@@ -146,6 +130,22 @@
                                     <constraint firstItem="AnQ-xL-00j" firstAttribute="centerY" secondItem="g5i-o9-bZY" secondAttribute="centerY" id="p1O-Kl-FDr"/>
                                 </constraints>
                             </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FqI-4F-rWv">
+                                <rect key="frame" x="0.0" y="104" width="320" height="464"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="P6n-J6-B55" id="6nu-8i-unb"/>
+                                </connections>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1a-jK-e17" userLabel="KeyboardView">
+                                <rect key="frame" x="0.0" y="568" width="320" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="Phk-Mj-PBz"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jys-5c-cEk" userLabel="DateView">
                                 <rect key="frame" x="0.0" y="104" width="320" height="0.0"/>
                                 <subviews>
@@ -167,7 +167,7 @@
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zXw-4D-zYC">
                                         <rect key="frame" x="280" y="-15" width="30" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="C6j-Me-o7b"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="C6j-Me-o7b"/>
                                         </constraints>
                                         <state key="normal" title="Set"/>
                                         <connections>
@@ -183,6 +183,7 @@
                                     <constraint firstItem="zXw-4D-zYC" firstAttribute="centerY" secondItem="Jys-5c-cEk" secondAttribute="centerY" id="aCf-Wx-oen"/>
                                     <constraint firstItem="DGc-PH-zNC" firstAttribute="centerY" secondItem="Jys-5c-cEk" secondAttribute="centerY" id="eDK-rw-8Ls"/>
                                     <constraint firstItem="zXw-4D-zYC" firstAttribute="leading" secondItem="YfB-Qx-BgJ" secondAttribute="trailing" constant="10" id="gf8-xW-CC4"/>
+                                    <constraint firstItem="YfB-Qx-BgJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DGc-PH-zNC" secondAttribute="trailing" constant="8" symbolic="YES" id="m8r-Pw-lBg"/>
                                     <constraint firstItem="DGc-PH-zNC" firstAttribute="leading" secondItem="Jys-5c-cEk" secondAttribute="leading" constant="10" id="noJ-WX-aI9"/>
                                 </constraints>
                             </view>
