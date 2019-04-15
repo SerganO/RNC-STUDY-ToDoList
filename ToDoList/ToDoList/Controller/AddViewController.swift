@@ -27,6 +27,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
 
     }
     
+
     func dateController(_ controller: DateController, dateSeting date: Date) {
         dueDate = date
         updateDueDateLabel()
@@ -44,6 +45,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     @IBOutlet weak var dueDateLabel: UILabel!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var viewTopConst: NSLayoutConstraint!
     
     
     var dueDate = Date()
@@ -102,6 +104,11 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         }
         self.view.layoutIfNeeded()
         updateDueDateLabel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewTopConst.constant = (navigationController?.navigationBar.frame.height)! + 10
     }
     
     @objc func hideTapped()

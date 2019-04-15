@@ -49,10 +49,10 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         self.setEditing(false, animated: true)//////////////
         //headerViewController.headerView.trackingScrollView = scrollView
         
-        if let appView = self as? MDCAppBarNavigationController,
+        /*if let appView = self as? MDCAppBarNavigationController,
             let header = appView.appBarViewController(for: self){
             //appView.headerView.trackingScrollView = self.tableView
-        }
+        }*/
         
         
         if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "") {

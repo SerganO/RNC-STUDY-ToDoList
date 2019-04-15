@@ -105,7 +105,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FqI-4F-rWv">
-                                <rect key="frame" x="0.0" y="164" width="320" height="404"/>
+                                <rect key="frame" x="0.0" y="104" width="320" height="464"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
@@ -121,7 +121,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g5i-o9-bZY">
-                                <rect key="frame" x="0.0" y="124" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fio-xH-vIc">
                                         <rect key="frame" x="10" y="8" width="67" height="24"/>
@@ -147,7 +147,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jys-5c-cEk" userLabel="DateView">
-                                <rect key="frame" x="0.0" y="164" width="320" height="0.0"/>
+                                <rect key="frame" x="0.0" y="104" width="320" height="0.0"/>
                                 <subviews>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGc-PH-zNC">
                                         <rect key="frame" x="10" y="-12" width="86.5" height="24"/>
@@ -197,7 +197,7 @@
                             <constraint firstItem="g5i-o9-bZY" firstAttribute="trailing" secondItem="t1b-FU-oCf" secondAttribute="trailing" id="Pwf-C1-BNK"/>
                             <constraint firstItem="t1b-FU-oCf" firstAttribute="trailing" secondItem="Q1a-jK-e17" secondAttribute="trailing" id="XbH-Jh-BSZ"/>
                             <constraint firstItem="t1b-FU-oCf" firstAttribute="bottom" secondItem="Q1a-jK-e17" secondAttribute="bottom" id="cfn-VU-fex"/>
-                            <constraint firstItem="g5i-o9-bZY" firstAttribute="top" secondItem="t1b-FU-oCf" secondAttribute="top" constant="60" id="dF4-ek-DyR"/>
+                            <constraint firstItem="g5i-o9-bZY" firstAttribute="top" secondItem="t1b-FU-oCf" secondAttribute="top" id="dF4-ek-DyR"/>
                             <constraint firstItem="FqI-4F-rWv" firstAttribute="top" secondItem="Jys-5c-cEk" secondAttribute="bottom" id="g0I-0k-bq9"/>
                             <constraint firstItem="FqI-4F-rWv" firstAttribute="leading" secondItem="t1b-FU-oCf" secondAttribute="leading" id="mht-i9-7kP"/>
                             <constraint firstItem="Jys-5c-cEk" firstAttribute="leading" secondItem="t1b-FU-oCf" secondAttribute="leading" id="rYz-ds-oVR"/>
@@ -226,6 +226,7 @@
                         <outlet property="shouldRemindSwitch" destination="AnQ-xL-00j" id="krt-IS-k5e"/>
                         <outlet property="textView" destination="FqI-4F-rWv" id="I9U-zh-S2K"/>
                         <outlet property="viewHeight" destination="Phk-Mj-PBz" id="bWw-op-GMC"/>
+                        <outlet property="viewTopConst" destination="dF4-ek-DyR" id="O4d-UP-Shb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2uh-V2-ctV" userLabel="First Responder" sceneMemberID="firstResponder"/>
