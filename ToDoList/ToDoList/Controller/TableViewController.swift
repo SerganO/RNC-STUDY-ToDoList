@@ -36,6 +36,22 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             self.present(alert, animated: true)
         }
     }
+    //03DAC6 main
+    //26A69A nav
+    //E0F2F1 back
+    let schema = MDCBasicColorScheme.init(primaryColor: UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A/255, alpha: 1), secondaryColor: UIColor.black)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
+        if let materialNavigation = navigationController as? CustomMaterialNavigation,
+            let appBarVC = materialNavigation.appBarViewController(for: self) {
+            MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
+            MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
+        }
+    }
+    
+    
+    
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return UITableViewCell.EditingStyle.none
@@ -69,7 +85,29 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         }
    
         
-        let b = UIButton(frame: .zero)
+        
+        
+        let r = MDCButton(frame: .zero)
+        r.setImage(UIImage(named:"Reorder"), for: .normal)
+        r.addTarget(self, action: #selector(reorder), for: .touchDown)
+        //E0F7FA
+        r.backgroundColor = UIColor(red: 0xE0/255, green: 0xF7/255, blue: 0xFA/255, alpha: 1)
+        r.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        r.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        MDCOutlinedButtonThemer.applyScheme(buttonScheme, to: r)
+        let itemR = UIBarButtonItem(customView: r)
+        let currWidthR = itemR.customView?.widthAnchor.constraint(equalToConstant: 24)
+        let currHeightR = itemR.customView?.heightAnchor.constraint(equalToConstant: 24)
+        currWidthR?.isActive = true
+        currHeightR?.isActive = true
+        //itemR.width = 40
+        navigationItem.rightBarButtonItem = itemR
+        
+        //let b1 = MDCRaisedButton()
+        
+        let b = MDCButton(frame: .zero)
+        b.imageView?.frame = CGRect(x: 0, y: 0, width: 18, height: 18)
+        
         if AuthorizationManager.shared.sync {
             b.setImage(UIImage(named:"AllDone"), for: .normal)
         } else if AuthorizationManager.shared.facebookId == "" {
@@ -79,23 +117,28 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             b.setImage(UIImage(named:"GoogleIcon"), for: .normal)
             b.addTarget(self, action: #selector(addAccount), for: .touchDown)
         }
+        b.imageView?.contentMode = .scaleAspectFit
+        
+        
+        b.backgroundColor = UIColor(red: 0xE0/255, green: 0xF7/255, blue: 0xFA/255, alpha: 1)
+        b.frame.size = CGSize(width: 24, height: 24)
+        b.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        b.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        
+        MDCOutlinedButtonThemer.applyScheme(buttonScheme, to: b)
+        
         let item = UIBarButtonItem(customView: b)
+        
+        
+        
         let currWidth = item.customView?.widthAnchor.constraint(equalToConstant: 24)
         let currHeight = item.customView?.heightAnchor.constraint(equalToConstant: 24)
         currWidth?.isActive = true
         currHeight?.isActive = true
-        navigationItem.leftBarButtonItems?.append(item)
+        //item.width = 40
+        navigationItem.rightBarButtonItems?.append(item)//////////////////////////////////////
         
-        let r = UIButton(frame: .zero)
-        r.setImage(UIImage(named:"Reorder"), for: .normal)
-        r.addTarget(self, action: #selector(reorder), for: .touchDown)
-        let itemR = UIBarButtonItem(customView: r)
-        let currWidthR = itemR.customView?.widthAnchor.constraint(equalToConstant: 24)
-        let currHeightR = itemR.customView?.heightAnchor.constraint(equalToConstant: 24)
-        currWidthR?.isActive = true
-        currHeightR?.isActive = true
-        navigationItem.rightBarButtonItems?.append(itemR)
-        
+    
         
         
         FirebaseManager.shared.ref.child("tasks").queryOrdered(byChild: "id").observe(.value, with : {
@@ -127,10 +170,12 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             }
         })
         updateId()
-        MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: AddButton)
-        AddButton.addTarget(self, action: #selector(addTask), for: .touchDown)
-        AddButton.backgroundColor = UIColor.white
+        
+        AddButton.addTarget(self, action: #selector(addTask), for: .touchUpInside)
+        //26A69A button
+        AddButton.backgroundColor = UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A, alpha: 1)
         AddButton.setImage(UIImage(named: "Add"), for: .normal)
+        MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: AddButton)
         view.addSubview(AddButton)
         AddButton.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 11.0, *) {
@@ -145,7 +190,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     
     let footerView  = UIView()
     
-    override func viewWillAppear(_ animated: Bool) {
+    /*override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Make footerview so it fill up size of the screen
@@ -162,7 +207,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         let height = tableView.frame.height
         footerView.frame = CGRect(x: 0, y: 0, width: width, height: height - self.tableView.contentSize.height - self.footerView.frame.size.height)
         self.tableView.tableFooterView = self.footerView*/
-    }
+    }*/
     
     
     @objc func reorder() {

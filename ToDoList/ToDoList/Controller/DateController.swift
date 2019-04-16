@@ -21,6 +21,17 @@ protocol DateControllerDelegate: class {
 class DateController: UIViewController {
 
     
+    let schema = MDCBasicColorScheme.init(primaryColor: UIColor.white, secondaryColor: UIColor.black)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let materialNavigation = navigationController as? CustomMaterialNavigation,
+            let appBarVC = materialNavigation.appBarViewController(for: self) {
+            MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
+            MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
+        }
+    }
+    
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         modalPresentationStyle = .custom
@@ -42,9 +53,16 @@ class DateController: UIViewController {
         datePicker.locale = Locale(identifier: "en_GB")
         datePicker.datePickerMode = .dateAndTime
         datePicker.minimumDate = Date()
+        datePicker.backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.view.frame
+        //blurEffectView.frame = datePickerView.frame
+        self.view.insertSubview(blurEffectView, at: 0)
     }
     weak var delegate: DateControllerDelegate?
-
+    
+    
 
 }
 

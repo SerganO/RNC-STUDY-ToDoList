@@ -37,7 +37,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
 
     weak var delegate: AddViewControllerDelegate?
     
-    @IBOutlet weak var setDateButton: UIButton!
+    @IBOutlet weak var setDateButton: MaterialButton!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewHeight: NSLayoutConstraint!
     @IBOutlet weak var DateViewHeight: NSLayoutConstraint!
@@ -53,16 +53,32 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     var textViewFrame: CGRect?
     var keyboardHeight: CGFloat = 0.0
     var DateHeight: CGFloat = 0.0
-    
+    let schema = MDCBasicColorScheme.init(primaryColor: UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A/255, alpha: 1), secondaryColor: UIColor.black)
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         dueDateLabel.isHidden = true
         let bar = UIToolbar()
         let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let hide = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(hideTapped))
+        
+        let hideButton = MaterialButton()
+        hideButton.setTitle("Hide", for: .normal)
+        hideButton.addTarget(self, action: #selector(hideTapped), for: .touchUpInside)
+        
+        
+        
+        let hide = UIBarButtonItem(customView: hideButton)
+        //let hide = UIBarButtonItem(title: "Hide", style: .plain, target: self, action: #selector(hideTapped))
         bar.items = [flexsibleSpace,hide]
+        bar.backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
         bar.sizeToFit()
         textView.inputAccessoryView = bar
+        
+        shouldRemindSwitch.tintColor = UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A, alpha: 1)
+        shouldRemindSwitch.onTintColor = UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A, alpha: 1)
+        
+        
+        
         
         NotificationCenter.default.addObserver(
             self,
@@ -91,7 +107,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         }
         if shouldRemindSwitch.isOn {
             print("On")
-            DateViewHeight.constant = 30
+            DateViewHeight.constant = 40
             dueDateLabel.isHidden = false
             dateLabel.isHidden = false
             setDateButton.isHidden = false
@@ -104,12 +120,33 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         }
         self.view.layoutIfNeeded()
         updateDueDateLabel()
+   
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewTopConst.constant = (navigationController?.navigationBar.frame.height)! + 10
+        //viewTopConst.constant = (navigationController?.navigationBar.frame.height)! + 10
+        if let materialNavigation = navigationController as? CustomMaterialNavigation,
+            let appBarVC = materialNavigation.appBarViewController(for: self) {
+            MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
+            MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
+        }
+        
+        //headerViewController.headerView.trackingScrollView = scrollView
+        
+        /*if let appView = self as? MDCAppBarNavigationController,
+         let header = appView.appBarViewController(for: self){
+         //appView.headerView.trackingScrollView = self.tableView
+         }*/
+        guard let materialNavigation = navigationController as? CustomMaterialNavigation else {return}
+            let header = materialNavigation.appBarViewController(for: self)
+            header?.headerView.trackingScrollView = nil
+        
     }
+    
+
     
     @objc func hideTapped()
     {
@@ -146,7 +183,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
         
         if shouldRemindSwitch.isOn {
             print("On")
-            DateViewHeight.constant = 30
+            DateViewHeight.constant = 40
             dueDateLabel.isHidden = false
             dateLabel.isHidden = false
             setDateButton.isHidden = false

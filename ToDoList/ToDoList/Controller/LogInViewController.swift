@@ -35,7 +35,15 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, LoginButtonDel
         configureFacebookButton()
        
     }
-    
+    let schema = MDCBasicColorScheme.init(primaryColor: UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1), secondaryColor: UIColor.black)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let materialNavigation = navigationController as? CustomMaterialNavigation,
+            let appBarVC = materialNavigation.appBarViewController(for: self) {
+            MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
+            MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
+        }
+    }
     func configureFacebookButton() {
         let loginButton = LoginButton(readPermissions: [ .publicProfile, .email ])
         loginButton.loginBehavior = .web

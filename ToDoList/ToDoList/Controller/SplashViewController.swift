@@ -11,11 +11,26 @@ import GoogleSignIn
 import FBSDKCoreKit
 import MaterialComponents
 
-class SplashViewController: UIViewController , GIDSignInUIDelegate{
+class SplashViewController: UIViewController , GIDSignInUIDelegate {
 
-        
+    //let schema = MDCSemanticColorScheme(defaults: .material201804)
+    //03DAC6 main
+    //26A69A nav
+    //E0F2F1 back
+    
+    let schema = MDCBasicColorScheme.init(primaryColor: UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1), secondaryColor: UIColor.black)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.backgroundColor = UIColor.white
+        if let materialNavigation = navigationController as? CustomMaterialNavigation,
+            let appBarVC = materialNavigation.appBarViewController(for: self) {
+            MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
+            MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.backgroundColor = UIColor.white
         let ai = UIActivityIndicatorView.init(style: .gray)
         ai.startAnimating()
         ai.center = self.view.center
@@ -24,12 +39,15 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate{
         DispatchQueue.main.async {
             self.view.addSubview(ai)
         }
+        
        
     }
     
+  
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        navigationController?.navigationBar.backgroundColor = UIColor.white
         if let accessToken = FBSDKAccessToken.current(), FBSDKAccessToken.currentAccessTokenIsActive() {
             AuthorizationManager.shared.facebookSignIn(accessToken.userID, completion: {
                 self.NavigationToTableView()

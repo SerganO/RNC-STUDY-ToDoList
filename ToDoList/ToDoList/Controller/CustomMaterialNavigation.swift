@@ -34,6 +34,7 @@ class CustomMaterialNavigation: MDCAppBarNavigationController {
         rootViewController.loadViewIfNeeded()
         
         let appBarVC = MDCAppBarViewController()
+        appBarVC.view.backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
         rootViewController.addChild(appBarVC)
         rootViewController.view.addSubview(appBarVC.view)
         viewControllers.append(rootViewController)
