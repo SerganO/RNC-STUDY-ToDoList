@@ -79,7 +79,7 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate {
         
         let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
         protectedPage.navigationItem.hidesBackButton = true
-        let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        let protectedPage2 = mainStoryBoard.instantiateViewController(withIdentifier: "ViewWithTableViewController") as! ViewWithTableViewController
         
         self.navigationController?.pushViewController(protectedPage2, animated: true)
         

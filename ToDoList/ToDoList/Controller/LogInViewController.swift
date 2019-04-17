@@ -69,7 +69,7 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, LoginButtonDel
     func NavigationToTableView()
     {
         let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)
-        let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        let protectedPage = mainStoryBoard.instantiateViewController(withIdentifier: "ViewWithTableViewController") as! ViewWithTableViewController
         protectedPage.navigationItem.hidesBackButton = true
         self.navigationController?.pushViewController(protectedPage, animated: true)
     }

@@ -13,7 +13,7 @@ import FBSDKLoginKit
 import FacebookLogin
 import MaterialComponents
 
-class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, GIDSignInUIDelegate {
+class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, GIDSignInUIDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
