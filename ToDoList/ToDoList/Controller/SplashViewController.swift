@@ -18,7 +18,7 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate {
     //26A69A nav
     //E0F2F1 back
     
-    let schema = MDCBasicColorScheme.init(primaryColor: UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1), secondaryColor: UIColor.black)
+    let schema = MDCBasicColorScheme.init(primaryColor: UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1), secondaryColor: UIColor.white)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.backgroundColor = UIColor.white
@@ -47,7 +47,11 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationController?.navigationBar.backgroundColor = UIColor.white
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(check), userInfo: nil, repeats: false)
+    }
+    
+    @objc func check(){
+        //navigationController?.navigationBar.backgroundColor = UIColor.white
         if let accessToken = FBSDKAccessToken.current(), FBSDKAccessToken.currentAccessTokenIsActive() {
             AuthorizationManager.shared.facebookSignIn(accessToken.userID, completion: {
                 self.NavigationToTableView()
@@ -68,10 +72,7 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate {
                 }
             }
         }
-        
-        
     }
-    
     
     func NavigationToTableView() {
         let mainStoryBoard: UIStoryboard = UIStoryboard(name:"Main", bundle:nil)

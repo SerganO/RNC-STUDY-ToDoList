@@ -36,11 +36,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
-        UIImageView.appearance().tintColor = UIColor.black
+        UIImageView.appearance().tintColor = UIColor.white
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         let center = UNUserNotificationCenter.current()
         center.delegate = self
+        
+        
+        
+        let navigationBarAppearace = UINavigationBar.appearance()
+        
+        navigationBarAppearace.tintColor = UIColor.white//uicolorFromHex(0xffffff)
+        navigationBarAppearace.barTintColor = UIColor.white //UIColorFromHex(0xffffff)
+        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         
         return true
     }

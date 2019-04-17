@@ -21,7 +21,7 @@ protocol DateControllerDelegate: class {
 class DateController: UIViewController {
 
     
-    let schema = MDCBasicColorScheme.init(primaryColor: UIColor.white, secondaryColor: UIColor.black)
+    let schema = MDCBasicColorScheme.init(primaryColor: UIColor.white, secondaryColor: UIColor.white)
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let materialNavigation = navigationController as? CustomMaterialNavigation,

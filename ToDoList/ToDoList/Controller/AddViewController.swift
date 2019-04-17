@@ -56,7 +56,7 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
     let schema = MDCBasicColorScheme.init(primaryColor: UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A/255, alpha: 1), secondaryColor: UIColor.black)
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //navigationController?.navigationBar.tintColor = UIColor.white
         dueDateLabel.isHidden = true
         let bar = UIToolbar()
         let flexsibleSpace: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
@@ -132,6 +132,8 @@ class AddViewController: UIViewController, UITextViewDelegate, DateControllerDel
             let appBarVC = materialNavigation.appBarViewController(for: self) {
             MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
             MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
+            appBarVC.headerStackView.topBar?.tintColor = UIColor.white
+            appBarVC.headerView.tintColor = UIColor.white
         }
         
         //headerViewController.headerView.trackingScrollView = scrollView

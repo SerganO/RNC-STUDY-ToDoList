@@ -1,8 +1,8 @@
 //
-//  TableViewController.swift
+//  ViewWithTableViewController.swift
 //  ToDoList
 //
-//  Created by Trainee on 3/11/19.
+//  Created by Trainee on 4/17/19.
 //  Copyright © 2019 Trainee. All rights reserved.
 //
 
@@ -13,8 +13,11 @@ import FBSDKLoginKit
 import FacebookLogin
 import MaterialComponents
 
-class TableViewController: UITableViewController, AddViewControllerDelegate, GIDSignInUIDelegate{
+class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, GIDSignInUIDelegate {
 
+    @IBOutlet weak var tableView: UITableView!
+    
+   
     let buttonScheme = MDCButtonScheme()
     
     var firstStart = true
@@ -62,11 +65,11 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     
     
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return UITableViewCell.EditingStyle.none
     }
     
-    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
@@ -85,7 +88,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             self.present(alert, animated: true)
             return
         }
-   
+        
         
         
         
@@ -124,7 +127,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         let syncItem = UIBarButtonItem(customView: syncButton)
         navigationItem.rightBarButtonItems?.append(syncItem)
         
-    
+        
         
         
         FirebaseManager.shared.ref.child("tasks").queryOrdered(byChild: "id").observe(.value, with : {
@@ -228,26 +231,26 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         }
     }
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         let cell = tableView.cellForRow(at: indexPath)
         cell?.showsReorderControl = false
         return true
     }
     
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         
         return true
     }
     
     
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         if(sourceIndexPath.section == destinationIndexPath.section) {
             if sourceIndexPath.section == 0 {
                 let itemToMove = uncheckedGroup[sourceIndexPath.row]
                 uncheckedGroup.remove(at: sourceIndexPath.row)
                 uncheckedGroup.insert(itemToMove, at: destinationIndexPath.row)
             } else {
-            
+                
                 let itemToMove = checkedGroup[sourceIndexPath.row]
                 checkedGroup.remove(at: sourceIndexPath.row)
                 checkedGroup.insert(itemToMove, at: destinationIndexPath.row)
@@ -300,7 +303,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         facebookCookies = cookies.cookies(for: URL(string: "https://facebook.com/")!)
         for cookie in facebookCookies! {
             cookies.deleteCookie(cookie )
-        }        
+        }
         
         let domain = Bundle.main.bundleIdentifier!
         UserDefaults.standard.removePersistentDomain(forName: domain)
@@ -320,7 +323,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     func addViewControllerDidCancel(_ controller: AddViewController) {
         navigationController?.popViewController(animated: true)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -350,9 +353,9 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         navigationController?.popViewController(animated:true)
     }
     
-
+    
     override func prepare(for segue: UIStoryboardSegue,sender: Any?) {
-
+        
         if segue.identifier == "AddTask" {
             let controller = segue.destination as! AddViewController
             controller.delegate = self
@@ -369,12 +372,12 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             }
         }
     }
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    
+     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return uncheckedGroup.count
         } else if section == 1 {
@@ -383,15 +386,15 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         return 0
     }
     
-    override func tableView(_ tableView: UITableView,titleForHeaderInSection section: Int) -> String? {
+     func tableView(_ tableView: UITableView,titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "Unfinished"
         } else {
             return "Complete"
         }
     }
-  
-    override func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+     func tableView(_ tableView: UITableView,cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Task",for: indexPath) as! TaskCell
         
         if indexPath.section == 0 {
@@ -410,7 +413,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let task = uncheckedGroup[indexPath.row]
             incChId()
@@ -438,8 +441,8 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
             tableView.deleteRows(at: indexPaths, with: .automatic)
         }
     }
-
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?  {
+    
+     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?  {
         let editAction = UITableViewRowAction(style: .normal, title: "Edit" , handler: { (action:UITableViewRowAction, indexPath: IndexPath) -> Void in
             
             self.performSegue(withIdentifier: "EditTask", sender: tableView.cellForRow(at: indexPath))
@@ -451,7 +454,7 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
                 FirebaseManager.shared.deleteTask(task)
                 FirebaseManager.shared.ref.child(task.uuid!.uuidString).removeValue()
                 self.uncheckedGroup.remove(at: indexPath.row)
-                 NotificationManager.shared.removeNotification(task)
+                NotificationManager.shared.removeNotification(task)
             } else {
                 let task = self.checkedGroup[indexPath.row]
                 FirebaseManager.shared.deleteTask(task)
@@ -467,6 +470,5 @@ class TableViewController: UITableViewController, AddViewControllerDelegate, GID
     }
     
     
- 
-    
+
 }

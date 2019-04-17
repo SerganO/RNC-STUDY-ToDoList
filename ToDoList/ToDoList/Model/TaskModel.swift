@@ -63,18 +63,21 @@ class TaskModel
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
+        formatter.dateFormat = "dd-MM-yyyy HH-mm-ss"
         self.text = text
         self.checked = checked
         self.notificationDate = formatter.date(from: notificationDate)
         self.date = formatter.date(from: date) ?? Date()
         self.uuid = UUID(uuidString: uuid)
         self.id = id
+        
     }
     
     func toDic() -> [String: Any] {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
+        formatter.dateFormat = "dd-MM-yyyy HH-mm-ss"
         var notDate = ""
         if let nD = notificationDate {
             notDate = formatter.string(from: nD)
