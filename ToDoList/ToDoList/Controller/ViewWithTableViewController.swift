@@ -58,6 +58,9 @@ class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, 
         }
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationItem.titleView?.tintColor = UIColor.white
+        navigationItem.titleView?.tintColor = UIColor.white
+        
     }
     
     
@@ -248,6 +251,15 @@ class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, 
         } else {
             tableView.reloadData()
         }
+        
+        
+        
+        
+        
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationItem.titleView?.tintColor = UIColor.white
+        navigationItem.titleView?.tintColor = UIColor.white
         
     }
     
