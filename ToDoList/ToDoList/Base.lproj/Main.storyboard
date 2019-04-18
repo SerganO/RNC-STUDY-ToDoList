@@ -92,7 +92,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPD-hV-daZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="555" y="-91"/>
+            <point key="canvasLocation" x="711" y="-100"/>
         </scene>
         <!--To Do List-->
         <scene sceneID="39H-aT-WzA">
@@ -432,6 +432,6 @@
         <image name="Uncheck" width="18" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fI2-Fy-xg5"/>
+        <segue reference="oFN-IG-kRA"/>
     </inferredMetricsTieBreakers>
 </document>
