@@ -28,7 +28,6 @@ class MaterialButton: MDCButton {
         
         layer.borderWidth = 1 / UIScreen.main.scale
         layer.borderColor = UIColor.lightGray.cgColor
-        //MDCButtonThemer.applyScheme(buttonScheme, to: self)
         MDCButtonColorThemer.applySemanticColorScheme(buttonSheme.colorScheme, to: self)
         
         self.backgroundColor = UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A, alpha: 1)

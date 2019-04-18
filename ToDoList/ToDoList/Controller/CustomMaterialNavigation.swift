@@ -35,10 +35,8 @@ class CustomMaterialNavigation: MDCAppBarNavigationController {
         
         let appBarVC = MDCAppBarViewController()
         appBarVC.view.backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
-        //let navigationBarAppearace = UINavigationBar.appearance()
-        
-        navigationBar.tintColor = UIColor.white//uicolorFromHex(0xffffff)
-        navigationBar.barTintColor = UIColor.white //UIColorFromHex(0xffffff)
+        navigationBar.tintColor = UIColor.white
+        navigationBar.barTintColor = UIColor.white
         navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         
         rootViewController.addChild(appBarVC)

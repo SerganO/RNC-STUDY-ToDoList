@@ -16,8 +16,6 @@ import MaterialComponents
 class LogInViewController: UIViewController, GIDSignInUIDelegate, LoginButtonDelegate{
     func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
         
-        
-        
         if let accessToken = FBSDKAccessToken.current(), FBSDKAccessToken.currentAccessTokenIsActive() {
             AuthorizationManager.shared.facebookSignIn(accessToken.userID, completion: {
                 self.NavigationToTableView()

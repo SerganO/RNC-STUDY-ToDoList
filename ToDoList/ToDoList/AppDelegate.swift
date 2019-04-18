@@ -46,8 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UNUser
         
         let navigationBarAppearace = UINavigationBar.appearance()
         
-        navigationBarAppearace.tintColor = UIColor.white//uicolorFromHex(0xffffff)
-        navigationBarAppearace.barTintColor = UIColor.white //UIColorFromHex(0xffffff)
+        navigationBarAppearace.tintColor = UIColor.white
+        navigationBarAppearace.barTintColor = UIColor.white
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         
         return true

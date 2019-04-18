@@ -16,7 +16,7 @@ import MaterialComponents
 class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, GIDSignInUIDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    
+    let buttonColorSheme = MDCBasicColorScheme.init(primaryColor: UIColor.white, primaryLightColor: UIColor.white, primaryDarkColor: UIColor.white, secondaryColor: UIColor.white, secondaryLightColor: UIColor.white, secondaryDarkColor: UIColor.white)
    
     let buttonScheme = MDCButtonScheme()
     
@@ -73,9 +73,13 @@ class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, 
         return false
     }
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.dataSource = self
+        tableView.delegate = self
         self.setEditing(false, animated: true)
         
         if(AuthorizationManager.shared.id == "" && AuthorizationManager.shared.facebookId == "") {
@@ -90,23 +94,17 @@ class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, 
         }
         
         
-        
-        
-        let reorderButton = MDCButton(frame: .zero)
+        let reorderButton = MaterialButton(frame: .zero)
         reorderButton.setImage(UIImage(named:"Reorder"), for: .normal)
         reorderButton.addTarget(self, action: #selector(reorder), for: .touchUpInside)
-        reorderButton.backgroundColor = UIColor(red: 0xE0/255, green: 0xF7/255, blue: 0xFA/255, alpha: 1)
-        reorderButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        reorderButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        reorderButton.translatesAutoresizingMaskIntoConstraints = false
+        reorderButton.backgroundColor = UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A/255, alpha: 1)
         reorderButton.maximumSize = CGSize(width: 50, height: 50)
-        MDCOutlinedButtonThemer.applyScheme(buttonScheme, to: reorderButton)
         
         let reorderItem = UIBarButtonItem(customView: reorderButton)
         navigationItem.rightBarButtonItem = reorderItem
         
         
-        let syncButton = MDCButton(frame: .zero)
+        let syncButton = MaterialButton(frame: .zero)
         if AuthorizationManager.shared.sync {
             syncButton.setImage(UIImage(named:"AllDone"), for: .normal)
         } else if AuthorizationManager.shared.facebookId == "" {
@@ -117,13 +115,9 @@ class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, 
             syncButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
         }
         syncButton.imageView?.contentMode = .scaleAspectFit
-        syncButton.translatesAutoresizingMaskIntoConstraints = false
-        syncButton.backgroundColor = UIColor(red: 0xE0/255, green: 0xF7/255, blue: 0xFA/255, alpha: 1)
-        syncButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        syncButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        //syncButton.translatesAutoresizingMaskIntoConstraints = false
+        syncButton.backgroundColor = UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A/255, alpha: 1)
         syncButton.maximumSize = CGSize(width: 50, height: 50)
-        MDCOutlinedButtonThemer.applyScheme(buttonScheme, to: syncButton)
-        
         let syncItem = UIBarButtonItem(customView: syncButton)
         navigationItem.rightBarButtonItems?.append(syncItem)
         
@@ -169,28 +163,26 @@ class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, 
         let origImage = UIImage(named: "Add");
         let tintedImage = origImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         AddButton.setImage(tintedImage, for: .normal)
-        //AddButton.setTitle("+", for: .normal)
-        //AddButton.titleLabel?.textColor = UIColor.white
         AddButton.imageView?.tintColor = UIColor.white
         AddButton.tintColor = UIColor.white
         MDCFloatingActionButtonThemer.applyScheme(buttonScheme, to: AddButton)
         view.addSubview(AddButton)
         AddButton.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 11.0, *) {
-            AddButton.rightAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-            AddButton.bottomAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+            AddButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+            AddButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         } else {
-            AddButton.rightAnchor.constraint(equalTo: tableView.layoutMarginsGuide.rightAnchor, constant: 0).isActive = true
-            AddButton.bottomAnchor.constraint(equalTo: tableView.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
+            AddButton.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor, constant: 0).isActive = true
+            AddButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -20).isActive = true
         }
         
     }
     
     @objc func reorder() {
-        if isEditing {
+        if tableView.isEditing {
             updateId()
         }
-        isEditing = !isEditing
+        tableView.isEditing = !tableView.isEditing
     }
     
     @objc func addTask() {

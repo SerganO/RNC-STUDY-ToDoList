@@ -126,7 +126,6 @@
 			children = (
 				EC7881FA223697A3005019DA /* AddViewController.swift */,
 				EC5CF37F2237D0070071C9B3 /* LogInViewController.swift */,
-				ECF5CC2B22411D94007A5053 /* SplashViewController.swift */,
 				EC65CBA32253AC0900C94727 /* DateController.swift */,
 				EC777DE02254DDC400DF5246 /* TransparentPresentationController.swift */,
 				EC7B5FCD2260D1C20048F266 /* CustomMaterialNavigation.swift */,
@@ -139,6 +138,7 @@
 		EC5CF37E2237CE930071C9B3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ECF5CC2B22411D94007A5053 /* SplashViewController.swift */,
 				EC7881EE22368383005019DA /* TaskModel.swift */,
 				EC64C3DA225209B0002308BE /* TaskCell.swift */,
 				EC66A272225639CA004C01F1 /* ButtonWithBorder.swift */,
