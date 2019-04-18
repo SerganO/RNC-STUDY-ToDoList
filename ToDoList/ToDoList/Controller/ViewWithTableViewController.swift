@@ -48,18 +48,16 @@ class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = UIColor.white
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
         view.backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
         if let materialNavigation = navigationController as? CustomMaterialNavigation,
             let appBarVC = materialNavigation.appBarViewController(for: self) {
             MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
-            MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
-            appBarVC.headerStackView.topBar?.tintColor = UIColor.white
             appBarVC.headerView.tintColor = UIColor.white
-            //[NSAttributedString.Key.foregroundColor:UIColor.white]
+            appBarVC.navigationBar.tintColor = UIColor.white
+            MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
         }
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
     }
     
     

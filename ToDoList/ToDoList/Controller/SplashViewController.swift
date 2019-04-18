@@ -25,8 +25,13 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate {
         if let materialNavigation = navigationController as? CustomMaterialNavigation,
             let appBarVC = materialNavigation.appBarViewController(for: self) {
             MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
+            appBarVC.headerView.tintColor = UIColor.white
+            appBarVC.navigationBar.tintColor = UIColor.white
             MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
         }
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
