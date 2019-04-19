@@ -120,10 +120,12 @@ class ViewWithTableViewController: UIViewController, AddViewControllerDelegate, 
             syncButton.setImage(UIImage(named:"GoogleIcon"), for: .normal)
             syncButton.addTarget(self, action: #selector(addAccount), for: .touchUpInside)
         }
+        syncButton.imageEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
         syncButton.imageView?.contentMode = .scaleAspectFit
         //syncButton.translatesAutoresizingMaskIntoConstraints = false
         syncButton.backgroundColor = UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A/255, alpha: 1)
         syncButton.maximumSize = CGSize(width: 50, height: 50)
+      
         let syncItem = UIBarButtonItem(customView: syncButton)
         navigationItem.rightBarButtonItems?.append(syncItem)
         
