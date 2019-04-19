@@ -33,15 +33,22 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, LoginButtonDel
         configureFacebookButton()
        
     }
-    let schema = MDCBasicColorScheme.init(primaryColor: UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1), secondaryColor: UIColor.white)
+    let colorScheme = MDCSemanticColorScheme.init()
     override func viewWillAppear(_ animated: Bool) {
+        colorScheme.primaryColor = UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A/255, alpha: 1)
+        colorScheme.onPrimaryColor = UIColor.white
         super.viewWillAppear(animated)
+        view.backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
         if let materialNavigation = navigationController as? CustomMaterialNavigation,
             let appBarVC = materialNavigation.appBarViewController(for: self) {
-            MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
-            MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
+            //MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
+            MDCFlexibleHeaderColorThemer.applySemanticColorScheme(colorScheme, to: appBarVC.headerView)
+            appBarVC.headerView.tintColor = UIColor.white
+            appBarVC.navigationBar.tintColor = UIColor.white
+            MDCNavigationBarColorThemer.applySemanticColorScheme(colorScheme, to: appBarVC.navigationBar)
         }
     }
+    
     func configureFacebookButton() {
         let loginButton = LoginButton(readPermissions: [ .publicProfile, .email ])
         loginButton.loginBehavior = .web

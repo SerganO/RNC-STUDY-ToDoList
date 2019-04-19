@@ -17,21 +17,20 @@ class SplashViewController: UIViewController , GIDSignInUIDelegate {
     //03DAC6 main
     //26A69A nav
     //E0F2F1 back
-    
-    let schema = MDCBasicColorScheme.init(primaryColor: UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1), secondaryColor: UIColor.white)
+        let colorScheme = MDCSemanticColorScheme.init()
     override func viewWillAppear(_ animated: Bool) {
+        colorScheme.primaryColor = UIColor(red: 0x26/255, green: 0xA6/255, blue: 0x9A/255, alpha: 1)
+        colorScheme.onPrimaryColor = UIColor.white
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor(red: 0xE0/255, green: 0xF2/255, blue: 0xF1/255, alpha: 1)
         if let materialNavigation = navigationController as? CustomMaterialNavigation,
             let appBarVC = materialNavigation.appBarViewController(for: self) {
-            MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
+            //MDCFlexibleHeaderColorThemer.apply(schema, to: appBarVC.headerView)
+            MDCFlexibleHeaderColorThemer.applySemanticColorScheme(colorScheme, to: appBarVC.headerView)
             appBarVC.headerView.tintColor = UIColor.white
             appBarVC.navigationBar.tintColor = UIColor.white
-            MDCNavigationBarColorThemer.apply(schema, to: appBarVC.navigationBar)
+            MDCNavigationBarColorThemer.applySemanticColorScheme(colorScheme, to: appBarVC.navigationBar)
         }
-        navigationController?.navigationBar.tintColor = UIColor.white
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
-        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
